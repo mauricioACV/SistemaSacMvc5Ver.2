@@ -1,0 +1,690 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "Gestión Contratos";
+}
+@section styles{
+    <!-- agregar estilos -->
+    <link href="~/Content/EstilosSac/Estilos.css" rel="stylesheet" />
+    <!-- agregar estilos -->
+
+}
+<div class="clearfix"></div>
+<!--div cuadro General-->
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>General</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><small>Ocultar/Mostrar Panel </small><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Código SAFI</label>
+                        <input type="text" style="border-color:crimson" class="form-control input-radius" name="CodigoSafi" id="txtCodigoSafi" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Código Carpeta</label>
+                        <input type="text" class="form-control input-radius" name="CodigoCarpeta" id="txtCodigoCarpeta" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>N° Proceso</label>
+                        <input type="text" class="form-control input-radius" name="NumProceso" id="txtNumProceso" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Nombre Contrato</label>
+                        <input type="text" class="form-control input-radius" name="NombreContrato" id="txtNombreContrato" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Tipo Contrato</label>
+                        <select class="form-control select2 input-radius" style="width: 100%;" id="ddlTipoContrato">
+                            <option disabled selected value="">Seleccione Opción-></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Financiamiento</label>
+                        <select class="form-control select2 input-radius" style="width: 100%;" id="ddlFinanciamiento">
+                            <option disabled selected value="">Seleccione Opción-></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Administración</label>
+                        <select class="select2_multiple form-control input-radius" style="width: 100%; height:100%;" id="ddlAdministracion">
+                            <option disabled selected value="">Seleccione Opción-></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha Apertura Técnica</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="date" class="form-control input-radius" name="AperturaTecnica" id="txtAperturaTecnica" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha Tramite</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="date" class="form-control input-radius" name="FechaTramite" id="txtFechaTramite" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo Resolución</label>
+                        <select class="form-control select2 input-radius" style="width: 100%;" id="ddlTipoRes">
+                            <option disabled selected value="">Seleccione Opción-></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Visitador</label>
+                        <input type="text" class="form-control input-radius" placeholder="Click para seleccionar" name="Visitador" id="txtVisitador" data-toggle="modal" data-target="#modalVisitadores" readonly="readonly" />
+                    </div>
+                    <div class="form-group">
+                        <label>Programa y/o Plan</label>
+                        <select class="select2_multiple form-control input-radius" multiple="multiple" style="width: 100%; height:100%;" id="programaPlan">
+                            <option disabled selected value="">Seleccione Opción-></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Presupuesto Inicial</label>
+                        <input type="text" class="form-control input-radius" name="PresupuestoInicial" id="txtPresupuestoInicialUtm" />
+                    </div>
+                    <div class="form-group">
+                        <label>Licitación</label>
+                        <select class="form-control select2 input-radius" style="width: 100%;" id="ddlLicitacion">
+                            <option disabled selected value="">Seleccione Opción-></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Origen / N° Resolución</label>
+                        <div class="input-group">
+                            <select class="form-control col-md-7 input-radius" style="width: 100%;" id="ddlOrigenRes">
+                                <option disabled selected value="">Seleccione Opción-></option>
+                            </select>
+                            <span class="input-group-addon">/</span>
+                            <input type="text" class="form-control col-md-5 input-radius" name="" id="txtNumeroRes" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha Apertura Económica</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="date" class="form-control input-radius" name="AperturaEconomica" id="txtAperturaEconomica" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha Inicio</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="date" class="form-control input-radius" name="FechaInicio" id="txtFechaInicio" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha Protocolización</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="date" class="form-control input-radius" name="Protocolizacion" id="txtProtocolizacion" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Asesoría Inspección Fiscal</label>
+                        <input type="text" class="form-control input-radius" name="Asesoria" id="txtAsesoria" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Presupuesto Inicial (UF)</label>
+                        <input type="text" class="form-control input-radius" name="PresupuestoInicial" id="txtPresupuestoInicialUf" />
+                    </div>
+                    <div class="form-group">
+                        <label>Modalidad</label>
+                        <select class="form-control select2 input-radius" style="width: 100%;" id="ddlModalidad">
+                            <option disabled selected value="">Seleccione Opción-></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha Resolución</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="date" class="form-control input-radius" name="FechaResolucion" id="txtFechaResolucion" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Presupuesto Oficial</label>
+                        <input type="text" class="form-control input-radius" name="PresupuestoOficial" id="txtPresupuestoOficial" />
+                    </div>
+                    <div class="form-group">
+                        <label>Plazo Original (días)</label>
+                        <input type="text" class="form-control input-radius" name="PlazoOriginal" id="txtPlazoOriginal" />
+                    </div>
+                    <div class="form-group">
+                        <label>Notaría</label>
+                        <input type="text" class="form-control input-radius" name="Notaria" id="txtNotaria" />
+                    </div>
+                    <div class="form-group">
+                        <label>Contratista</label>
+                        <input type="text" class="form-control input-radius" name="Contratista" id="txtContratista" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Tipo Obra</label>
+                        <select class="form-control select2 input-radius" style="width: 100%;">
+                            <option disabled selected value="">Seleccione Opción-></option>
+                            <option value="OBRA MAYOR">OBRA MAYOR</option>
+                            <option value="OBRA MENOR">OBRA MENOR</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Reajuste</label>
+                        <select class="form-control select2 input-radius" style="width: 100%;" id="ddlReajuste">
+                            <option disabled selected value="">Seleccione Opción-></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Índice Base</label>
+                        <input type="text" class="form-control input-radius" placeholder="Click para seleccionar" name="IndiceBase" id="txtIndiceBase" data-toggle="modal" data-target="#modalIndiceBase" readonly="readonly" />
+                    </div>
+                    <div class="form-group">
+                        <label>Presupuesto Inicial</label>
+                        <input type="text" class="form-control input-radius" name="PresupuestoInicial" id="txtPresupuestoInicial" />
+                    </div>
+                    <div class="form-group">
+                        <label>Ambito Contrato / Km. Eq.</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control col-md-6 input-radius" name="AmbitoContrato" id="txtAmbitoContrato" />
+                            <span class="input-group-addon">/</span>
+                            <input type="text" class="form-control col-md-6 input-radius" name="" id="txtKmEquivalente" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Inspector Fiscal</label>
+                        <input type="text" class="form-control input-radius" placeholder="Click para seleccionar" name="InspectorFiscal" id="txtInspectorFiscal" data-toggle="modal" data-target="#modalInspectorFiscal" readonly="readonly" />
+                    </div>
+                    <div class="form-group">
+                        <label>Residente</label>
+                        <input type="text" class="form-control input-radius" name="Residente" id="txtResidente" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--div cierre cuadro General-->
+<!--div cuadro Descripcion-->
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel" style="height:auto">
+            <div class="x_title">
+                <h2>Descripción</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><small>Ocultar/Mostrar Panel </small><i class="fa fa-chevron-down"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content" style="display:none">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <label>Descripción del Contrato</label>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="TextArea1" cols="50" rows="2" class="col-lg-12"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <label>Justificación del Contrato</label>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="TextArea2" cols="50" rows="2" class="col-lg-12"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <label>Características Relevantes del Contrato</label>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="TextArea3" rows="2" class="col-lg-12"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--div cierre cuadro Descripcion-->
+<!--div cuadro Comunas-->
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel" style="height: auto">
+            <div class="x_title">
+                <h2>Comunas</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><small>Ocultar/Mostrar Panel </small><i class="fa fa-chevron-down"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content" style="display:none">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <label>Agregar Comuna</label>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Comuna</label>
+                                    <input type="text" class="form-control" name="comuna" id="txtComuna" placeholder="Click aquí para buscar comuna" style="width:100%" />
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Inversión %</label>
+                                    <input type="text" class="form-control" name="inversion" id="txtInversion" style="width:100%" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group center-margin">
+                                    <a><p>Agregar</p><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="x_title">
+                        <label>Agregados:</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--div cierre cuadro Comunas-->
+<!--div cuadro Asignación-->
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel" style="height: auto">
+            <div class="x_title">
+                <h2>Asignación</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><small>Ocultar/Mostrar Panel </small><i class="fa fa-chevron-down"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content" style="display:none">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <label>Agregar Asignación</label>
+                            </div>
+                            <div class="col-md-2" style=" border-style:outset; border-width: 1px; border-color:teal; border-radius:5px">
+                                <div class="form-group">
+                                    <label>Asignación</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control col-md-7" name="comuna" id="txtAsignacion1" placeholder="" />
+                                        <span class=""> &nbsp-&nbsp </span>
+                                        <input type="text" class="form-control col-md-3" name="comuna" id="txtAsignacion2" placeholder="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Código B.I.P.</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control col-md-7" name="comuna" id="txtCodigoBip1" placeholder="" />
+                                        <span class=""> &nbsp-&nbsp </span>
+                                        <input type="text" class="form-control col-md-3" maxlength="1" name="comuna" id="txtCodigoBip2" placeholder="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Observaciones</label>
+                                    <input type="text" class="form-control" name="" id="txtObservaciones" placeholder="Opcional..." />
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label>Año</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control col-md-8" maxlength="4" name="" id="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Presupuesto</label>
+                                    <input type="text" class="form-control" name="" id="txtPresupuesto" />
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="form-group center-margin">
+                                    <a><p>Agregar</p><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="x_title">
+                        <label>Agregados:</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--div cierre cuadro Asignación-->
+<!--div cuadro FIP-->
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel" style="height: auto">
+            <div class="x_title">
+                <h2>Factor índice Polinómico (F.I.P.)</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><small>Ocultar/Mostrar Panel </small><i class="fa fa-chevron-down"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content" style="display:none">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <label>Agregar F.I.P.</label>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Índice Polinómico</label>
+                                    <input type="text" class="form-control" name="comuna" id="txtIndicePolinomico" placeholder="Click aquí para buscar Índice..." style="width:100%" />
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Factor</label>
+                                    <div class="input-group">
+                                        <p><font size="5">&nbsp0,&nbsp</font></p>
+                                        <input type="text" class="form-control col-md-6" name="inversion" id="txtFactor" style="width:100%; font-size:17px" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group center-margin">
+                                    <a><p>Agregar</p><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="x_title">
+                        <label>Agregados:</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--div cierre cuadro FIP-->
+<!--div cuadro Prof. Externo-->
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel" style="height: auto">
+            <div class="x_title">
+                <h2>Profesional Externo</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><small>Ocultar/Mostrar Panel </small><i class="fa fa-chevron-down"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content" style="display:none">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <label>Agregar Profesional</label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Nombre Profesional</label>
+                                    <input type="text" class="form-control" name="comuna" id="txtNombreProfesional" placeholder="Click aquí para buscar persona..." style="width:100%" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Cargo</label>
+                                    <select class="form-control select2" style="width: 100%;">
+                                        <option value="">Elija Opción</option>
+                                        <option value="">Coordinador de Estudios Ambientales y Territoriales</option>
+                                        <option value="">Opción2</option>
+                                        <option value="">Opción3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group center-margin">
+                                    <a><p>Agregar</p><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="x_title">
+                        <label>Agregados:</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--div cierre cuadro Pronf. Externo-->
+<!--div cuadro Mapa-->
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel" style="height: auto">
+            <div class="x_title">
+                <h2>Mapa</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><small>Ocultar/Mostrar Panel </small><i class="fa fa-chevron-down"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content" style="display:none">
+                <br />
+                <form class="box" method="post" action="" enctype="multipart/form-data">
+                    <div class="box__input">
+                        <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
+                        <label for="file"><strong>Choose a file</strong><span class="box__dragndrop"> or drag it here</span>.</label>
+                        <button class="box__button" type="submit">Upload</button>
+                    </div>
+                    <div class="box__uploading">Uploading…</div>
+                    <div class="box__success">Done!</div>
+                    <div class="box__error">Error! <span></span>.</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--div cierre cuadro Mapa-->
+<!--div Botones-->
+<div align="center">
+    <table>
+        <tr>
+            <td>
+                <button type="button" id="btnRegistrar" class="btn btn-primary btn-xs" style="border-radius:7px">Registrar</button>
+            </td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>
+                <button type="button" id="btnCancelar" class="btn btn-danger btn-xs" style="border-radius:7px">Cancelar</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<!--div cierre Botones-->
+<!-- Modal Indice Base -->
+<div class="modal fade" id="modalIndiceBase" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Seleccione Índice Base</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body table-responsive text-center" style="height:400px">
+                <table class="table table-hover">
+                    <thead class="">
+                        <tr>
+                            <th class="">
+                                Año
+                            </th>
+                            <th class="">
+                                Mes
+                            </th>
+                            <th class="">
+                                I.P.C
+                            </th>
+                            <th class="">
+                                Acciones
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaModalIndiceBase" class="bg-white"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Indice Base -->
+<!-- Modal Inspector Fiscal -->
+<div class="modal fade" id="modalInspectorFiscal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Seleccione Inspector Fiscal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body table-responsive text-center" style="height:470px">
+                <div class="table-responsive">
+                    <table id="tablaInspectorFiscal" class="display table table-hover" style="width:100%">
+                        <thead class="">
+                            <tr>
+                                <th>
+                                    Rut
+                                </th>
+                                <th class="">
+                                    Nombres
+                                </th>
+                                <th class="">
+                                    Apellidos
+                                </th>
+                                <th class="">
+                                    Acción
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaModalInspectorFiscal"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Inspector Fiscal -->
+<!-- Modal Visitador -->
+<div class="modal fade" id="modalVisitadores" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Seleccione Inspector Fiscal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body table-responsive text-center" style="height:470px">
+                <div class="table-responsive">
+                    <table id="tablaVisitadores" class="display table table-hover" style="width:100%">
+                        <thead class="">
+                            <tr>
+                                <th>
+                                    Rut
+                                </th>
+                                <th class="">
+                                    Nombres
+                                </th>
+                                <th class="">
+                                    Apellidos
+                                </th>
+                                <th class="">
+                                    Acción
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaModalVisitadores"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Visitador -->
+
+@section scripts{
+
+    <script src="~/Js/GestionContrato/NuevoContrato.js"></script>
+}

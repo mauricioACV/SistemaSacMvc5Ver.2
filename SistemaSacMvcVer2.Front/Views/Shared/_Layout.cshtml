@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="~/images/favicon.ico" type="image/ico" />
+    <!-- ORDEN CARGA CSS -->
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/dataTables.jqueryui.min.css" />
+    <!-- DataTables -->
+    <!-- 1.-Bootstrap -->
+    <!-- 2.-Font Awesome -->
+    <!-- 3.-NProgress -->
+    <!-- 4.-Custom Theme Style -->
+    <link href="~/Vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Vendors/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Vendors/nprogress/nprogress.css" rel="stylesheet" />
+    <link href="~/Content/Alela/css/custom.min.css" rel="stylesheet" />
+    <link href="~/Content/EstilosSac/Estilos.css" rel="stylesheet" />
+    @*Styles.Render("~/Content/css")*@
+    <!-- FIN RENDERIZADO CSS -->
+    @RenderSection("styles", required: false)
+    <title>@ViewBag.Title | Sistema SAC </title>
+</head>
+
+<!-- Menu principal -->
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="@Url.Action("Index","Home")" class="site_title"><i class="fa fa-road"></i> <span>Sistema SAC</span></a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- menu profile quick info -->
+                    <div class="profile clearfix">
+                        <div>
+                            &nbsp;&nbsp;<a>Código Carpeta</a>
+                        </div>
+                        <div>
+                            &nbsp;&nbsp;<input type="text" class="" name="usuario" id="txtNroDocumento" />
+                            <input type="checkbox" id="chkNumCarpeta" name="chkNumCarpeta">
+                        </div>
+                    </div>
+                    <!-- /menu profile quick info -->
+                    <br />
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
+                                <li>
+                                    <a><i class="fa fa-edit"></i> Edición General <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/Home/Index">Contratista</a></li>
+                                        <li><a href="#">Residente</a></li>
+                                        <li><a href="#">Profesional Ext.</a></li>
+                                        <li><a href="#">Visitador</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-clipboard"></i> Edición Licitaciones <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="#">Plan Licitación</a></li>
+                                        <li><a href="#">Licitación</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-file-text"></i> Edición Contratos <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="@Url.Action("NuevoContrato","GestionContrato")">Contrato</a>
+                                        <li><a href="#level1_1">Carpeta Digital</a>
+                                        <li>
+                                            <a>Minuta<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Programación</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a>Modificatoria<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Monto / Plazo</a>
+                                                </li>
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Servicios</a>
+                                                </li>
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Insp. Fiscal</a>
+                                                </li>
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Residente</a>
+                                                </li>
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Visitador</a>
+                                                </li>
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Reportes</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a>EEPP<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Caja</a>
+                                                </li>
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Reportes</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a>Garantías<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Reportes</a>
+                                                </li>
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Buscador</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a>Recepciones<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Oficios</a>
+                                                </li>
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Calificación</a>
+                                                </li>
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Liquidación</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-list-alt"></i> Estado Pago <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="#level1_1">Revisión Presupuestaria</a></li>
+                                        <li>
+                                            <a>Proceso de Pago<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Asignar Analista</a>
+                                                </li>
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Enviar a DCyF</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#level1_2">Devueltos</a>
+                                        </li>
+                                        <li>
+                                            <a href="#level1_2">Consulta EEPP</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-arrow-circle-right"></i> UCSDObras <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="#level1_1">1 Empresas</a></li>
+                                        <li><a href="#level1_1">2 Contratos</a></li>
+                                        <li>
+                                            <a>3 Movimientos<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">3.1 Entrada</a>
+                                                </li>
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">3.2 Salida</a>
+                                                </li>
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">3.3 Consulta</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-flask"></i> Laboratorio <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="#level1_2">Certificados</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-bar-chart"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="#level1_1">Minuta de Obras</a></li>
+                                        <li>
+                                            <a>Listado de Obras<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">PMG</a>
+                                                </li>
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Metas Colectivas</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a>Mano de Obra<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">M. Obra * Mes</a>
+                                                </li>
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">M. Obra * Año</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#level1_2">Historial</a>
+                                        </li>
+                                        <li>
+                                            <a href="#level1_2">Biblioteca</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-sitemap"></i> Administración <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="#level1_1">Usuarios</a>
+                                        </li>
+                                        <li>
+                                            <a href="#level1_1">Configuración</a>
+                                        </li>
+                                        <li>
+                                            <a href="#level1_1">Cambiar Clave</a>
+                                        </li>
+                                        <li>
+                                            <a href="#level1_1">Desconectarse</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /sidebar menu -->
+                    <!-- /menu footer buttons -->
+                    <div class="sidebar-footer hidden-small">
+                        <a data-toggle="tooltip" data-placement="top" title="Settings">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Lock">
+                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    <!-- /menu footer buttons -->
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <nav class="nav navbar-nav">
+                        <ul class=" navbar-right">
+                            <li class="nav-item dropdown open" style="padding-left: 15px;">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-user"></i> Mauricio Campusano
+                                </a>
+                                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="javascript:;"> Profile</a>
+                                    <a class="dropdown-item" href="javascript:;">
+                                        <span class="badge bg-red pull-right">50%</span>
+                                        <span>Settings</span>
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:;">Help</a>
+                                    <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                                </div>
+                            </li>
+                            <li role="presentation" class="nav-item dropdown open">
+                                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <span class="badge bg-green">6</span>
+                                </a>
+                                <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
+                                    <li class="nav-item">
+                                        <a class="dropdown-item">
+                                            <span class="image"><i class="fa fa-user"></i> </span>
+                                            <span>
+                                                <span>Mauricio Campusano</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item">
+                                            <span class="image"><i class="fa fa-user"></i> </span>
+                                            <span>
+                                                <span>Mauricio Campusano</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item">
+                                            <span class="image"><i class="fa fa-user"></i> </span>
+                                            <span>
+                                                <span>Mauricio Campusano</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item">
+                                            <span class="image"><i class="fa fa-user"></i> </span>
+                                            <span>
+                                                <span>Mauricio Campusano</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <div class="text-center">
+                                            <a class="dropdown-item">
+                                                <strong>See All Alerts</strong>
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                @RenderBody()
+            </div>
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    Sistema de Administración de Contratos - <a href="https://colorlib.com">SAC</a>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+
+        </div>
+    </div>
+
+
+
+    <!-- Scripts -->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.15/js/dataTables.jqueryui.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/Vendors/nprogress/nprogress.js"></script>
+
+    <!-- Custom -->
+    <script src="~/Content/Alela/js/custom.js"></script>
+
+    <!-- Scripts -->
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
+

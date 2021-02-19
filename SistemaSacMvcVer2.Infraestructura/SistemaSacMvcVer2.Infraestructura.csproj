@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E5723EAD-C284-42D6-BE54-BA777993DF2B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SistemaSacMvcVer2.Infraestructura</RootNamespace>
+    <AssemblyName>SistemaSacMvcVer2.Infraestructura</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConexionBD.cs" />
+    <Compile Include="Connected Services\WS_SAFI\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IUnitOfWebService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositorios\CtoContratoRepositorio.cs" />
+    <Compile Include="Repositorios\CtoDominioRepositorio.cs" />
+    <Compile Include="Repositorios\CtoGrupoClaseRepositorio.cs" />
+    <Compile Include="Repositorios\CtoInspectorFiscalRepositorio.cs" />
+    <Compile Include="Repositorios\CtoVisitadorRepositorio.cs" />
+    <Compile Include="Repositorios\IndiceBaseRepositorio.cs" />
+    <Compile Include="Repositorios\UnitOfWork\UnitOfWork.cs" />
+    <Compile Include="Servicios\WebServices\Interfaces\ISafiWebServiceRepositorio.cs" />
+    <Compile Include="Servicios\WebServices\Repositorios\SafiWebServiceRepositorio.cs" />
+    <Compile Include="Servicios\WebServices\Repositorios\UnitOfWebServices\UnitOfWebService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SistemaSacMvcVer2.Dominio\SistemaSacMvcVer2.Dominio.csproj">
+      <Project>{0fd27c94-fb7c-48ac-b94f-ce6104537abd}</Project>
+      <Name>SistemaSacMvcVer2.Dominio</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WS_SAFI\fichaContratos.wsdl" />
+    <None Include="Connected Services\WS_SAFI\SistemaSacMvcVer2.Infraestructura.WS_SAFI.ArrayOfFichaContratoSAFI.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WS_SAFI\SistemaSacMvcVer2.Infraestructura.WS_SAFI.InfoContratosSAFIResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WS_SAFI\SistemaSacMvcVer2.Infraestructura.WS_SAFI.InfoContratosSAFIXRutResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\WS_SAFI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WS_SAFI\fichaContratos.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WS_SAFI\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WS_SAFI\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WS_SAFI\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

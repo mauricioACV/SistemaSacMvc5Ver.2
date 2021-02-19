@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="InfoContratosSAFI">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CodigoSAFI" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InfoContratosSAFIResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InfoContratosSAFIResult" type="tns:ArrayOfFichaContratoSAFI" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfFichaContratoSAFI">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="fichaContratoSAFI" nillable="true" type="tns:fichaContratoSAFI" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="fichaContratoSAFI">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CODIGOCONTRATO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NOMBRECONTRATO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TIPOCONTRATO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RUTINSPECTORFISCAL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NOMBREINSPECTORFISCAL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RUTCONTRATISTA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NOMBRECONTRATISTA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NUMERORESOLUCIONORIGINAL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FECHARESOLUCIONORIGINAL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FECHATRAMITERESOLUCIONORIGINAL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MODALIDADCONTRATACION" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MODALIDADREAJUSTE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PRESUPUESTOOFICIAL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MONTOINICIAL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MONTOVIGENTE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PLAZOVIGENTE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FECHATERMINO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FECHAINICIO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MONTOMODIFICACIONENTRAMITE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PLAZOORIGINAL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CENTROGESTION" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SUBTIPOGASTO2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SERVICIO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CLASIFICACIONINVERSION" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="REGIONGEOGRAFICA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SUBCENTROGESTION" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FECHAPUBLICACIONLICITACION" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FECHAAPERTURATECNICA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FECHAAPERTURAECONOMICA" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InfoContratosSAFIXRut">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Rut" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InfoContratosSAFIXRutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InfoContratosSAFIXRutResult" type="tns:ArrayOfFichaContratoSAFI" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="InfoContratosSAFISoapIn">
+    <wsdl:part name="parameters" element="tns:InfoContratosSAFI" />
+  </wsdl:message>
+  <wsdl:message name="InfoContratosSAFISoapOut">
+    <wsdl:part name="parameters" element="tns:InfoContratosSAFIResponse" />
+  </wsdl:message>
+  <wsdl:message name="InfoContratosSAFIXRutSoapIn">
+    <wsdl:part name="parameters" element="tns:InfoContratosSAFIXRut" />
+  </wsdl:message>
+  <wsdl:message name="InfoContratosSAFIXRutSoapOut">
+    <wsdl:part name="parameters" element="tns:InfoContratosSAFIXRutResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServicioInformacionFichaContratosSAFISoap">
+    <wsdl:operation name="InfoContratosSAFI">
+      <wsdl:input message="tns:InfoContratosSAFISoapIn" />
+      <wsdl:output message="tns:InfoContratosSAFISoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InfoContratosSAFIXRut">
+      <wsdl:input message="tns:InfoContratosSAFIXRutSoapIn" />
+      <wsdl:output message="tns:InfoContratosSAFIXRutSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServicioInformacionFichaContratosSAFISoap" type="tns:ServicioInformacionFichaContratosSAFISoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="InfoContratosSAFI">
+      <soap:operation soapAction="http://tempuri.org/InfoContratosSAFI" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InfoContratosSAFIXRut">
+      <soap:operation soapAction="http://tempuri.org/InfoContratosSAFIXRut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServicioInformacionFichaContratosSAFISoap12" type="tns:ServicioInformacionFichaContratosSAFISoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="InfoContratosSAFI">
+      <soap12:operation soapAction="http://tempuri.org/InfoContratosSAFI" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InfoContratosSAFIXRut">
+      <soap12:operation soapAction="http://tempuri.org/InfoContratosSAFIXRut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServicioInformacionFichaContratosSAFI">
+    <wsdl:port name="ServicioInformacionFichaContratosSAFISoap" binding="tns:ServicioInformacionFichaContratosSAFISoap">
+      <soap:address location="http://wscorporativo.sdit.cl/Financiero/FichaContratosSAFI/fichaContratos.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServicioInformacionFichaContratosSAFISoap12" binding="tns:ServicioInformacionFichaContratosSAFISoap12">
+      <soap12:address location="http://wscorporativo.sdit.cl/Financiero/FichaContratosSAFI/fichaContratos.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
