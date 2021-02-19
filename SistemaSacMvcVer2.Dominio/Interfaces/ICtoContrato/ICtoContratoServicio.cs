@@ -16,5 +16,11 @@ namespace SistemaSacMvcVer2.Dominio.Interfaces.ICtoContrato
         List<CtoInspectorFiscal> ObtenerListadoInspectorFiscalActivos();
 
         List<CtoVisitador> ObtenerListadoVisitadoresActivos();
+
+        List<CtoContrato> ObtenerAsesoriaContratosEnEjecucionOrGarantia(string pGrupoUsuario);
+
+        List<CtoContratista> ObtenerContratistas();
+
+        List<CtoResidente> ObtenerListadoResidente();
     }
 }

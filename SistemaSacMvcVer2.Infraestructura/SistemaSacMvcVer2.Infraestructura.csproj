@@ -53,10 +53,12 @@
     </Compile>
     <Compile Include="Interfaces\IUnitOfWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositorios\CtoContratistaRepositorio.cs" />
     <Compile Include="Repositorios\CtoContratoRepositorio.cs" />
     <Compile Include="Repositorios\CtoDominioRepositorio.cs" />
     <Compile Include="Repositorios\CtoGrupoClaseRepositorio.cs" />
     <Compile Include="Repositorios\CtoInspectorFiscalRepositorio.cs" />
+    <Compile Include="Repositorios\CtoResidenteRepositorio.cs" />
     <Compile Include="Repositorios\CtoVisitadorRepositorio.cs" />
     <Compile Include="Repositorios\IndiceBaseRepositorio.cs" />
     <Compile Include="Repositorios\UnitOfWork\UnitOfWork.cs" />

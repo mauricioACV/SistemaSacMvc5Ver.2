@@ -105,8 +105,8 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label>Presupuesto Inicial</label>
-                        <input type="text" class="form-control input-radius" name="PresupuestoInicial" id="txtPresupuestoInicialUtm" />
+                        <label>Presupuesto Inicial (UTM)</label>
+                        <input type="text" class="form-control input-radius" name="PresupuestoInicial" id="txtPresupuestoInicialUtm" readonly="readonly" />
                     </div>
                     <div class="form-group">
                         <label>Licitación</label>
@@ -153,13 +153,13 @@
                     </div>
                     <div class="form-group">
                         <label>Asesoría Inspección Fiscal</label>
-                        <input type="text" class="form-control input-radius" name="Asesoria" id="txtAsesoria" />
+                        <input type="text" class="form-control input-radius" placeholder="Click para seleccionar" name="Asesoria" id="txtAsesoria" data-toggle="modal" data-target="#modalAsesoria" readonly="readonly" />
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Presupuesto Inicial (UF)</label>
-                        <input type="text" class="form-control input-radius" name="PresupuestoInicial" id="txtPresupuestoInicialUf" />
+                        <input type="text" class="form-control input-radius" name="PresupuestoInicial" id="txtPresupuestoInicialUf" readonly="readonly" />
                     </div>
                     <div class="form-group">
                         <label>Modalidad</label>
@@ -190,7 +190,7 @@
                     </div>
                     <div class="form-group">
                         <label>Contratista</label>
-                        <input type="text" class="form-control input-radius" name="Contratista" id="txtContratista" />
+                        <input type="text" class="form-control input-radius" placeholder="Click para seleccionar" name="Contratista" id="txtContratista" data-toggle="modal" data-target="#modalContratista" readonly="readonly" />
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -230,7 +230,7 @@
                     </div>
                     <div class="form-group">
                         <label>Residente</label>
-                        <input type="text" class="form-control input-radius" name="Residente" id="txtResidente" />
+                        <input type="text" class="form-control input-radius" placeholder="Click para seleccionar" name="Residente" id="txtResidente" data-toggle="modal" data-target="#modalResidentes" readonly="readonly" />
                     </div>
                 </div>
             </div>
@@ -683,6 +683,115 @@
     </div>
 </div>
 <!-- Modal Visitador -->
+<!-- Modal Asesoria -->
+<div class="modal fade" id="modalAsesoria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Seleccione Asesoría</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body table-responsive text-center" style="height:470px">
+                <div class="table-responsive">
+                    <table id="tablaAsesoria" class="display table table-hover" style="width:100%">
+                        <thead class="">
+                            <tr>
+                                <th>
+                                    Código
+                                </th>
+                                <th class="">
+                                    Nombre
+                                </th>
+                                <th class="">
+                                    Acción
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaModalAsesoria"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Asesoria -->
+<!-- Modal Contratistas -->
+<div class="modal fade" id="modalContratista" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Seleccione Contratista</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body table-responsive text-center" style="height:470px">
+                <div class="table-responsive">
+                    <table id="tablaContratistas" class="display table table-hover" style="width:100%">
+                        <thead class="">
+                            <tr>
+                                <th>
+                                    Código
+                                </th>
+                                <th class="">
+                                    Nombre Constratista
+                                </th>
+                                <th class="">
+                                    Acción
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaContratistas"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Contratistas -->
+
+<!-- Modal Residentes -->
+<div class="modal fade" id="modalResidentes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Seleccione Contratista</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body table-responsive text-center" style="height:470px">
+                <div class="table-responsive">
+                    <table id="tablaResidentes" class="display table table-hover" style="width:100%">
+                        <thead class="">
+                            <tr>
+                                <th>
+                                    Rut
+                                </th>
+                                <th>
+                                    Nombres Residente
+                                </th>
+                                <th>
+                                    Apellidos Residente
+                                </th>
+                                <th class="">
+                                    Obras en Ejecución
+                                </th>
+                                <th class="">
+                                    Acción
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaResidentes"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Residentes -->
 
 @section scripts{
 

@@ -47,5 +47,20 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
         {
             return _unitOfWork.CtoVisitadorRepositorio.ObtenerListadoVisitadoresActivos();
         }
+
+        public List<CtoContrato> ObtenerAsesoriaContratosEnEjecucionOrGarantia(string pGrupoUsuario)
+        {
+            return _unitOfWork.CtoContratoRepositorio.ObtenerAsesoriaContratosEnEjecucionOrGarantia(pGrupoUsuario);
+        }
+
+        public List<CtoContratista> ObtenerContratistas()
+        {
+            return _unitOfWork.CtoContratistaRepositorio.ObtenerContratistas();
+        }
+
+        public List<CtoResidente> ObtenerListadoResidente()
+        {
+            return _unitOfWork.CtoResidenteRepositorio.ObtenerListadoResidente();
+        }
     }
 }

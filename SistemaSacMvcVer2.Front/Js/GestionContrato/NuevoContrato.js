@@ -80,9 +80,8 @@ const selectTipoRes = document.querySelector('#ddlTipoRes');
 const listaModalIndiceBase = document.querySelector('#listaModalIndiceBase');
 const modalIndiceBase = document.querySelector('#modalIndiceBase');
 const tablaInspectorFiscal = document.querySelector('#tablaInspectorFiscal');
-const txtVisitador = document.querySelector('#txtVisitador');
 
-//Inputs
+const txtVisitador = document.querySelector('#txtVisitador');
 const txtCodigoSafi = document.querySelector('#txtCodigoSafi');
 const txtCodigoCarpeta = document.querySelector('#txtCodigoCarpeta');
 const txtAperturaTecnica = document.querySelector('#txtAperturaTecnica');
@@ -92,6 +91,9 @@ const txtNombreContrato = document.querySelector('#txtNombreContrato');
 const txtPresupuestoOficial = document.querySelector('#txtPresupuestoOficial');
 const txtIndiceBase = document.querySelector('#txtIndiceBase');
 const txtInspectorFiscal = document.querySelector('#txtInspectorFiscal');
+const txtAsesoria = document.querySelector('#txtAsesoria');
+const txtContratista = document.querySelector('#txtContratista');
+const txtResidente = document.querySelector('#txtResidente');
 
 //Eventos Carga completa del HTML
 $(document).ready(function () {
@@ -105,6 +107,9 @@ $(document).ready(function () {
     //Llenado Ventanas Modal
     llenarModalInspectorFiscal();
     llenarModalVisitadores();
+    llenarModalAsesoria();
+    llenarModalContratista();
+    llenarModalResidentes();
 
     //Listeners
     txtCodigoSafi.addEventListener('blur', obtieneItemsSafi);
@@ -331,8 +336,7 @@ function fijarValorInputIndice(IdIndiceBase) {
     txtIndiceBase.value = IdIndiceBase;
 };
 
-//DATATABLE **Modal Inspector Fiscal**>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//LLenar Datatable
+//DATATABLE **Modal Inspector Fiscal**
 function llenarModalInspectorFiscal() {
     
     Tabla = $("#tablaInspectorFiscal").DataTable({
@@ -374,7 +378,7 @@ function llenarModalInspectorFiscal() {
         ]
     });
 };
-//Evento Boton Seleccionar Modal Inspector Fiscal
+//Evento Boton Seleccionar
 $(document).on('click', '.seleccionaIf', function (e) {
     e.preventDefault();
     var valores = [];
@@ -385,10 +389,9 @@ $(document).on('click', '.seleccionaIf', function (e) {
     txtInspectorFiscal.value = `${valores[1]} ${valores[2]}`
 
 });
-//DATATABLE Inspector Fiscal>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//FIN DATATABLE Inspector Fiscal**
 
-//DATATABLE **Modal Visitador**>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//LLenar Datatable
+//DATATABLE **Modal Visitador**
 function llenarModalVisitadores() {
 
     Tabla = $("#tablaVisitadores").DataTable({
@@ -430,7 +433,7 @@ function llenarModalVisitadores() {
         ]
     });
 };
-//Evento Boton Seleccionar Modal Inspector Fiscal
+//Evento Boton Seleccionar
 $(document).on('click', '.seleccionaVisitador', function (e) {
     e.preventDefault();
     var valores = [];
@@ -441,4 +444,169 @@ $(document).on('click', '.seleccionaVisitador', function (e) {
     txtVisitador.value = `${valores[1]} ${valores[2]}`
 
 });
-//DATATABLE Visitador>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//FIN DATATABLE Visitador
+
+//DATATABLE **Modal Asesoria**
+function llenarModalAsesoria() {
+
+    Tabla = $("#tablaAsesoria").DataTable({
+        "language": {
+            "decimal": "",
+            "emptyTable": "No hay información",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ Entradas",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "zeroRecords": "Sin resultados encontrados",
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        },
+
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+
+        "ajax": {
+            "url": "/GestionContrato/ObtenerAsesoriaContratosEnEjecucionOrGarantia",
+            "data": { pGrupoUsuario: objUsuario.Usuario_Ingreso },
+            "type": "POST",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "CodigoCarpeta", "name": "CodigoCarpeta", "autoWidth": true },
+            { "data": "NombreContrato", "name": "NombreContrato", "autoWidth": true },
+            {
+                "defaultContent": '<Button type="button" value="Seleccionar" title="Seleccionar" class="btn btn-success btn-sm seleccionaAsesoria" data-target="#modalAsesoria" data-toggle="modal">Seleccionar</button>'
+            }
+        ]
+    });
+};
+//Evento Boton Seleccionar
+$(document).on('click', '.seleccionaAsesoria', function (e) {
+    e.preventDefault();
+    var valores = [];
+    $(this).parents("tr").find("td").each(function () {
+        valores.push($(this).html());
+    });
+
+    txtAsesoria.value = `${valores[0]} ${valores[1]}`
+
+});
+//DATATABLE Asesoria
+
+//DATATABLE **Modal Constratistas**
+function llenarModalContratista() {
+
+    Tabla = $("#tablaContratistas").DataTable({
+        "language": {
+            "decimal": "",
+            "emptyTable": "No hay información",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ Entradas",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "zeroRecords": "Sin resultados encontrados",
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        },
+
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+
+        "ajax": {
+            "url": "/GestionContrato/ObtenerContratistas",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "Rut", "name": "Rut", "autoWidth": true },
+            { "data": "RazonSocial", "name": "RazonSocial", "autoWidth": true },
+            {
+                "defaultContent": '<Button type="button" value="Seleccionar" title="Seleccionar" class="btn btn-success btn-sm seleccionaContratista" data-target="#modalContratista" data-toggle="modal">Seleccionar</button>'
+            }
+        ]
+    });
+};
+//Evento Boton Seleccionar
+$(document).on('click', '.seleccionaContratista', function (e) {
+    e.preventDefault();
+    var valores = [];
+    $(this).parents("tr").find("td").each(function () {
+        valores.push($(this).html());
+    });
+
+    txtContratista.value = `${valores[0]} ${valores[1]}`
+
+});
+//DATATABLE Constratistas
+
+//DATATABLE **Modal Residente**
+function llenarModalResidentes() {
+
+    Tabla = $("#tablaResidentes").DataTable({
+        "language": {
+            "decimal": "",
+            "emptyTable": "No hay información",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ Entradas",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "zeroRecords": "Sin resultados encontrados",
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        },
+
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+
+        "ajax": {
+            "url": "/GestionContrato/ObtenerResidentes",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "Rut", "name": "Rut", "autoWidth": true },
+            { "data": "Nombres", "name": "Nombres", "autoWidth": true },
+            { "data": "Apellidos", "name": "Apellidos", "autoWidth": true },
+            { "data": "TotalObrasEnEjecucion", "name": "TotalObrasEnEjecucion", "autoWidth": true },
+            {
+                "defaultContent": '<Button type="button" value="Seleccionar" title="Seleccionar" class="btn btn-success btn-sm seleccionaResidente" data-target="#modalResidentes" data-toggle="modal">Seleccionar</button>'
+            }
+        ]
+    });
+};
+//Evento Boton Seleccionar
+$(document).on('click', '.seleccionaResidente', function (e) {
+    e.preventDefault();
+    var valores = [];
+    $(this).parents("tr").find("td").each(function () {
+        valores.push($(this).html());
+    });
+
+    txtResidente.value = `${valores[1]} ${valores[2]}`
+
+});
+//DATATABLE Residente

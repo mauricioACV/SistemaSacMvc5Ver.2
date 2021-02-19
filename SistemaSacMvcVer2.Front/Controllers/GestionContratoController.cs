@@ -69,5 +69,26 @@ namespace SistemaSacMvcVer2.Front.Controllers
             var ItemsListadoVisitadores = _ctoContratoServicio.ObtenerListadoVisitadoresActivos();
             return Json(new { data = ItemsListadoVisitadores });
         }
+
+        [HttpPost]
+        public ActionResult ObtenerAsesoriaContratosEnEjecucionOrGarantia(string pGrupoUsuario)
+        {
+            var ItemsListadoAsesoria = _ctoContratoServicio.ObtenerAsesoriaContratosEnEjecucionOrGarantia(pGrupoUsuario);
+            return Json(new { data = ItemsListadoAsesoria });
+        }
+
+        [HttpPost]
+        public ActionResult ObtenerContratistas()
+        {
+            var ItemsListadoContratistas = _ctoContratoServicio.ObtenerContratistas();
+            return Json(new { data = ItemsListadoContratistas });
+        }
+
+        [HttpPost]
+        public ActionResult ObtenerResidentes()
+        {
+            var ItemsListadoResidentes = _ctoContratoServicio.ObtenerListadoResidente();
+            return Json(new { data = ItemsListadoResidentes });
+        }
     }
 }

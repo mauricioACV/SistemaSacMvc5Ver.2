@@ -9,7 +9,6 @@ iframe {
     display: block;
     overflow: auto;
     border: 0;
-    margin: 0;
     padding: 0;
     margin: 0 auto;
 }
@@ -97,7 +96,7 @@ a, a:hover {
 }
 
 .form-control-custom {
-    padding-left: 30px !important;
+    padding-left: 30px;
 }
 
 .box__dragndrop,
@@ -109,4 +108,8 @@ a, a:hover {
 
 .input-radius {
     border-radius: 4px
+}
+
+.form-group label {
+    font-weight: bolder;
 }
