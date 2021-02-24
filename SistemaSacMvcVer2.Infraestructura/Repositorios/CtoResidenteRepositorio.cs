@@ -15,6 +15,49 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             conexionDb = pDbConexion;
         }
 
+        public List<CtoResidente> BuscarResidentePorPalabraClave(string pPalabraClave)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<CtoResidente> ListadoResidentes = new List<CtoResidente>();
+
+            try
+            {
+                var query = @"select RUT, APELLIDOS, NOMBRES, (select COALESCE(count(RUT_RESIDENTE),0)  from CTO_CONTRATO where CTO_CONTRATO.RUT_RESIDENTE = CTO_RESIDENTE.RUT and CTO_CONTRATO.ESTADO_CONTRATO = 'EN EJECUCION') as TOTAL from CTO_RESIDENTE where UPPER(RUT) = :palabraClave OR UPPER(NOMBRES) LIKE '%' || UPPER(:palabraClave) || '%' OR UPPER(APELLIDOS) LIKE '%' || UPPER(:palabraClave) || '%' group by RUT, APELLIDOS, NOMBRES order by APELLIDOS";
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter("palabraClave", pPalabraClave));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CtoResidente objCtoResidente = new CtoResidente
+                        {
+                            Rut = Convert.ToInt32(dr["RUT"]),
+                            Nombres = dr["NOMBRES"].ToString(),
+                            Apellidos = dr["APELLIDOS"].ToString(),
+                            TotalObrasEnEjecucion = Convert.ToInt32(dr["TOTAL"])
+                        };
+
+                        ListadoResidentes.Add(objCtoResidente);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return ListadoResidentes;
+        }
+
         public List<CtoResidente> ObtenerListadoResidente()
         {
             OracleCommand cmd = null;

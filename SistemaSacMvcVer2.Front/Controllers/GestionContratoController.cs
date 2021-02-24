@@ -90,5 +90,12 @@ namespace SistemaSacMvcVer2.Front.Controllers
             var ItemsListadoResidentes = _ctoContratoServicio.ObtenerListadoResidente();
             return Json(new { data = ItemsListadoResidentes });
         }
+
+        [HttpPost]
+        public ActionResult ObtenerResidentesPorPalabraClave(string pPalabraClave)
+        {
+            var ItemsListadoResidentes = _ctoContratoServicio.BuscarResidentePorPalabraClave(pPalabraClave);
+            return Json(new { data = ItemsListadoResidentes });
+        }
     }
 }

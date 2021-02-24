@@ -6,5 +6,6 @@ namespace SistemaSacMvcVer2.Dominio.Interfaces.ICtoResidente
     public interface ICtoResidenteRepositorio
     {
         List<CtoResidente> ObtenerListadoResidente();
+        List<CtoResidente> BuscarResidentePorPalabraClave(string pPalabraClave);
     }
 }

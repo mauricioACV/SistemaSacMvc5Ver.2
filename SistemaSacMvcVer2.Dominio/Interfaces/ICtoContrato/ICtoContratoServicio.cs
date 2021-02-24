@@ -22,5 +22,7 @@ namespace SistemaSacMvcVer2.Dominio.Interfaces.ICtoContrato
         List<CtoContratista> ObtenerContratistas();
 
         List<CtoResidente> ObtenerListadoResidente();
+
+        List<CtoResidente> BuscarResidentePorPalabraClave(string pPalabraClave);
     }
 }

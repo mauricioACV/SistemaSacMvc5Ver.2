@@ -64,7 +64,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
             try
             {
-                var query = @"select ID_ITEM, DESCRIPCION from CTO_DOMINIO where DOMINIO= :pDominio and (USUARIO_INGRESO = '*' or USUARIO_INGRESO = :pUsuario) order by DESCRIPCION";
+                var query = @"select ID_ITEM, DESCRIPCION from CTO_DOMINIO where DOMINIO= :pDominio and (USUARIO_INGRESO='*' OR USUARIO_INGRESO = :pUsuario) order by DESCRIPCION";
                 
                 cmd = new OracleCommand(query, conexionDb);
                 cmd.Parameters.Add(new OracleParameter("pDominio", pDominio));
@@ -79,7 +79,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                     {
                         CtoDominio CtoDominio = new CtoDominio
                         {
-                            Id_Item = Convert.ToInt32(dr["ID_ITEM"].ToString()),
+                            Id_Item = Convert.ToInt32(dr["ID_ITEM"] is DBNull ? "0" : dr["ID_ITEM"]),
                             Descripcion = dr["DESCRIPCION"].ToString()
                         };
 

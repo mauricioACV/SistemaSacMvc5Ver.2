@@ -8,7 +8,6 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
     public class CtoContratoServicio : ICtoContratoServicio
     {
         private readonly IUnitOfWork _unitOfWork;
-        //private readonly IUnitOfWebService _unitOfWebService;
 
         public CtoContratoServicio(IUnitOfWork unitOfWork)
         {
@@ -17,19 +16,16 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
 
         public List<CtoGrupoClase> ListarAdministracionPorClaseUsuario(string pGrupoUsuario)
         {
-            //Reglas de negocio
             return _unitOfWork.CtoGrupoClaseRepositorio.ListarAdministracionPorClaseUsuario(pGrupoUsuario);
         }
 
         public List<CtoDominio> ListarItemsPorDominioUsuario(string pDominio, string pGrupoUsuario)
         {
-            //Reglas de negocio
             return _unitOfWork.CtoDominioRepositorio.ObtenerItemsPorDominioUsuario(pDominio, pGrupoUsuario);
         }
 
         public List<CtoDominio> ListarItemsPorDominio(string pDominio)
         {
-            //Reglas de negocio
             return _unitOfWork.CtoDominioRepositorio.ObtenerItemsPorDominio(pDominio);
         }
 
@@ -61,6 +57,11 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
         public List<CtoResidente> ObtenerListadoResidente()
         {
             return _unitOfWork.CtoResidenteRepositorio.ObtenerListadoResidente();
+        }
+
+        public List<CtoResidente> BuscarResidentePorPalabraClave(string pPalabraClave)
+        {
+            return _unitOfWork.CtoResidenteRepositorio.BuscarResidentePorPalabraClave(pPalabraClave);
         }
     }
 }

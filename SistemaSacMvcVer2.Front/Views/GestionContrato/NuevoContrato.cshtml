@@ -7,6 +7,7 @@
 @section styles{
     <!-- agregar estilos -->
     <link href="~/Content/EstilosSac/Estilos.css" rel="stylesheet" />
+    <link href="~/Content/EstilosSac/Spinner.css" rel="stylesheet" />
     <!-- agregar estilos -->
 
 }
@@ -564,11 +565,11 @@
     <table>
         <tr>
             <td>
-                <button type="button" id="btnRegistrar" class="btn btn-primary btn-xs" style="border-radius:7px">Registrar</button>
+                <button type="button" id="btnRegistrar" class="btn btn-primary btn-xs btnSombra" style="border-radius:7px">Registrar</button>
             </td>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td>
-                <button type="button" id="btnCancelar" class="btn btn-danger btn-xs" style="border-radius:7px">Cancelar</button>
+                <button type="button" id="btnCancelar" class="btn btn-danger btn-xs btnSombra" style="border-radius:7px">Cancelar</button>
             </td>
         </tr>
     </table>
@@ -579,7 +580,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Seleccione Índice Base</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><strong>Seleccione Índice Base</strong></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -751,47 +752,68 @@
     </div>
 </div>
 <!-- Modal Contratistas -->
-
 <!-- Modal Residentes -->
 <div class="modal fade" id="modalResidentes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Seleccione Contratista</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Buscar Residente</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body table-responsive text-center" style="height:470px">
-                <div class="table-responsive">
-                    <table id="tablaResidentes" class="display table table-hover" style="width:100%">
-                        <thead class="">
-                            <tr>
-                                <th>
-                                    Rut
-                                </th>
-                                <th>
-                                    Nombres Residente
-                                </th>
-                                <th>
-                                    Apellidos Residente
-                                </th>
-                                <th class="">
-                                    Obras en Ejecución
-                                </th>
-                                <th class="">
-                                    Acción
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody id="listaResidentes"></tbody>
-                    </table>
+            <div class="modal-body table-responsive text-center" id="divListaResidente" style="height:470px">
+                <div>
+                    <input class="form-control input-radius col-sm-9" type="text" placeholder="escriba palabra clave..." name="txtPalabraClaveResidente" id="txtPalabraClaveResidente" />
+                    <input type="button" class="btn btn-sm btn-info btnSombra col-sm-2 ml-2" name="btnBuscarResidente" id="btnBuscarResidente" value="Buscar" />
                 </div>
+                <div class="align-content-center">
+                    <i class="col-sm-12" style="font-size:smaller">Nota: Puede buscar por rut, nombre o apellido</i>
+                </div>
+                <table class="table table-hover">
+                    <thead class="">
+                        <tr>
+                            <th class="">
+                                Rut
+                            </th>
+                            <th class="">
+                                Nombres
+                            </th>
+                            <th class="">
+                                Apellidos
+                            </th>
+                            <th class="">
+                                Obras en Ejecución
+                            </th>
+                            <th class="">
+                                Seleccionar
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaModalResidentes" class="bg-white"></tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 <!-- Modal Residentes -->
+<!-- Modal Spinner -->
+<div class="modal fade" style="border:none" id="modalSpinner" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color:transparent; border:none; text-align:center">
+            <div class="sk-folding-cube">
+                <div class="sk-cube1 sk-cube"></div>
+                <div class="sk-cube2 sk-cube"></div>
+                <div class="sk-cube4 sk-cube"></div>
+                <div class="sk-cube3 sk-cube"></div>
+            </div>
+            <div>
+                <p style="color:antiquewhite">Cargando datos SAFI...</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Spinner -->
 
 @section scripts{
 

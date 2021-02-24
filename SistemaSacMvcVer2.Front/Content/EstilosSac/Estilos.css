@@ -113,3 +113,24 @@ a, a:hover {
 .form-group label {
     font-weight: bolder;
 }
+
+.input-radius:focus {
+    background-color: aquamarine;
+    background-color: rgba(43, 144, 113, 0.10);
+    /*color: red;*/
+}
+
+.modal-header {
+    background-color: midnightblue;
+    background-color: rgba(3, 35, 79, 0.85);
+    box-shadow: 2px 2px 2px #999;
+    color: aliceblue;
+}
+
+.close {
+    color: azure;
+}
+
+.btnSombra {
+    box-shadow: 2px 2px 2px #999;
+}

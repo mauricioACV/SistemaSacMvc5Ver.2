@@ -1,6 +1,6 @@
 ﻿//Hard Code
 const objUsuario = {
-    Usuario_Ingreso: 'CENTRAL',
+    Usuario_Ingreso: 'OCTAVA',
     Clase: '*',
 };
 
@@ -80,6 +80,9 @@ const selectTipoRes = document.querySelector('#ddlTipoRes');
 const listaModalIndiceBase = document.querySelector('#listaModalIndiceBase');
 const modalIndiceBase = document.querySelector('#modalIndiceBase');
 const tablaInspectorFiscal = document.querySelector('#tablaInspectorFiscal');
+const btnBuscarResidente = document.querySelector('#btnBuscarResidente');
+const modalResidentes = document.querySelector('#modalResidentes');
+const listaModalResidentes = document.querySelector('#listaModalResidentes');
 
 const txtVisitador = document.querySelector('#txtVisitador');
 const txtCodigoSafi = document.querySelector('#txtCodigoSafi');
@@ -94,6 +97,7 @@ const txtInspectorFiscal = document.querySelector('#txtInspectorFiscal');
 const txtAsesoria = document.querySelector('#txtAsesoria');
 const txtContratista = document.querySelector('#txtContratista');
 const txtResidente = document.querySelector('#txtResidente');
+const txtNumProceso = document.querySelector('#txtNumProceso');
 
 //Eventos Carga completa del HTML
 $(document).ready(function () {
@@ -109,10 +113,10 @@ $(document).ready(function () {
     llenarModalVisitadores();
     llenarModalAsesoria();
     llenarModalContratista();
-    llenarModalResidentes();
 
     //Listeners
     txtCodigoSafi.addEventListener('blur', obtieneItemsSafi);
+    btnBuscarResidente.addEventListener('click', obtenerResidentePorPalabraClave);
 });
 
 //Funciones Request
@@ -140,23 +144,50 @@ async function obtenerItemsGlobalesDDL(objSetupItemDropDownList) {
     }
 };
 
+async function obtenerResidentePorPalabraClave() {
+
+    const cadenaBusqueda = document.querySelector('#txtPalabraClaveResidente').value;
+    const data = { pPalabraClave: cadenaBusqueda };
+    try {
+        const resultado = await fetch('ObtenerResidentesPorPalabraClave', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const listadoResidente = await resultado.json();
+        llenarModalResidente(listadoResidente.data);
+    } catch (error) {
+        console.log(error)
+    }
+};
+
 function obtieneItemsSafi() {
 
     if (txtCodigoSafi.value !== "") {
-        $.ajax({
-            type: "POST",
-            url: "/GestionContrato/ObtenerInfoContratoPorCodigoSafi",
-            data: {
-                codigoSafi: txtCodigoSafi.value,
-            },
-            dataType: "json",
-            error: function (xhr, ajaxOptions, thrownError) {
-                console.log(xhr.status + "\n" + xhr.responseText, "\n" + thrownError);
-            },
-            success: function (itemsSafi) {
-                llenarDatosSafi(itemsSafi.data);
-            }
-        });
+
+        $('#modalSpinner').modal('show');
+        setTimeout(() => {
+            $.ajax({
+                type: "POST",
+                url: "/GestionContrato/ObtenerInfoContratoPorCodigoSafi",
+                data: {
+                    codigoSafi: txtCodigoSafi.value,
+                },
+                dataType: "json",
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status + "\n" + xhr.responseText, "\n" + thrownError);
+                },
+                success: function (itemsSafi) {
+                    $('#modalSpinner').modal('hide');
+                    txtNumProceso.focus();
+                    llenarDatosSafi(itemsSafi.data);
+                }
+            });
+
+        }, 1000)
+
     };
 
 };
@@ -179,12 +210,14 @@ function llenarModalInfoIndiceBase(items) {
         const tdValor = document.createElement('td');
         tdValor.innerHTML = `<p class="">${Valor}</p>`;
         const tdButton = document.createElement('td');
-        const btnSeleccionar = document.createElement('button');
-        btnSeleccionar.classList.add("btn", "btn-success", "btn-sm");
+        const btnSeleccionar = document.createElement('i');
+        btnSeleccionar.classList.add("fa", "fa-check-square-o", "fa-2x");
+        btnSeleccionar.setAttribute("aria-hidden", "true");
         btnSeleccionar.setAttribute("data-toggle", "modal");
         btnSeleccionar.setAttribute("data-target", "#modalIndiceBase");
+        btnSeleccionar.style.color = "darkcyan";
+        btnSeleccionar.style.cursor = ("pointer");
         btnSeleccionar.onclick = () => fijarValorInputIndice(IdIndiceBase);
-        btnSeleccionar.innerHTML = 'Seleccionar';
 
         tdButton.appendChild(btnSeleccionar);
 
@@ -309,7 +342,7 @@ function llenarSelectTipoRes(items) {
 };
 
 function llenarDatosSafi(items) {
-
+    
     const { CodigoCarpeta, AperturaTecnica, AperturaEconomica, PresupuestoInicial, NombreContrato, PresupuestoOficial } = items[0];
 
     const dia = AperturaTecnica.split("-")[0];
@@ -332,9 +365,52 @@ function llenarDatosSafi(items) {
 
 };
 
+function llenarModalResidente(itemsResidentes) {
+    while (listaModalResidentes.firstChild) {
+        listaModalResidentes.removeChild(listaModalResidentes.firstChild);
+    };
+
+    itemsResidentes.forEach(item => {
+        const { Rut, Nombres, Apellidos, TotalObrasEnEjecucion } = item;
+
+        const trResidentes = document.createElement('tr');
+        const tdRut = document.createElement('td');
+        tdRut.innerHTML = `<p class=""> ${Rut} </p>`;
+        const tdNombres = document.createElement('td');
+        tdNombres.innerHTML = `<p class="">${Nombres}</p>`;
+        const tdApellidos = document.createElement('td');
+        tdApellidos.innerHTML = `<p class="">${Apellidos}</p>`;
+        const tdObrasEjecucion = document.createElement('td');
+        tdObrasEjecucion.innerHTML = `<p class="">${TotalObrasEnEjecucion}</p>`;
+        const tdButton = document.createElement('td');
+        const btnSeleccionar = document.createElement('i');
+        btnSeleccionar.classList.add("fa", "fa-check-square-o", "fa-2x");
+        btnSeleccionar.setAttribute("aria-hidden", "true");
+        btnSeleccionar.setAttribute("data-toggle", "modal");
+        btnSeleccionar.setAttribute("data-target", "#modalResidentes");
+        btnSeleccionar.style.color = "darkcyan";
+        btnSeleccionar.style.cursor = ("pointer");
+        btnSeleccionar.onclick = () => fijarValorResidente(Rut, Nombres, Apellidos);
+
+        tdButton.appendChild(btnSeleccionar);
+
+        trResidentes.appendChild(tdRut);
+        trResidentes.appendChild(tdNombres);
+        trResidentes.appendChild(tdApellidos);
+        trResidentes.appendChild(tdObrasEjecucion);
+        trResidentes.appendChild(tdButton);
+
+        listaModalResidentes.appendChild(trResidentes);
+    });
+};
+
 function fijarValorInputIndice(IdIndiceBase) {
     txtIndiceBase.value = IdIndiceBase;
 };
+
+function fijarValorResidente(Rut, Nombres, Apellidos) {
+    txtResidente.value = `${Rut} ${Nombres}${Apellidos}`;
+}
 
 //DATATABLE **Modal Inspector Fiscal**
 function llenarModalInspectorFiscal() {
@@ -373,7 +449,7 @@ function llenarModalInspectorFiscal() {
             { "data": "Nombres", "name": "Nombres", "autoWidth": true },
             { "data": "Apellidos", "name": "Apellidos", "autoWidth": true },
             {
-                "defaultContent": '<Button type="button" value="Seleccionar" title="Seleccionar" class="btn btn-success btn-sm seleccionaIf" data-target="#modalInspectorFiscal" data-toggle="modal">Seleccionar</button>'
+                "defaultContent": '<i class="fa fa-check-square-o fa-2x seleccionaIf" style="cursor:pointer; color:darkcyan" aria-hidden="true" data-toggle="modal" data-target="#modalInspectorFiscal"></i>'
             }
         ]
     });
@@ -389,7 +465,6 @@ $(document).on('click', '.seleccionaIf', function (e) {
     txtInspectorFiscal.value = `${valores[1]} ${valores[2]}`
 
 });
-//FIN DATATABLE Inspector Fiscal**
 
 //DATATABLE **Modal Visitador**
 function llenarModalVisitadores() {
@@ -428,12 +503,12 @@ function llenarModalVisitadores() {
             { "data": "Nombres", "name": "Nombres", "autoWidth": true },
             { "data": "Apellidos", "name": "Apellidos", "autoWidth": true },
             {
-                "defaultContent": '<Button type="button" value="Seleccionar" title="Seleccionar" class="btn btn-success btn-sm seleccionaVisitador" data-target="#modalVisitadores" data-toggle="modal">Seleccionar</button>'
+                "defaultContent": '<i class="fa fa-check-square-o fa-2x seleccionaVisitador" style="cursor:pointer; color:darkcyan" aria-hidden="true" data-toggle="modal" data-target="#modalVisitadores"></i>'
             }
         ]
     });
 };
-//Evento Boton Seleccionar
+//Evento Boton Seleccionar **Modal Visitador**
 $(document).on('click', '.seleccionaVisitador', function (e) {
     e.preventDefault();
     var valores = [];
@@ -444,7 +519,6 @@ $(document).on('click', '.seleccionaVisitador', function (e) {
     txtVisitador.value = `${valores[1]} ${valores[2]}`
 
 });
-//FIN DATATABLE Visitador
 
 //DATATABLE **Modal Asesoria**
 function llenarModalAsesoria() {
@@ -483,12 +557,12 @@ function llenarModalAsesoria() {
             { "data": "CodigoCarpeta", "name": "CodigoCarpeta", "autoWidth": true },
             { "data": "NombreContrato", "name": "NombreContrato", "autoWidth": true },
             {
-                "defaultContent": '<Button type="button" value="Seleccionar" title="Seleccionar" class="btn btn-success btn-sm seleccionaAsesoria" data-target="#modalAsesoria" data-toggle="modal">Seleccionar</button>'
+                "defaultContent": '<i class="fa fa-check-square-o fa-2x seleccionaAsesoria" style="cursor:pointer; color:darkcyan" aria-hidden="true" data-toggle="modal" data-target="#modalAsesoria"></i>'
             }
         ]
     });
 };
-//Evento Boton Seleccionar
+//Evento Boton Seleccionar **Modal Asesoria**
 $(document).on('click', '.seleccionaAsesoria', function (e) {
     e.preventDefault();
     var valores = [];
@@ -499,7 +573,6 @@ $(document).on('click', '.seleccionaAsesoria', function (e) {
     txtAsesoria.value = `${valores[0]} ${valores[1]}`
 
 });
-//DATATABLE Asesoria
 
 //DATATABLE **Modal Constratistas**
 function llenarModalContratista() {
@@ -537,12 +610,12 @@ function llenarModalContratista() {
             { "data": "Rut", "name": "Rut", "autoWidth": true },
             { "data": "RazonSocial", "name": "RazonSocial", "autoWidth": true },
             {
-                "defaultContent": '<Button type="button" value="Seleccionar" title="Seleccionar" class="btn btn-success btn-sm seleccionaContratista" data-target="#modalContratista" data-toggle="modal">Seleccionar</button>'
+                "defaultContent": '<i class="fa fa-check-square-o fa-2x seleccionaContratista" style="cursor:pointer; color:darkcyan" aria-hidden="true" data-toggle="modal" data-target="#modalContratista"></i>'
             }
         ]
     });
 };
-//Evento Boton Seleccionar
+//Evento Boton Seleccionar **Modal Constratistas**
 $(document).on('click', '.seleccionaContratista', function (e) {
     e.preventDefault();
     var valores = [];
@@ -553,60 +626,5 @@ $(document).on('click', '.seleccionaContratista', function (e) {
     txtContratista.value = `${valores[0]} ${valores[1]}`
 
 });
-//DATATABLE Constratistas
 
-//DATATABLE **Modal Residente**
-function llenarModalResidentes() {
-
-    Tabla = $("#tablaResidentes").DataTable({
-        "language": {
-            "decimal": "",
-            "emptyTable": "No hay información",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-            "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-            "infoPostFix": "",
-            "thousands": ",",
-            "lengthMenu": "Mostrar _MENU_ Entradas",
-            "loadingRecords": "Cargando...",
-            "processing": "Procesando...",
-            "search": "Buscar:",
-            "zeroRecords": "Sin resultados encontrados",
-            "paginate": {
-                "first": "Primero",
-                "last": "Ultimo",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            }
-        },
-
-        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
-
-        "ajax": {
-            "url": "/GestionContrato/ObtenerResidentes",
-            "type": "POST",
-            "datatype": "json"
-        },
-        "columns": [
-            { "data": "Rut", "name": "Rut", "autoWidth": true },
-            { "data": "Nombres", "name": "Nombres", "autoWidth": true },
-            { "data": "Apellidos", "name": "Apellidos", "autoWidth": true },
-            { "data": "TotalObrasEnEjecucion", "name": "TotalObrasEnEjecucion", "autoWidth": true },
-            {
-                "defaultContent": '<Button type="button" value="Seleccionar" title="Seleccionar" class="btn btn-success btn-sm seleccionaResidente" data-target="#modalResidentes" data-toggle="modal">Seleccionar</button>'
-            }
-        ]
-    });
-};
-//Evento Boton Seleccionar
-$(document).on('click', '.seleccionaResidente', function (e) {
-    e.preventDefault();
-    var valores = [];
-    $(this).parents("tr").find("td").each(function () {
-        valores.push($(this).html());
-    });
-
-    txtResidente.value = `${valores[1]} ${valores[2]}`
-
-});
-//DATATABLE Residente
+//<i class="fa fa-check-square-o fa-2x seleccionaContratista" style="cursor:pointer; color:darkcyan" aria-hidden="true" data-toggle="modal" data-target="#modalContratista"></i>
