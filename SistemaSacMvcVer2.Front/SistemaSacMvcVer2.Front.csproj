@@ -164,7 +164,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\favicon.ico" />
-    <Content Include="Js\GestionContrato\NuevoContrato.js" />
+    <Content Include="Js\GestionContrato\DataTablesVentanasModal.js" />
+    <Content Include="Js\GestionContrato\Funciones.js" />
+    <Content Include="Js\GestionContrato\FuncionesLlenaDropDownLists.js" />
+    <Content Include="Js\GestionContrato\MainNuevoContrato.js" />
+    <Content Include="Js\GestionContrato\SelectoresFormContrato.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\SacV2Mvc_Desa.pubxml" />

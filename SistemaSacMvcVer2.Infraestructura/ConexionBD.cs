@@ -23,7 +23,7 @@ namespace SistemaSacMvcVer2.Infraestructura
         {
             OracleConnection conexion = new OracleConnection
             {
-                ConnectionString = ConfigurationManager.AppSettings["DB_ORACLE_PRODUCCION"].ToString()
+                ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ToString()
             };
 
             return conexion;
