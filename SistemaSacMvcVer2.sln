@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.1209
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaSacMvcVer2.Infraestructura", "SistemaSacMvcVer2.Infraestructura\SistemaSacMvcVer2.Infraestructura.csproj", "{E5723EAD-C284-42D6-BE54-BA777993DF2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaSacMvcVer2.Aplicación", "SistemaSacMvcVer2.Aplicación\SistemaSacMvcVer2.Aplicación.csproj", "{443260B0-4A8B-47D1-ADE4-835E3B55767F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaSacMvcVer2.Aplicacion", "SistemaSacMvcVer2.Aplicación\SistemaSacMvcVer2.Aplicacion.csproj", "{443260B0-4A8B-47D1-ADE4-835E3B55767F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaSacMvcVer2.Dominio", "SistemaSacMvcVer2.Dominio\SistemaSacMvcVer2.Dominio.csproj", "{0FD27C94-FB7C-48AC-B94F-CE6104537ABD}"
 EndProject

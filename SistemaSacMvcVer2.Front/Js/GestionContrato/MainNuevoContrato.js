@@ -69,7 +69,7 @@ const setupItemDropDownList = [
 ];
 
 //Eventos carga completa del HTML
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', () => {
 
     //Carga datos drop down list globales
     setupItemDropDownList.forEach(async item => {

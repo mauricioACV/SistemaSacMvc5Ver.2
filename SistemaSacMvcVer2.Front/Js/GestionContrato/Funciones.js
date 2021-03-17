@@ -44,24 +44,35 @@ async function obtenerResidentePorPalabraClave() {
 
 async function obtieneItemsSafi() {
 
+    const url = '/GestionContrato/ObtenerInfoContratoPorCodigoSafi';
+
     if (txtCodigoSafi.value !== "") {
 
+        $("#modalSpinner").modal("show")
+
         const data = { codigoSafi: txtCodigoSafi.value };
-
-        $('#modalSpinner').modal('show');
-
         try {
-            const resultado = await fetch('/GestionContrato/ObtenerInfoContratoPorCodigoSafi', {
+            const request = await fetch(url, {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-            const itemsSafi = await resultado.json();
-            $('#modalSpinner').modal('hide');
-            llenarDatosSafi(itemsSafi.data);
-            txtNumProceso.focus();
+            const itemsSafi = await request.json();
+            if (itemsSafi.data.length) {
+                await llenarDatosSafi(itemsSafi.data);
+            }
+            setTimeout(() => {
+                $('#modalSpinner').modal('hide')
+                if (txtCodigoCarpeta.value) {
+                    txtNumProceso.focus();
+                } else {
+                    txtCodigoCarpeta.focus();
+                }
+            }, 500)
+
+
         } catch (error) {
             console.log(error)
         }
@@ -149,26 +160,23 @@ function llenarModalResidente(itemsResidentes) {
 
 function llenarDatosSafi(items) {
 
-    const { CodigoCarpeta, AperturaTecnica, AperturaEconomica, PresupuestoInicial, NombreContrato, PresupuestoOficial } = items[0];
+    const { CodigoCarpeta,
+        AperturaTecnica,
+        AperturaEconomica,
+        PresupuestoInicial,
+        NombreContrato,
+        PresupuestoOficial } = items[0];
 
-    const dia = AperturaTecnica.split("-")[0];
-    const mes = AperturaTecnica.split("-")[1];
-    const ano = AperturaTecnica.split("-")[2];
-    const fechaISo = `${ano}-${mes}-${dia}`;
-
-    const dia2 = AperturaEconomica.split("-")[0];
-    const mes2 = AperturaEconomica.split("-")[1];
-    const ano2 = AperturaEconomica.split("-")[2];
-    const fechaISo2 = `${ano2}-${mes2}-${dia2}`;
+    const fechaAperturaTenica = convierteFechaFormatoIso(AperturaTecnica);
+    const fechaAperturaEconomica = convierteFechaFormatoIso(AperturaEconomica);
 
 
     txtCodigoCarpeta.value = CodigoCarpeta;
-    txtAperturaTecnica.value = fechaISo
-    txtAperturaEconomica.value = fechaISo2
+    txtAperturaTecnica.value = fechaAperturaTenica
+    txtAperturaEconomica.value = fechaAperturaEconomica
     txtPresupuestoInicial.value = PresupuestoInicial;
     txtNombreContrato.value = NombreContrato;
     txtPresupuestoOficial.value = PresupuestoOficial;
-
 };
 
 function fijarValorInputIndice(IdIndiceBase) {
@@ -177,4 +185,12 @@ function fijarValorInputIndice(IdIndiceBase) {
 
 function fijarValorResidente(Rut, Nombres, Apellidos) {
     txtResidente.value = `${Rut} ${Nombres}${Apellidos}`;
+}
+
+function convierteFechaFormatoIso(fecha) {
+    const dia = fecha.split("-")[0];
+    const mes = fecha.split("-")[1];
+    const ano = fecha.split("-")[2];
+    const fechaISo = `${ano}-${mes}-${dia}`;
+    return fechaISo;
 }

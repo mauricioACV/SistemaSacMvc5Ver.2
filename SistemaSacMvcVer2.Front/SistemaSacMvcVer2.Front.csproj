@@ -183,6 +183,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Vendors\Babel\babel.min.js" />
     <Content Include="Vendors\bootstrap-daterangepicker\daterangepicker.css" />
     <Content Include="Vendors\bootstrap-daterangepicker\daterangepicker.js" />
     <Content Include="Vendors\bootstrap-daterangepicker\demo.html" />
@@ -1538,7 +1539,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -1605,6 +1605,7 @@
     <Content Include="Vendors\gauge.js\dist\gauge.coffee" />
     <Content Include="Vendors\jquery\jquery.min.map" />
     <Content Include="Views\GestionContrato\NuevoContrato.cshtml" />
+    <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1626,9 +1627,9 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SistemaSacMvcVer2.Aplicación\SistemaSacMvcVer2.Aplicación.csproj">
+    <ProjectReference Include="..\SistemaSacMvcVer2.Aplicación\SistemaSacMvcVer2.Aplicacion.csproj">
       <Project>{443260B0-4A8B-47D1-ADE4-835E3B55767F}</Project>
-      <Name>SistemaSacMvcVer2.Aplicación</Name>
+      <Name>SistemaSacMvcVer2.Aplicacion</Name>
     </ProjectReference>
     <ProjectReference Include="..\SistemaSacMvcVer2.Dominio\SistemaSacMvcVer2.Dominio.csproj">
       <Project>{0FD27C94-FB7C-48AC-B94F-CE6104537ABD}</Project>

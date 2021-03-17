@@ -11,6 +11,7 @@
     <!-- agregar estilos -->
 
 }
+
 <div class="clearfix"></div>
 <!--div cuadro General-->
 <div class="row">
@@ -197,7 +198,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Tipo Obra</label>
-                        <select class="form-control select2 input-radius" style="width: 100%;">
+                        <select class="form-control select2 input-radius" style="width: 100%;" id="ddlTipoObra">
                             <option disabled selected value="">Seleccione Opción-></option>
                             <option value="OBRA MAYOR">OBRA MAYOR</option>
                             <option value="OBRA MENOR">OBRA MENOR</option>
@@ -576,7 +577,7 @@
 </div>
 <!--div cierre Botones-->
 <!-- Modal Indice Base -->
-<div class="modal fade" id="modalIndiceBase" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalIndiceBase" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -611,7 +612,7 @@
 </div>
 <!-- Modal Indice Base -->
 <!-- Modal Inspector Fiscal -->
-<div class="modal fade" id="modalInspectorFiscal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalInspectorFiscal" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -648,7 +649,7 @@
 </div>
 <!-- Modal Inspector Fiscal -->
 <!-- Modal Visitador -->
-<div class="modal fade" id="modalVisitadores" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalVisitadores" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -685,7 +686,7 @@
 </div>
 <!-- Modal Visitador -->
 <!-- Modal Asesoria -->
-<div class="modal fade" id="modalAsesoria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalAsesoria" tabindex="-1" aria-labelledby="exampleModalLabel4" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -719,7 +720,7 @@
 </div>
 <!-- Modal Asesoria -->
 <!-- Modal Contratistas -->
-<div class="modal fade" id="modalContratista" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalContratista" tabindex="-1" aria-labelledby="exampleModalLabel5" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -753,7 +754,7 @@
 </div>
 <!-- Modal Contratistas -->
 <!-- Modal Residentes -->
-<div class="modal fade" id="modalResidentes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalResidentes" tabindex="-1" aria-labelledby="exampleModalLabel6" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -798,7 +799,7 @@
 </div>
 <!-- Modal Residentes -->
 <!-- Modal Spinner -->
-<div class="modal fade" style="border:none" id="modalSpinner" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal fade" id="modalSpinner" tabindex="-1" aria-labelledby="exampleModalLabel7" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content" style="background-color:transparent; border:none; text-align:center">
             <div class="sk-folding-cube">
@@ -816,9 +817,25 @@
 <!-- Modal Spinner -->
 
 @section scripts{
-    <script src="~/Js/GestionContrato/SelectoresFormContrato.js"></script>
-    <script src="~/Js/GestionContrato/FuncionesLlenaDropDownLists.js"></script>
-    <script src="~/Js/GestionContrato/Funciones.js"></script>
-    <script src="~/Js/GestionContrato/DataTablesVentanasModal.js"></script>
-    <script src="~/Js/GestionContrato/MainNuevoContrato.js"></script>
+    <script src="~/Js/GestionContrato/SelectoresFormContrato.js">
+    </script>
+    <script src="~/Js/GestionContrato/FuncionesLlenaDropDownLists.js">
+    </script>
+    <script src="~/Js/GestionContrato/Funciones.js">
+    </script>
+    <script src="~/Js/GestionContrato/DataTablesVentanasModal.js">
+    </script>
+    <script src="~/Js/GestionContrato/MainNuevoContrato.js">
+    </script>
+
+    @*<script type="text/babel" src="~/Js/GestionContrato/SelectoresFormContrato.js">
+    </script>
+    <script type="text/babel" src="~/Js/GestionContrato/FuncionesLlenaDropDownLists.js">
+    </script>
+    <script type="text/babel" src="~/Js/GestionContrato/Funciones.js">
+    </script>
+    <script type="text/babel" src="~/Js/GestionContrato/DataTablesVentanasModal.js">
+    </script>
+    <script type="text/babel" src="~/Js/GestionContrato/MainNuevoContrato.js">
+    </script>*@
 }
