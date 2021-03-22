@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entidades\CtoComuna.cs" />
     <Compile Include="Entidades\CtoContratista.cs" />
     <Compile Include="Entidades\CtoContrato.cs" />
     <Compile Include="Entidades\CtoDominio.cs" />
@@ -49,15 +50,20 @@
     <Compile Include="Entidades\CtoResidente.cs" />
     <Compile Include="Entidades\CtoVisitador.cs" />
     <Compile Include="Entidades\IndiceBase.cs" />
+    <Compile Include="Entidades\ReportesSac.cs" />
+    <Compile Include="Interfaces\ICtoComuna\ICtoComunaRepositorio.cs" />
     <Compile Include="Interfaces\ICtoContratista\ICtoContratistaRepositorio.cs" />
     <Compile Include="Interfaces\ICtoContrato\ICtoContratoRepositorio.cs" />
     <Compile Include="Interfaces\ICtoContrato\ICtoContratoServicio.cs" />
     <Compile Include="Interfaces\ICtoDominio\ICtoDominioRepositorio.cs" />
     <Compile Include="Interfaces\ICtoGrupoClase\ICtoGrupoClaseRepositorio.cs" />
+    <Compile Include="Interfaces\ICtoGrupoClase\ICtoGrupoClaseServicio.cs" />
     <Compile Include="Interfaces\ICtoInspectorFiscal\ICtoInspectorFiscalRepositorio.cs" />
     <Compile Include="Interfaces\ICtoResidente\ICtoResidenteRepositorio.cs" />
     <Compile Include="Interfaces\ICtoVisitador\ICtoVisitadorRepositorio.cs" />
     <Compile Include="Interfaces\IIndiceBase\IIndiceBaseRepositorio.cs" />
+    <Compile Include="Interfaces\IReportesSac\IReportesSacRepositorio.cs" />
+    <Compile Include="Interfaces\IReportesSac\IReportesSacServicio.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

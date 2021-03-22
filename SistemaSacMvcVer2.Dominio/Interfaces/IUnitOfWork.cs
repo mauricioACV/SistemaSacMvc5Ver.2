@@ -1,4 +1,5 @@
-﻿using SistemaSacMvcVer2.Dominio.Interfaces.ICtoContratista;
+﻿using SistemaSacMvcVer2.Dominio.Interfaces.ICtoComuna;
+using SistemaSacMvcVer2.Dominio.Interfaces.ICtoContratista;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoContrato;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoDominio;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoGrupoClase;
@@ -6,6 +7,7 @@ using SistemaSacMvcVer2.Dominio.Interfaces.ICtoInspectorFiscal;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoResidente;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoVisitador;
 using SistemaSacMvcVer2.Dominio.Interfaces.IIndiceBase;
+using SistemaSacMvcVer2.Dominio.Interfaces.IReportesSac;
 using System;
 
 namespace SistemaSacMvcVer2.Dominio.Interfaces
@@ -27,5 +29,9 @@ namespace SistemaSacMvcVer2.Dominio.Interfaces
         ICtoContratistaRepositorio CtoContratistaRepositorio { get; }
 
         ICtoResidenteRepositorio CtoResidenteRepositorio { get; }
+
+        ICtoComunaRepositorio CtoComunaRepositorio { get; }
+
+        IReportesSacRepositorio ReportesSac { get; }
     }
 }

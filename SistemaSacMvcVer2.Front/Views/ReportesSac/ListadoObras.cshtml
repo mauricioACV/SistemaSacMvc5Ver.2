@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "ListadoObras";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="clearfix"></div>
+<div class="container">
+    <div class="card col-md-8">
+        <div class="col-md-12">
+            <div class="x_title">
+                <h2><i class="fa fa-list-alt" aria-hidden="true"></i> <strong>Listado de Obras</strong></h2>
+                <div class="clearfix"></div>
+            </div>
+            <form id="reporte-listado-obras">
+                <div class="form-group row bordeDiv">
+                    <label class="col-sm-2 col-lg-2 col-form-label">Grupo:</label>
+                    <div class="col-sm-4 col-lg-4">
+                        <select class="form-control select2 input-radius" style="width: 100%;" id="ddlGrupo">
+                            <option disabled selected value="">Seleccione Opción-></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row bordeDiv">
+                    <label class="col-sm-2 col-lg-2 col-form-label">Desde</label>
+                    <div class="col-sm-4 col-lg-4">
+                        <input type="date" class="form-control input-radius" name="" id="dateInicio" />
+                    </div>
+                    <label class="col-sm-2 col-lg-2 col-form-label">Hasta</label>
+                    <div class="col-sm-4 col-lg-4">
+                        <input type="date" class="form-control input-radius" name="" id="dateFin" />
+                    </div>
+                </div>
+                <div class="form-group row bordeDiv">
+                    <label class="col-sm-2 col-lg-2 col-form-label">Estado</label>
+                    <div class="col-sm-4 col-lg-4">
+                        <select class="form-control select2 input-radius" style="width: 100%;" id="ddlEstadoContrato">
+                            <option disabled selected value="">Seleccione Opción-></option>
+                            <option value="EN EJECUCION">EN EJECUCION</option>
+                            <option value="EN GARANTIA">TERMINADOS</option>
+                            <option value="EN EJECUCION Y TERMINADOS">EN EJECUCION + TERMINADOS</option>
+                            <option value="LIQUIDADO">LIQUIDADOS</option>
+                            <option value="TODOS">TODOS</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row bordeDiv">
+                    <label class="col-sm-2 col-lg-2 col-form-label">Región</label>
+                    <div class="col-sm-4 col-lg-4">
+                        <select class="form-control select2 input-radius" style="width: 100%;" id="ddlRegion">
+                            <option disabled selected value="">Seleccione Opción-></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row bordeDiv">
+                    <label class="col-sm-2 col-lg-2 col-form-label">Tipo Contrato</label>
+                    <div class="col-sm-4 col-lg-4">
+                        <select class="form-control select2 input-radius" style="width: 100%;" id="ddlTipoContrato">
+                            <option disabled value="">Seleccione Opción-></option>
+                            <option selected value="TODOS">TODOS</option>
+                            <option value="ASESORIAS">SOLO ASESORIAS</option>
+                            <option value="OBRAS">SOLO OBRAS</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row bordeDiv">
+                    <label class="col-sm-2 col-lg-2 col-form-label">Clase</label>
+                    <div class="col-sm-4 col-lg-4">
+                        <select class="select2_multiple form-control input-radius" multiple="multiple" style="width: 100%" id="ddlClase">
+                            <option disabled selected value="">Seleccione Opción-></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="container text-center">
+                    <button type="button" id="btnGeneraReporte" class="btn btn-success btnSombra">Generar Reporte</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script  src="~/Js/ReportesSac/ReportesSac.js"></script>
+}

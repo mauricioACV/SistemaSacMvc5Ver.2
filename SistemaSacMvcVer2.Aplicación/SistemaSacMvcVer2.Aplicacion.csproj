@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicios\CtoContratoServicio.cs" />
+    <Compile Include="Servicios\CtoGrupoClaseServicio.cs" />
+    <Compile Include="Servicios\ReportesSacServicio.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SistemaSacMvcVer2.Dominio\SistemaSacMvcVer2.Dominio.csproj">

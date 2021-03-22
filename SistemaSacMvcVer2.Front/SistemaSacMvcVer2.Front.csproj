@@ -138,6 +138,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\GestionContratoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReportesSacController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -169,6 +170,7 @@
     <Content Include="Js\GestionContrato\FuncionesLlenaDropDownLists.js" />
     <Content Include="Js\GestionContrato\MainNuevoContrato.js" />
     <Content Include="Js\GestionContrato\SelectoresFormContrato.js" />
+    <Content Include="Js\ReportesSac\ReportesSac.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\SacV2Mvc_Desa.pubxml" />
@@ -366,6 +368,10 @@
     <Content Include="Vendors\Chart.js\test\scale.logarithmic.tests.js" />
     <Content Include="Vendors\Chart.js\test\scale.radialLinear.tests.js" />
     <Content Include="Vendors\Chart.js\test\scale.time.tests.js" />
+    <Content Include="Vendors\datatable\dataTables.jqueryui.min.css" />
+    <Content Include="Vendors\datatable\dataTables.jqueryui.min.js" />
+    <Content Include="Vendors\datatable\jquery-ui.css" />
+    <Content Include="Vendors\datatable\jquery.dataTables.min.js" />
     <Content Include="Vendors\DateJS\build\date-af-ZA.js" />
     <Content Include="Vendors\DateJS\build\date-ar-AE.js" />
     <Content Include="Vendors\DateJS\build\date-ar-BH.js" />
@@ -1606,6 +1612,7 @@
     <Content Include="Vendors\jquery\jquery.min.map" />
     <Content Include="Views\GestionContrato\NuevoContrato.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\ReportesSac\ListadoObras.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

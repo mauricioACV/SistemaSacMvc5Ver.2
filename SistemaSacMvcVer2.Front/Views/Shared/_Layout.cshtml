@@ -9,8 +9,8 @@
     <link rel="icon" href="~/images/favicon.ico" type="image/ico" />
     <!-- ORDEN CARGA CSS -->
     <!-- DataTables -->
-    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/dataTables.jqueryui.min.css" />
+    <link href="~/Vendors/datatable/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <link href="~/Vendors/datatable/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css" />
     <!-- DataTables -->
     <!-- 1.-Bootstrap -->
     <!-- 2.-Font Awesome -->
@@ -200,9 +200,12 @@
                                     <a><i class="fa fa-bar-chart"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="#level1_1">Minuta de Obras</a></li>
-                                        <li>
-                                            <a>Listado de Obras<span class="fa fa-chevron-down"></span></a>
+                                        <li style="display:block">
+                                            <a>Listados<span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="@Url.Action("ListadoObras", "ReportesSac")">Listado de Obras</a>
+                                                </li>
                                                 <li class="sub_menu">
                                                     <a href="level2.html">PMG</a>
                                                 </li>
@@ -386,10 +389,11 @@
     @Scripts.Render("~/bundles/bootstrap")
 
     <!-- DataTables -->
-    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.15/js/dataTables.jqueryui.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="~/Vendors/datatable/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="~/Vendors/datatable/dataTables.jqueryui.min.js"></script>
     <!-- DataTables -->
     <script src="~/Vendors/nprogress/nprogress.js"></script>
+
 
     <!-- Custom -->
     <script src="~/Content/Alela/js/custom.js"></script>

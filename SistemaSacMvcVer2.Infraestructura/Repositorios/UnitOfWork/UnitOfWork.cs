@@ -1,5 +1,6 @@
 ﻿using Oracle.ManagedDataAccess.Client;
 using SistemaSacMvcVer2.Dominio.Interfaces;
+using SistemaSacMvcVer2.Dominio.Interfaces.ICtoComuna;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoContratista;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoContrato;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoDominio;
@@ -8,6 +9,7 @@ using SistemaSacMvcVer2.Dominio.Interfaces.ICtoInspectorFiscal;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoResidente;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoVisitador;
 using SistemaSacMvcVer2.Dominio.Interfaces.IIndiceBase;
+using SistemaSacMvcVer2.Dominio.Interfaces.IReportesSac;
 
 namespace SistemaSacMvcVer2.Infraestructura.Repositorios.UnitOfWork
 {
@@ -23,6 +25,8 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios.UnitOfWork
         private readonly ICtoContratoRepositorio _contratoRepositorio;
         private readonly ICtoContratistaRepositorio _contratistaRepositorio;
         private readonly ICtoResidenteRepositorio _residenteRepositorio;
+        private readonly ICtoComunaRepositorio _comunaRepositorio;
+        private readonly IReportesSacRepositorio _reportesSacRepositorio;
 #pragma warning restore 0649
 
         public UnitOfWork()
@@ -45,6 +49,10 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios.UnitOfWork
         public ICtoContratistaRepositorio CtoContratistaRepositorio => _contratistaRepositorio ?? new CtoContratistaRepositorio(_conexion);
 
         public ICtoResidenteRepositorio CtoResidenteRepositorio => _residenteRepositorio ?? new CtoResidenteRepositorio(_conexion);
+
+        public ICtoComunaRepositorio CtoComunaRepositorio => _comunaRepositorio ?? new CtoComunaRepositorio(_conexion);
+
+        public IReportesSacRepositorio ReportesSac => _reportesSacRepositorio ?? new ReportesSacRepositorio(_conexion);
 
         public void Dispose()
         {

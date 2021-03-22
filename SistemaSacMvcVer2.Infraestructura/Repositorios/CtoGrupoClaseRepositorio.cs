@@ -54,5 +54,45 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
             return ListadoClase;
         }
+
+        public List<CtoGrupoClase> ListarGrupoClase()
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<CtoGrupoClase> ListadoGrupos = new List<CtoGrupoClase>();
+
+            try
+            {
+                var query = @"select GRUPO,LINEA_2 from CTO_GRUPO_CLASE where CLASE = '*' ORDER BY CONTADOR";
+                cmd = new OracleCommand(query, conexionDb);
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CtoGrupoClase ctoGrupoClase = new CtoGrupoClase
+                        {
+                            Grupo = dr["GRUPO"].ToString(),
+                            Linea2 = dr["LINEA_2"].ToString()
+                        };
+
+                        ListadoGrupos.Add(ctoGrupoClase);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return ListadoGrupos;
+        }
     }
 }
