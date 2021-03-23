@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using SistemaSacMvcVer2.Dominio.Entidades;
+﻿using SistemaSacMvcVer2.Dominio.Entidades;
 using SistemaSacMvcVer2.Infraestructura.Servicios.WebServices.Interfaces;
+using System;
+using System.Collections.Generic;
 
 namespace SistemaSacMvcVer2.Infraestructura.Servicios.WebServices.Repositorios
 {

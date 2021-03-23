@@ -24,15 +24,14 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             try
             {
                 var query = @"select
-                                (select descripcion from CTO_DOMINIO WHERE CTO_dominio.dominio='CTO_TIPO_CONTRATO' and CTO_dominio.id_item=CTO_contrato.TIPO_CONTRATO)
-                                as TIPO_CONTRATO
+                                (select descripcion from CTO_DOMINIO WHERE CTO_dominio.dominio='CTO_TIPO_CONTRATO' and CTO_dominio.id_item=CTO_contrato.TIPO_CONTRATO) as TIPO_CONTRATO
                                 ,CODIGO_CHILECOMPRA
                                 ,NOMBRE_CONTRATO
                                 ,TIPO_CARPETA
                                 ,CODIGO_SAFI
                                 ,cto_contrato.codigo_carpeta as CODIGO_CARPETA
                                 ,CLASE
-                                ,(select nota_final from cto_contrato_calificacion where cto_contrato_calificacion.codigo_carpeta=cto_contrato.codigo_carpeta) as nota
+                                ,(select nota_final from cto_contrato_calificacion where cto_contrato_calificacion.codigo_carpeta=cto_contrato.codigo_carpeta) as NOTA
                                 ,ESTADO_CONTRATO
                                 ,FECHA_INICIO
                                 ,PRESUPUESTO_INICIAL
@@ -43,8 +42,8 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                                 ,FECHA_APERTURA_TECNICA
                                 ,FECHA_APERTURA_ECONOMICA
                                 ,AMBITO_CONTRATO
-                                ,cto_contrato.codigo_carpeta as avance_fisico
-                                ,cto_contrato.codigo_carpeta as avance_financiero
+                                ,cto_contrato.codigo_carpeta as AVANCE_FISICO
+                                ,cto_contrato.codigo_carpeta as AVANCE_FINANCIERO
                                 ,(select CTO_visitador.profesion || ' ' || CTO_visitador.nombres || ' ' || CTO_visitador.apellidos from CTO_visitador where CTO_visitador.rut=CTO_contrato.rut_visitador) as VISITADOR
                                 ,(select CTO_contratista.razon_social from CTO_contratista where CTO_contratista.rut=CTO_contrato.rut_contratista) as CONTRATISTA
                                 ,(select CTO_residente.profesion || ' ' || CTO_residente.nombres || ' ' || CTO_residente.apellidos from CTO_residente where CTO_residente.rut=CTO_contrato.rut_residente) as RESIDENTE
@@ -52,13 +51,13 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                                 ,CODIGO_ASESORIA
                                 ,(select descripcion from CTO_dominio where CTO_dominio.dominio='CTO_FINANCIAMIENTO' and CTO_dominio.id_item=CTO_contrato.financiamiento) as FINANCIAMIENTO
                                 ,(select descripcion from CTO_dominio where CTO_dominio.dominio='CTO_LICITACION' and CTO_dominio.id_item=CTO_contrato.licitacion) as LICITACION
-                                ,(select descripcion from CTO_dominio where CTO_dominio.dominio='CTO_REAJUSTE' and CTO_dominio.id_item=CTO_contrato.reajuste) as REAJUSTES
+                                ,(select descripcion from CTO_dominio where CTO_dominio.dominio='CTO_REAJUSTE' and CTO_dominio.id_item=CTO_contrato.reajuste) as TIPOREAJUSTE
                                 ,INDICE_BASE
                                 ,PRESUPUESTO_OFICIAL
                                 ,(select COALESCE(sum(VALOR_RESOLUCION),0) from CTO_contrato_modifica where CTO_contrato_modifica.codigo_carpeta=cto_contrato.codigo_carpeta and CTO_contrato_modifica.estado='TRAMITADA') as MONTO_MODIF_TRAMITADAS
                                 ,((select COALESCE(sum(VALOR_RESOLUCION),0) from CTO_contrato_modifica where CTO_contrato_modifica.codigo_carpeta=cto_contrato.codigo_carpeta and CTO_contrato_modifica.estado='TRAMITADA') + presupuesto_inicial) as MONTO_ACTUAL
                                 ,(select COALESCE(sum(monto),0) from cto_contrato_eepp where cto_contrato_eepp.codigo_carpeta=cto_contrato.codigo_carpeta and cto_contrato_eepp.tipo_eepp='EEPP' and (estado=1 or estado=3) and cto_contrato_eepp.fecha_eepp < to_date('20210322','YYYY-MM-DD') ) as PAGADO
-                                ,(select COALESCE(sum(reajustes),0) from cto_contrato_eepp where cto_contrato_eepp.codigo_carpeta=cto_contrato.codigo_carpeta and cto_contrato_eepp.tipo_eepp='EEPP' and (estado=1 or estado=3) and cto_contrato_eepp.fecha_eepp < to_date('20210322','YYYY-MM-DD') ) as reajuste
+                                ,(select COALESCE(sum(reajustes),0) from cto_contrato_eepp where cto_contrato_eepp.codigo_carpeta=cto_contrato.codigo_carpeta and cto_contrato_eepp.tipo_eepp='EEPP' and (estado=1 or estado=3) and cto_contrato_eepp.fecha_eepp < to_date('20210322','YYYY-MM-DD') ) as MONTO_REAJUSTES
                                 ,PLAZO_ORIGINAL
                                 ,(FECHA_INICIO + PLAZO_ORIGINAL) AS TERMINO_ORIGINAL
                                 ,(fecha_inicio + (select COALESCE(sum(n_dias),0) from CTO_contrato_modifica where CTO_contrato_modifica.codigo_carpeta=cto_contrato.codigo_carpeta and CTO_contrato_modifica.estado='TRAMITADA') + plazo_original) as FECHA_TERMINO
@@ -88,8 +87,8 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                             Resolucion = dr["RESOLUCION"].ToString(),
                             FechaResolucion = dr["FECHA_RESOLUCION"].ToString(),
                             FechaTramite = dr["FECHA_TRAMITE"].ToString(),
-                            FechaAperturaEconomica = dr["FECHA_APERTURA_TECNICA"].ToString(),
-                            FechaAperturaTecnica = dr["FECHA_APERTURA_ECONOMICA"].ToString(),
+                            FechaAperturaEconomica = dr["FECHA_APERTURA_ECONOMICA"].ToString(),
+                            FechaAperturaTecnica = dr["FECHA_APERTURA_TECNICA"].ToString(),
                             Contratista = dr["CONTRATISTA"].ToString(),
                             Residente = dr["RESIDENTE"].ToString(),
                             InspectorFiscal = dr["INSPECTOR_FISCAL"].ToString(),
@@ -97,14 +96,14 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                             CodigoAsesoria = dr["CODIGO_ASESORIA"].ToString(),
                             Financiamiento = dr["FINANCIAMIENTO"].ToString(),
                             Licitacion = dr["LICITACION"].ToString(),
-                            Reajustes = dr["REAJUSTES"].ToString(),
+                            TipoReajuste = dr["TIPOREAJUSTE"].ToString(),
                             IndiceBase = dr["INDICE_BASE"].ToString(),
                             PresupuestoOficial = dr["PRESUPUESTO_OFICIAL"].ToString(),
                             PresupuestoInicial = dr["PRESUPUESTO_INICIAL"].ToString(),
                             MontoModificatoriasTramitadas = dr["MONTO_MODIF_TRAMITADAS"].ToString(),
                             MontoActual = dr["MONTO_ACTUAL"].ToString(),
                             Pagado = dr["PAGADO"].ToString(),
-                            MontoReajustes = dr["REAJUSTES"].ToString(),
+                            MontoReajustes = dr["MONTO_REAJUSTES"].ToString(),
                             FechaInicio = dr["FECHA_INICIO"].ToString().ToString(),
                             PlazoOriginal = dr["PLAZO_ORIGINAL"].ToString(),
                             FechaTerminoOriginal = dr["TERMINO_ORIGINAL"].ToString().ToString(),
@@ -118,7 +117,10 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                             AmbitoContrato = dr["AMBITO_CONTRATO"].ToString().ToString(),
                             TipoCarpeta = dr["TIPO_CARPETA"].ToString().ToString(),
                             TipoContrato = dr["TIPO_CONTRATO"].ToString().ToString(),
-                            CodigoChileCompra = dr["CODIGO_CHILECOMPRA"].ToString().ToString()
+                            CodigoChileCompra = dr["CODIGO_CHILECOMPRA"].ToString().ToString(),
+                            Nota = dr["NOTA"].ToString().ToString(),
+                            AvanceFisico = dr["AVANCE_FISICO"].ToString().ToString(),
+                            AvanceFinanciero = dr["AVANCE_FINANCIERO"].ToString().ToString()
 
                         };
 

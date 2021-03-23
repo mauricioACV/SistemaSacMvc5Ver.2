@@ -21,10 +21,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     await obtenerGrupo();
     await obtenerRegiones();
     btnGeneraReporte.addEventListener('click', generarReporte);
+    ddlEstadoContrato.addEventListener('change', verificaOpcionesFiltros);
 });
 
 async function obtenerClases() {
-    const EndPoint = '/GestionContrato/ObtenerItemsAdministracionPorClaseUsuario';
+    const EndPoint = '/DominioItemsFormulario/ObtenerItemsAdministracionPorClaseUsuario';
     const data = {
         pGrupoUsuario: objUsuario.Usuario_Ingreso
     };
@@ -61,7 +62,7 @@ function llenarSelectClase(items) {
 };
 
 async function obtenerGrupo() {
-    const EndPoint = '/ReportesSac/ObtenerListadoGrupos';
+    const EndPoint = '/DominioItemsFormulario/ObtenerListadoGrupos';
 
     try {
         const request = await fetch(EndPoint, {
@@ -87,7 +88,7 @@ function llenarSelectGrupo(items) {
 }
 
 async function obtenerRegiones() {
-    const EndPoint = '/ReportesSac/ObtenerRegiones';
+    const EndPoint = '/DominioItemsFormulario/ObtenerRegiones';
 
     try {
         const request = await fetch(EndPoint, {
@@ -142,3 +143,13 @@ async function obtenerListadoObras() {
         console.log(error)
     }
 };
+
+function verificaOpcionesFiltros() {
+    console.log(ddlEstadoContrato.value);
+    if (ddlEstadoContrato.value === 'EN EJECUCION') {
+        const divRangoFechas = document.querySelector('#divRangoFechas');
+        divRangoFechas.style.display = 'none';
+    } else {
+        divRangoFechas.style.display = 'block';
+    }
+}

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SistemaSacMvcVer2.Dominio.Entidades
+﻿namespace SistemaSacMvcVer2.Dominio.Entidades
 {
     public class ReportesSac
     {
@@ -35,7 +29,7 @@ namespace SistemaSacMvcVer2.Dominio.Entidades
         public string CodigoAsesoria { get; set; }
         public string Financiamiento { get; set; }
         public string Licitacion { get; set; }
-        public string Reajustes { get; set; }
+        public string TipoReajuste { get; set; }
         public string IndiceBase { get; set; }
         public string PresupuestoOficial { get; set; }
         public string MontoModificatoriasTramitadas { get; set; }

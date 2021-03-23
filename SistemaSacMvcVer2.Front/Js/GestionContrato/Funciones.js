@@ -9,7 +9,7 @@ async function obtenerItemsGlobalesDDL(objSetupItemDropDownList) {
         pGrupoUsuario: `${pGrupoUsuario}`,
     };
     try {
-        const resultado = await fetch(`/GestionContrato/${endPoint}`, {
+        const resultado = await fetch(`/DominioItemsFormulario/${endPoint}`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -28,7 +28,7 @@ async function obtenerResidentePorPalabraClave() {
     const cadenaBusqueda = document.querySelector('#txtPalabraClaveResidente').value;
     const data = { pPalabraClave: cadenaBusqueda };
     try {
-        const resultado = await fetch('/GestionContrato/ObtenerResidentesPorPalabraClave', {
+        const resultado = await fetch('/DominioItemsFormulario/ObtenerResidentesPorPalabraClave', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -44,7 +44,7 @@ async function obtenerResidentePorPalabraClave() {
 
 async function obtieneItemsSafi() {
 
-    const url = '/GestionContrato/ObtenerInfoContratoPorCodigoSafi';
+    const url = '/DominioItemsFormulario/ObtenerInfoContratoPorCodigoSafi';
 
     if (txtCodigoSafi.value !== "") {
 

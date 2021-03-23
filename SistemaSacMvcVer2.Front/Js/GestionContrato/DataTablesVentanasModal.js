@@ -26,7 +26,7 @@ function llenarModalInspectorFiscal() {
         "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 
         "ajax": {
-            "url": "/GestionContrato/ObtenerListadoInspectorFiscalActivos",
+            "url": "/DominioItemsFormulario/ObtenerListadoInspectorFiscalActivos",
             "type": "POST",
             "datatype": "json"
         },
@@ -80,7 +80,7 @@ function llenarModalVisitadores() {
         "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 
         "ajax": {
-            "url": "/GestionContrato/ObtenerListadoVisitadoresActivos",
+            "url": "/DominioItemsFormulario/ObtenerListadoVisitadoresActivos",
             "type": "POST",
             "datatype": "json"
         },
@@ -134,7 +134,7 @@ function llenarModalAsesoria() {
         "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 
         "ajax": {
-            "url": "/GestionContrato/ObtenerAsesoriaContratosEnEjecucionOrGarantia",
+            "url": "/DominioItemsFormulario/ObtenerAsesoriaContratosEnEjecucionOrGarantia",
             "data": { pGrupoUsuario: objUsuario.Usuario_Ingreso },
             "type": "POST",
             "datatype": "json"
@@ -188,7 +188,7 @@ function llenarModalContratista() {
         "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 
         "ajax": {
-            "url": "/GestionContrato/ObtenerContratistas",
+            "url": "/DominioItemsFormulario/ObtenerContratistas",
             "type": "POST",
             "datatype": "json"
         },

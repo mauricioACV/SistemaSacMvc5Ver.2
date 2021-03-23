@@ -1,10 +1,4 @@
-﻿using SistemaSacMvcVer2.Dominio.Entidades;
-using SistemaSacMvcVer2.Infraestructura.Servicios.WebServices.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SistemaSacMvcVer2.Infraestructura.Servicios.WebServices.Interfaces;
 
 namespace SistemaSacMvcVer2.Infraestructura.Interfaces
 {

@@ -9,7 +9,7 @@ namespace SistemaSacMvcVer2.Front.App_Start
     using SistemaSacMvcVer2.Aplicación.Servicios;
     using SistemaSacMvcVer2.Dominio.Interfaces;
     using SistemaSacMvcVer2.Dominio.Interfaces.ICtoContrato;
-    using SistemaSacMvcVer2.Dominio.Interfaces.ICtoGrupoClase;
+    using SistemaSacMvcVer2.Dominio.Interfaces.IDominioItemsFormulario;
     using SistemaSacMvcVer2.Dominio.Interfaces.IReportesSac;
     using SistemaSacMvcVer2.Infraestructura.Interfaces;
     using SistemaSacMvcVer2.Infraestructura.Repositorios.UnitOfWork;
@@ -67,7 +67,7 @@ namespace SistemaSacMvcVer2.Front.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<ICtoGrupoClaseServicio>().To<CtoGrupoClaseServicio>();
+            kernel.Bind<IDominioItemsFormularioServicio>().To<DominioItemsFormularioServicio>();
             kernel.Bind<IReportesSacServicio>().To<ReportesSacServicio>();
             kernel.Bind<ICtoContratoServicio>().To<CtoContratoServicio>();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();

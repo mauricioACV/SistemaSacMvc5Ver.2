@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SistemaSacMvcVer2.Dominio.Entidades
+﻿namespace SistemaSacMvcVer2.Dominio.Entidades
 {
     public class CtoContrato
     {

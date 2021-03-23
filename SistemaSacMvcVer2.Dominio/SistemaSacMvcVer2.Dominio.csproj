@@ -57,10 +57,10 @@
     <Compile Include="Interfaces\ICtoContrato\ICtoContratoServicio.cs" />
     <Compile Include="Interfaces\ICtoDominio\ICtoDominioRepositorio.cs" />
     <Compile Include="Interfaces\ICtoGrupoClase\ICtoGrupoClaseRepositorio.cs" />
-    <Compile Include="Interfaces\ICtoGrupoClase\ICtoGrupoClaseServicio.cs" />
     <Compile Include="Interfaces\ICtoInspectorFiscal\ICtoInspectorFiscalRepositorio.cs" />
     <Compile Include="Interfaces\ICtoResidente\ICtoResidenteRepositorio.cs" />
     <Compile Include="Interfaces\ICtoVisitador\ICtoVisitadorRepositorio.cs" />
+    <Compile Include="Interfaces\IDominioItemsFormulario\IDominioItemsFormularioServicio.cs" />
     <Compile Include="Interfaces\IIndiceBase\IIndiceBaseRepositorio.cs" />
     <Compile Include="Interfaces\IReportesSac\IReportesSacRepositorio.cs" />
     <Compile Include="Interfaces\IReportesSac\IReportesSacServicio.cs" />
