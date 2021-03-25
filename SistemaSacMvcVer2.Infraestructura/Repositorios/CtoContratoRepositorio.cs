@@ -1,4 +1,5 @@
 ﻿using Oracle.ManagedDataAccess.Client;
+using SistemaSacMvcVer2.Dominio.Common.Models.ReportesSac;
 using SistemaSacMvcVer2.Dominio.Entidades;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoContrato;
 using System;
@@ -54,6 +55,45 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             }
 
             return ListadoContrato;
+        }
+
+        public List<string> ObtenerObrasRegionalesAdministradasPorCentral(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> ListadoObrasRegionalesAdmCentral = new List<string>();
+
+            try
+            {
+                var query = @"select distinct(c.CODIGO_CARPETA) from cto_contrato c
+                                inner join cto_contrato_comuna com on c.CODIGO_CARPETA = com.CODIGO_CARPETA
+                                where c.estado_contrato = :pEstadoContrato and (C.GRUPO = 'CENTRAL' and com.region = :pRegion)";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pEstadoContrato", filtroReporteBasico.EstadoContrato));
+                cmd.Parameters.Add(new OracleParameter(":pRegion", filtroReporteBasico.Grupo));
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        ListadoObrasRegionalesAdmCentral.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return ListadoObrasRegionalesAdmCentral;
         }
     }
 }

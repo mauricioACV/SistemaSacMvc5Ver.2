@@ -1,4 +1,5 @@
-﻿using SistemaSacMvcVer2.Dominio.Interfaces.IReportesSac;
+﻿using SistemaSacMvcVer2.Dominio.Common.Models.ReportesSac;
+using SistemaSacMvcVer2.Dominio.Interfaces.IReportesSac;
 using System.Web.Mvc;
 
 namespace SistemaSacMvcVer2.Front.Controllers
@@ -19,9 +20,9 @@ namespace SistemaSacMvcVer2.Front.Controllers
         }
 
         [HttpPost]
-        public ActionResult ObtenerListadoBasicoObras()
+        public ActionResult ObtenerListadoBasicoObras(ReportesSacFiltros filtroReporteBasico)
         {
-            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObras();
+            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObras(filtroReporteBasico);
             return Json(new { data = ListadoBasicoObras });
         }
     }

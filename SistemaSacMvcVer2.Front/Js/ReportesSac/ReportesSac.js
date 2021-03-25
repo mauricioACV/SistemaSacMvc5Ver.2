@@ -15,13 +15,17 @@ const dateInicio = document.querySelector('#dateInicio');
 const dateFin = document.querySelector('#dateFin');
 const ddlEstadoContrato = document.querySelector('#ddlEstadoContrato');
 const ddlTipoContrato = document.querySelector('#ddlTipoContrato');
+const chkAdminCentral = document.querySelector('#chkAdminCentral');
+const chkRangoFechas = document.querySelector('#chkRangoFechas');
 
 document.addEventListener('DOMContentLoaded', async () => {
     await obtenerClases();
     await obtenerGrupo();
     await obtenerRegiones();
     btnGeneraReporte.addEventListener('click', generarReporte);
+    ddlGrupo.addEventListener('change', verificaOpcionesFiltros);
     ddlEstadoContrato.addEventListener('change', verificaOpcionesFiltros);
+    chkRangoFechas.addEventListener('change', verificaOpcionesFiltros);
 });
 
 async function obtenerClases() {
@@ -114,42 +118,78 @@ function llenarSelectRegiones(items) {
 }
 
 function generarReporte() {
-    const paramReportes = {
+    const filtroReportes = {
         grupo: ddlGrupo.value,
         fechaDesde: dateInicio.value,
         fechaHasta: dateFin.value,
         estadoContrato: ddlEstadoContrato.value,
         region: ddlRegion.value,
-        tipoContrato: ddlTipoContrato,
-        clase: ddlClase.value
+        tipoContrato: ddlTipoContrato.value,
+        clase: ddlClase.value,
+        IncluirCentral: chkAdminCentral.checked,
     }
 
     //Enviar datos al servidor y realizar la consulta
-    obtenerListadoObras();
+    //console.log(filtroReportes);
+    obtenerListadoObras(filtroReportes);
 }
 
-async function obtenerListadoObras() {
+async function obtenerListadoObras(filtroReportes) {
     const EndPoint = '/ReportesSac/ObtenerListadoBasicoObras';
+    const filtroReporteBasico = filtroReportes;
 
     try {
         const request = await fetch(EndPoint, {
-            method: 'POST'
+            method: 'POST',
+            body: JSON.stringify(filtroReporteBasico),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
 
         const listadoBasicoObras = await request.json();
-        console.log(listadoBasicoObras);
+        document.querySelector('#form-listado').reset();
+        console.log(listadoBasicoObras.data);
 
     } catch (error) {
         console.log(error)
     }
 };
 
-function verificaOpcionesFiltros() {
-    console.log(ddlEstadoContrato.value);
-    if (ddlEstadoContrato.value === 'EN EJECUCION') {
+function verificaOpcionesFiltros(e) {
+
+    console.log(e.target.id);
+    if (e.target.id === 'ddlGrupo') {
+        const grupo = ddlGrupo.value;
+        const divChkAdminCentral = document.querySelector('#divChkAdminCentral');
+        const divRegion = document.querySelector('#divRegion');
+
+        if (grupo !== 'CENTRAL' && grupo !== 'DOP' && grupo !== 'D.I.V.URBANA' && grupo !== 'D.INGENIERIA' && grupo !== 'D.REDES') {
+            divRegion.style.display = 'none';
+            divChkAdminCentral.style.display = 'block';
+        } else {
+            divRegion.style.display = 'none';
+            divChkAdminCentral.style.display = 'none';
+        }
+    }
+
+    if (e.target.id === 'ddlEstadoContrato') {
         const divRangoFechas = document.querySelector('#divRangoFechas');
-        divRangoFechas.style.display = 'none';
-    } else {
+        const divChkRangoFechas = document.querySelector('#divChkRangoFechas');
+
+        if (ddlEstadoContrato.value === 'EN EJECUCION') {
+            chkRangoFechas.checked = false;
+            divRangoFechas.style.display = 'none';
+            divChkRangoFechas.style.display = 'none';
+        } else {
+            divChkRangoFechas.style.display = 'block';
+        }
+    }
+
+    if (chkRangoFechas.checked) {
         divRangoFechas.style.display = 'block';
+    } else {
+        divRangoFechas.style.display = 'none';
     }
 }
+
