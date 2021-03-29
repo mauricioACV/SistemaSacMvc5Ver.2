@@ -129,38 +129,18 @@ function generarReporte() {
         IncluirCentral: chkAdminCentral.checked,
     }
 
-    //Enviar datos al servidor y realizar la consulta
-    //console.log(filtroReportes);
-    obtenerListadoObras(filtroReportes);
+    //Enviar datos a pagina que hara solitud al servidor y renderiza resultados
+    localStorage.setItem('filtroReporteObras', JSON.stringify(filtroReportes));
+    window.open('/ReportesSac/ReporteBasicoDeObras')
+    document.querySelector('#form-listado').reset();
 }
-
-async function obtenerListadoObras(filtroReportes) {
-    const EndPoint = '/ReportesSac/ObtenerListadoBasicoObras';
-    const filtroReporteBasico = filtroReportes;
-
-    try {
-        const request = await fetch(EndPoint, {
-            method: 'POST',
-            body: JSON.stringify(filtroReporteBasico),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        const listadoBasicoObras = await request.json();
-        document.querySelector('#form-listado').reset();
-        console.log(listadoBasicoObras.data);
-
-    } catch (error) {
-        console.log(error)
-    }
-};
 
 function verificaOpcionesFiltros(e) {
 
     console.log(e.target.id);
     if (e.target.id === 'ddlGrupo') {
         const grupo = ddlGrupo.value;
+        console.log(grupo);
         const divChkAdminCentral = document.querySelector('#divChkAdminCentral');
         const divRegion = document.querySelector('#divRegion');
 
@@ -168,7 +148,7 @@ function verificaOpcionesFiltros(e) {
             divRegion.style.display = 'none';
             divChkAdminCentral.style.display = 'block';
         } else {
-            divRegion.style.display = 'none';
+            divRegion.style.display = 'block';
             divChkAdminCentral.style.display = 'none';
         }
     }

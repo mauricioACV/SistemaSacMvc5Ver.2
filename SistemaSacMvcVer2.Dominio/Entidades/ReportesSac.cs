@@ -3,6 +3,7 @@
     public class ReportesSac
     {
         public string Grupo { get; set; }
+        public string Clase { get; set; }
         public string EstadoContrato { get; set; }
         public string TipoContrato { get; set; }
         public string CodigoChileCompra { get; set; }

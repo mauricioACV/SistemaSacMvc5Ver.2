@@ -44,7 +44,7 @@ async function obtenerResidentePorPalabraClave() {
 
 async function obtieneItemsSafi() {
 
-    const url = '/DominioItemsFormulario/ObtenerInfoContratoPorCodigoSafi';
+    const url = '/GestionContrato/ObtenerInfoContratoPorCodigoSafi';
 
     if (txtCodigoSafi.value !== "") {
 
@@ -74,6 +74,8 @@ async function obtieneItemsSafi() {
 
 
         } catch (error) {
+            setTimeout(() => { $('#modalSpinner').modal('hide') }, 500)
+            console.log('Ocurrio un error WS');
             console.log(error)
         }
     }

@@ -32,6 +32,6 @@ namespace SistemaSacMvcVer2.Dominio.Interfaces
 
         ICtoComunaRepositorio CtoComunaRepositorio { get; }
 
-        IReportesSacRepositorio ReportesSac { get; }
+        IReportesSacRepositorio ReportesSacRepositorio { get; }
     }
 }

@@ -52,11 +52,14 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios.UnitOfWork
 
         public ICtoComunaRepositorio CtoComunaRepositorio => _comunaRepositorio ?? new CtoComunaRepositorio(_conexion);
 
-        public IReportesSacRepositorio ReportesSac => _reportesSacRepositorio ?? new ReportesSacRepositorio(_conexion);
+        public IReportesSacRepositorio ReportesSacRepositorio => _reportesSacRepositorio ?? new ReportesSacRepositorio(_conexion);
 
         public void Dispose()
         {
-            _conexion?.Dispose();
+            if(_conexion != null)
+            {
+                _conexion.Dispose();
+            }
         }
     }
 }

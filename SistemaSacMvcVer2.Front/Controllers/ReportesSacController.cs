@@ -14,7 +14,12 @@ namespace SistemaSacMvcVer2.Front.Controllers
         }
 
         // GET: ReportesSac
-        public ActionResult ListadoObras()
+        public ActionResult FiltrosListadoObras()
+        {
+            return View();
+        }
+
+        public ActionResult ReporteBasicoDeObras()
         {
             return View();
         }
@@ -23,6 +28,20 @@ namespace SistemaSacMvcVer2.Front.Controllers
         public ActionResult ObtenerListadoBasicoObras(ReportesSacFiltros filtroReporteBasico)
         {
             var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObras(filtroReporteBasico);
+            return Json(new { data = ListadoBasicoObras });
+        }
+
+        [HttpPost]
+        public ActionResult ObtenerListadoBasicoObrasPorEstadoGrupoTipoContrato(ReportesSacFiltros filtroReporteBasico)
+        {
+            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasPorEstadoGrupoTipoContrato(filtroReporteBasico);
+            return Json(new { data = ListadoBasicoObras });
+        }
+
+        [HttpPost]
+        public ActionResult ObtenerListadoBasicoObrasPorEstadoGrupoSoloObras(ReportesSacFiltros filtroReporteBasico)
+        {
+            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasPorEstadoGrupoSoloObras(filtroReporteBasico);
             return Json(new { data = ListadoBasicoObras });
         }
     }

@@ -1,0 +1,94 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- DataTables -->
+    <link href="~/Vendors/datatable/export/datatables.min.css" rel="stylesheet" />
+    <link href="~/Vendors/datatable/export/DataTables-1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+    <link href="~/Vendors/datatable/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <link href="~/Vendors/datatable/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css" />
+    <!-- DataTables -->
+    <link href="~/Vendors/fontawesome/css/all.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Reporte Basico De Obras SAC</title>
+</head>
+<body>
+    <div>
+        <p>Página Reporte Basico de Obras Sac</p>
+    </div>
+    <div>
+        <div class="col-lg-12">
+            <div class="">
+                <table id="tablaReporteBasicoObras" class="table table-bordered table-hover dt-responsive table-striped nowrap" cellspacing="0" style="width:100%; font-size:12px">
+                    <thead>
+                        <tr>
+                            <th>Estado Contrato</th>
+                            <th class="">Carpeta</th>
+                            <th class="">SAFI</th>
+                            <th class="">Administración</th>
+                            <th class="">Nombre</th>
+                            <th class="">Resolución</th>
+                            <th class="">Fecha Resolución</th>
+                            <th class="">Fecha Trámite</th>
+                            <th class="">Fecha A. Económica</th>
+                            <th class="">Fecha A. Técnica</th>
+                            <th class="">Contratista</th>
+                            <th class="">Residente</th>
+                            <th class="">Inspector Fiscal</th>
+                            <th class="">Visitador</th>
+                            <th class="">Asesoría</th>
+                            <th class="">Financiamiento</th>
+                            <th class="">Licitación</th>
+                            <th class="">Tipo Reajuste</th>
+                            <th class="">Índice Base</th>
+                            <th class="">Presupuesto Oficial</th>
+                            <th class="">Presupuesto Inicial</th>
+                            <th class="">Monto Mod. Tramitadas</th>
+                            <th class="">Monto Actual (ma)</th>
+                            <th class="">Pagado (pa)</th>
+                            <th class="">Monto Reajuste</th>
+                            <th class="">Fecha Inicio</th>
+                            <th class="">Plazo Original</th>
+                            <th class="">Fecha Termino Original</th>
+                            <th class="">Mod. Días Tramitados</th>
+                            <th class="">Fecha Termino Legal</th>
+                            <th class="">Fecha Termino Real</th>
+                            <th class="">Mod. Días Pre-Aprob.</th>
+                            <th class="">Mod. Monto Pre-Aprob.</th>
+                            <th class="">Mod. Días No-Aprob.</th>
+                            <th class="">Mod. Monto No-Aprob.</th>
+                            <th class="">Longitud</th>
+                            <th class="">Carpeta</th>
+                            <th class="">Tipo Contrato</th>
+                            <th class="">Cód. Mercado Público</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbl_body_table"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf-8" src="~/Vendors/datatable/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="~/Vendors/datatable/dataTables.jqueryui.min.js"></script>
+
+    <script src="~/Vendors/datatable/export/Buttons-1.7.0/js/dataTables.buttons.min.js"></script>
+    <script src="~/Vendors/datatable/export/JSZip-2.5.0/jszip.min.js"></script>
+    <script src="~/Vendors/datatable/export/pdfmake-0.1.36/pdfmake.min.js"></script>
+    <script src="~/Vendors/datatable/export/pdfmake-0.1.36/vfs_fonts.js"></script>
+    <script src="~/Vendors/datatable/export/Buttons-1.7.0/js/buttons.html5.min.js"></script>
+    <script src="~/Vendors/datatable/export/Buttons-1.7.0/js/buttons.print.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/Js/ReportesSac/ReporteBasicoDeObras/ReporteBasicoDeObras.js"></script>
+</body>
+</html>

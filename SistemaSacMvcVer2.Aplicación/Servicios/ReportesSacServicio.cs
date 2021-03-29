@@ -19,7 +19,7 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
         public List<ReportesSac> ObtenerListadoBasicoObras(ReportesSacFiltros filtroReporteBasico)
         {
             List<ReportesSac> ListadoBacisoObras = new List<ReportesSac>();
-            ListadoBacisoObras = _unitOfWork.ReportesSac.ObtenerListadoBasicoObrasPorEstadoYgrupo(filtroReporteBasico);
+            ListadoBacisoObras = _unitOfWork.ReportesSacRepositorio.ObtenerListadoBasicoObrasPorEstadoYgrupo(filtroReporteBasico);
 
             if (filtroReporteBasico.IncluirCentral)
             {
@@ -27,12 +27,22 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
                 ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.ObtenerObrasRegionalesAdministradasPorCentral(filtroReporteBasico);
                 foreach (var codigoCarpeta in ListCodCarpetaObrasRegionAdmCentral)
                 {
-                    ListadoBacisoObras.Add(_unitOfWork.ReportesSac.ObtenerDatosBasicoObrasPorCodigoCarpeta(codigoCarpeta));
+                    ListadoBacisoObras.Add(_unitOfWork.ReportesSacRepositorio.ObtenerDatosBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                 }
             }
 
 
             return ListadoBacisoObras;
+        }
+
+        public List<ReportesSac> ObtenerListadoBasicoObrasPorEstadoGrupoSoloObras(ReportesSacFiltros filtroReporteBasico)
+        {
+            return _unitOfWork.ReportesSacRepositorio.ObtenerListadoBasicoObrasPorEstadoGrupoSoloObras(filtroReporteBasico);
+        }
+
+        public List<ReportesSac> ObtenerListadoBasicoObrasPorEstadoGrupoTipoContrato(ReportesSacFiltros filtroReporteBasico)
+        {
+            return _unitOfWork.ReportesSacRepositorio.ObtenerListadoBasicoObrasPorEstadoGrupoTipoContrato(filtroReporteBasico);
         }
     }
 }
