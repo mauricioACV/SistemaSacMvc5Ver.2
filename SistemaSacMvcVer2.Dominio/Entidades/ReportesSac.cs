@@ -6,6 +6,7 @@
         public string Clase { get; set; }
         public string EstadoContrato { get; set; }
         public string TipoContrato { get; set; }
+        public string Region { get; set; }
         public string CodigoChileCompra { get; set; }
         public string NombreContrato { get; set; }
         public string CodigoSafi { get; set; }

@@ -1,18 +1,39 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
-    const filtrosReporte = JSON.parse(localStorage.getItem('filtroReporteObras')) || [];
-    obtenerListadoObras(filtrosReporte);
+﻿const mensaje = document.querySelector('#mensaje');
+const filtrosReporte = JSON.parse(localStorage.getItem('filtroReporteObras')) || [];
+
+document.addEventListener('DOMContentLoaded', async () => {
+    await generarReporteHtml();
 });
 
-function obtenerListadoObras(filtroReporte) {
+function generarReporteHtml() {
+    spinner();
+    obtenerListadoObras(filtrosReporte);
+}
 
+function obtenerListadoObras(filtroReporte) {
+    console.log(filtroReporte);
     let endPoint;
 
-    if (filtroReporte.tipoContrato == "00" || filtroReporte.tipoContrato == "01") {
+    if (filtroReporte.estadoContrato !== "EJECUCION+TERMINADOS" && (filtroReporte.tipoContrato == "00" || filtroReporte.tipoContrato == "01")) {
+
         endPoint = "/ReportesSac/ObtenerListadoBasicoObrasPorEstadoGrupoTipoContrato";
-    } else if (filtroReporte.tipoContrato == "OBRAS") {
+
+    } else if (filtroReporte.estadoContrato !== "EJECUCION+TERMINADOS" && filtroReporte.tipoContrato == "OBRAS") {
+
         endPoint = "/ReportesSac/ObtenerListadoBasicoObrasPorEstadoGrupoSoloObras";
+
+    } else if (filtroReporte.estadoContrato == "EJECUCION+TERMINADOS" && (filtroReporte.tipoContrato == "00" || filtroReporte.tipoContrato == "01" || filtroReporte.tipoContrato == "OBRAS")) {
+
+        endPoint = "/ReportesSac/ObtenerListadoBasicoObrasEnEjecucionTerminados";
+
+    } else if (filtroReporte.estadoContrato == "EJECUCION+TERMINADOS" && filtroReporte.tipoContrato == "TODOS") {
+
+        endPoint = "/ReportesSac/ObtenerListadoBasicoObrasEnEjecucionTerminados";
+
     } else {
+
         endPoint = "/ReportesSac/ObtenerListadoBasicoObras";
+
     }
 
     Tabla = $("#tablaReporteBasicoObras").DataTable({
@@ -36,6 +57,7 @@ function obtenerListadoObras(filtroReporte) {
                 "sPrevious": "Anterior"
             },
         },
+        "fnInitComplete": removeSpinner,
         "dom":"Blfrtip",
         "reponsive": "true",
         "buttons": [
@@ -45,21 +67,22 @@ function obtenerListadoObras(filtroReporte) {
                 "titleAttr": "Exportar a Excel",
                 "className": "btm btn-success"
             },
-            {
-                "extend": "pdfHtml5",
-                "text": "<i class='fas fa-file-pdf'></i>",
-                "titleAttr": "Exportar a PDF",
-                "className": "btm btn-danger"
-            },
-            {
-                "extend": "print",
-                "text": "<i class='fas fa-print'></i>",
-                "titleAttr": "Imprinir",
-                "className": "btm btn-info"
-            }
+            //{
+            //    "extend": "pdfHtml5",
+            //    "text": "<i class='fas fa-file-pdf'></i>",
+            //    "titleAttr": "Exportar a PDF",
+            //    "className": "btm btn-danger"
+            //},
+            //{
+            //    "extend": "print",
+            //    "text": "<i class='fas fa-print'></i>",
+            //    "titleAttr": "Imprinir",
+            //    "className": "btm btn-info"
+            //}
         ],
 
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "processing": true,
 
         "ajax": {
             "url": `${endPoint}`,
@@ -68,11 +91,12 @@ function obtenerListadoObras(filtroReporte) {
             "datatype": "json"
         },
         "columns": [
-            { "data": "EstadoContrato", "name": "EstadoContrato", "autoWidth": true },
-            { "data": "CodigoCarpeta", "name": "CodigoCarpeta", "autoWidth": true },
+            { "data": "EstadoContrato", "name": "EstadoContrato"},
+            { "data": "Region", "name": "Region"},
+            { "data": "CodigoCarpeta", "name": "CodigoCarpeta"},
             { "data": "CodigoSafi", "name": "CodigoSafi", "autoWidth": true },
             { "data": "Clase", "name": "Clase", "autoWidth": true },
-            { "data": "NombreContrato", "name": "NombreContrato", "autoWidth": true },
+            { "data": "NombreContrato", "name": "NombreContrato"},
             { "data": "Resolucion", "name": "Resolucion", "autoWidth": true },
             { "data": "FechaResolucion", "name": "FechaResolucion", "autoWidth": true },
             { "data": "FechaTramite", "name": "FechaTramite", "autoWidth": true },
@@ -109,4 +133,32 @@ function obtenerListadoObras(filtroReporte) {
             { "data": "CodigoChileCompra", "name": "CodigoChileCompra", "autoWidth": true },
         ]
     });
+
 };
+
+function spinner() {
+    const divSpinner = document.createElement("div");
+
+    divSpinner.classList.add("text-center", "sk-fading-circle");
+
+    divSpinner.innerHTML = `
+          <div class="sk-circle1 sk-circle"></div>
+          <div class="sk-circle2 sk-circle"></div>
+          <div class="sk-circle3 sk-circle"></div>
+          <div class="sk-circle4 sk-circle"></div>
+          <div class="sk-circle5 sk-circle"></div>
+          <div class="sk-circle6 sk-circle"></div>
+          <div class="sk-circle7 sk-circle"></div>
+          <div class="sk-circle8 sk-circle"></div>
+          <div class="sk-circle9 sk-circle"></div>
+          <div class="sk-circle10 sk-circle"></div>
+          <div class="sk-circle11 sk-circle"></div>
+          <div class="sk-circle12 sk-circle"></div>
+      `;
+
+    mensaje.appendChild(divSpinner);
+};
+
+const removeSpinner = () => {
+   mensaje.removeChild(mensaje.firstChild);
+}

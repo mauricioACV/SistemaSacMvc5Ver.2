@@ -7,6 +7,8 @@ namespace SistemaSacMvcVer2.Dominio.Interfaces.ICtoContrato
     public interface ICtoContratoRepositorio
     {
         List<CtoContrato> ObtenerAsesoriaContratosEnEjecucionOrGarantia(string pGrupoUsuario);
-        List<string> ObtenerObrasRegionalesAdministradasPorCentral(ReportesSacFiltros filtroReporteBasico);
+        List<string> ObtenerObrasRegionalesAdministradasCentralPorEstadoContratoGrupo(ReportesSacFiltros filtroReporteBasico);
+        List<string> ObtenerObrasRegionalesAdministradasCentralPorEstadoTipoContrato(ReportesSacFiltros filtroReporteBasico);
+        List<string> ObtenerObrasRegionalesAdministradasCentralPorEstadoSoloObras(ReportesSacFiltros filtroReporteBasico);
     }
 }

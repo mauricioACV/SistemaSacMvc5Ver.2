@@ -9,7 +9,7 @@
     <div class="card col-md-8 p-3">
         <div class="col-md-12">
             <div class="x_title">
-                <h2><i class="fa fa-list-alt" aria-hidden="true"></i> <strong>Listado de Obras</strong></h2>
+                <h2><i class="fa fa-list-alt" aria-hidden="true"></i> <strong>Listado de Contratos</strong></h2>
                 <div class="clearfix"></div>
             </div>
             <form id="form-listado">
@@ -23,7 +23,7 @@
                         </div>
                         <div id="divChkAdminCentral" class="col-sm-6 col-lg-6 p-2 justify-content-center" style="display:none">
                             <input class="col-sm-1 col-lg-1 custom-checkbox" type="checkbox" id="chkAdminCentral" />
-                            <label class="col-sm-10 col-lg-10 p-0">Incluir Obras Administración Central</label>
+                            <label class="col-sm-10 col-lg-10 p-0">Incluir Contratos Administración Central</label>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                                 <option disabled selected value="">Seleccione Opción-></option>
                                 <option value="EN EJECUCION">EN EJECUCION</option>
                                 <option value="EN GARANTIA">TERMINADOS</option>
-                                <option value="EN EJECUCION Y TERMINADOS">EN EJECUCION + TERMINADOS</option>
+                                <option value="EJECUCION+TERMINADOS">EN EJECUCION + TERMINADOS</option>
                                 <option value="LIQUIDADO">LIQUIDADOS</option>
                                 <option value="TODOS">TODOS</option>
                             </select>
@@ -47,15 +47,15 @@
                     </div>
                 </div>
                 <div class="card p-2 m-1" id="divRangoFechas" style="display:none">
-                    <p class="card-header p-0"><strong>Resultados por rango de fechas</strong></p>
+                    <p class="card-header p-0"><strong>Resultados por rango de fechas (<i>en desarrollo...</i>)</strong></p>
                     <div class="form-group row p-1 mt-2">
                         <label class="col-sm-2 col-lg-2 col-form-label">Desde</label>
                         <div class="col-sm-4 col-lg-4">
-                            <input type="date" class="form-control input-radius" name="" id="dateInicio" />
+                            <input disabled type="date" class="form-control input-radius" name="" id="dateInicio" />
                         </div>
                         <label class="col-sm-2 col-lg-2 col-form-label">Hasta</label>
                         <div class="col-sm-4 col-lg-4">
-                            <input type="date" class="form-control input-radius" name="" id="dateFin" />
+                            <input disabled type="date" class="form-control input-radius" name="" id="dateFin" />
                         </div>
                     </div>
                 </div>
@@ -63,9 +63,10 @@
                     <div class="form-group row p-1">
                         <label class="col-sm-2 col-lg-2 col-form-label">Región</label>
                         <div class="col-sm-4 col-lg-4">
-                            <select class="form-control custom-select input-radius" style="width: 100%;" id="ddlRegion">
+                            <select disabled class="form-control custom-select input-radius" style="width: 100%;" id="ddlRegion">
                                 <option disabled selected value="">Seleccione Opción-></option>
                             </select>
+                            <label class="col-sm-10 col-lg-10 p-0"><i>en desarrollo...</i></label>
                         </div>
                     </div>
                 </div>
@@ -87,9 +88,10 @@
                     <div class="form-group row p-1">
                         <label class="col-sm-2 col-lg-2 col-form-label">Clase</label>
                         <div class="col-sm-4 col-lg-4">
-                            <select class="select2_multiple form-control input-radius" multiple="multiple" style="width: 100%" id="ddlClase">
+                            <select disabled class="select2_multiple form-control input-radius" multiple="multiple" style="width: 100%" id="ddlClase">
                                 <option disabled selected value="">Seleccione Opción-></option>
                             </select>
+                            <label class="col-sm-10 col-lg-10 p-0"><i>en desarrollo...</i></label>
                         </div>
                     </div>
                 </div>
@@ -104,5 +106,5 @@
 
 @section scripts{
 
-    <script src="~/Js/ReportesSac/ReportesSac.js"></script>
+    <script src="~/Js/ReportesSac/FiltrosListadoObras.js"></script>
 }

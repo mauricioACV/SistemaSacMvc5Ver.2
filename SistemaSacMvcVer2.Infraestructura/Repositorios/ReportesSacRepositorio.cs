@@ -26,6 +26,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             {
                 var query = @"select
                                 (select descripcion from CTO_DOMINIO WHERE CTO_dominio.dominio='CTO_TIPO_CONTRATO' and CTO_dominio.id_item=CTO_contrato.TIPO_CONTRATO) as TIPO_CONTRATO
+                                ,(select distinct(COM.region) from cto_contrato_comuna COM where cto_contrato.codigo_carpeta = COM.codigo_carpeta and cto_contrato.grupo = COM.region) as REGION
                                 ,CODIGO_CHILECOMPRA
                                 ,NOMBRE_CONTRATO
                                 ,TIPO_CARPETA
@@ -87,6 +88,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                             Grupo = dr["GRUPO"].ToString(),
                             Clase = dr["CLASE"].ToString(),
                             EstadoContrato = dr["ESTADO_CONTRATO"].ToString(),
+                            Region = dr["REGION"].ToString(),
                             CodigoCarpeta = dr["CODIGO_CARPETA"].ToString(),
                             CodigoSafi = dr["CODIGO_SAFI"].ToString(),
                             Administracion = dr["CLASE"].ToString(),
@@ -160,6 +162,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             {
                 var query = @"select
                                 (select descripcion from CTO_DOMINIO WHERE CTO_dominio.dominio='CTO_TIPO_CONTRATO' and CTO_dominio.id_item=CTO_contrato.TIPO_CONTRATO) as TIPO_CONTRATO
+                                ,(select distinct(COM.region) from cto_contrato_comuna COM where cto_contrato.codigo_carpeta = COM.codigo_carpeta and cto_contrato.grupo = COM.region) as REGION
                                 ,CODIGO_CHILECOMPRA
                                 ,NOMBRE_CONTRATO
                                 ,TIPO_CARPETA
@@ -216,6 +219,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                     while (dr.Read())
                     {
                         objReportesSac.EstadoContrato = dr["ESTADO_CONTRATO"].ToString();
+                        objReportesSac.Region = dr["REGION"].ToString();
                         objReportesSac.Grupo = dr["GRUPO"].ToString();
                         objReportesSac.Clase = dr["CLASE"].ToString();
                         objReportesSac.CodigoCarpeta = dr["CODIGO_CARPETA"].ToString();
@@ -286,6 +290,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             {
                 var query = @"select
                                 (select descripcion from CTO_DOMINIO WHERE CTO_dominio.dominio='CTO_TIPO_CONTRATO' and CTO_dominio.id_item=CTO_contrato.TIPO_CONTRATO) as TIPO_CONTRATO
+                                ,(select distinct(COM.region) from cto_contrato_comuna COM where cto_contrato.codigo_carpeta = COM.codigo_carpeta and cto_contrato.grupo = COM.region) as REGION
                                 ,CODIGO_CHILECOMPRA
                                 ,NOMBRE_CONTRATO
                                 ,TIPO_CARPETA
@@ -348,6 +353,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                             Grupo = dr["GRUPO"].ToString(),
                             Clase = dr["CLASE"].ToString(),
                             EstadoContrato = dr["ESTADO_CONTRATO"].ToString(),
+                            Region = dr["REGION"].ToString(),
                             CodigoCarpeta = dr["CODIGO_CARPETA"].ToString(),
                             CodigoSafi = dr["CODIGO_SAFI"].ToString(),
                             Administracion = dr["CLASE"].ToString(),
@@ -421,6 +427,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             {
                 var query = @"select
                                 (select descripcion from CTO_DOMINIO WHERE CTO_dominio.dominio='CTO_TIPO_CONTRATO' and CTO_dominio.id_item=CTO_contrato.TIPO_CONTRATO) as TIPO_CONTRATO
+                                ,(select distinct(COM.region) from cto_contrato_comuna COM where cto_contrato.codigo_carpeta = COM.codigo_carpeta and cto_contrato.grupo = COM.region) as REGION
                                 ,CODIGO_CHILECOMPRA
                                 ,NOMBRE_CONTRATO
                                 ,TIPO_CARPETA
@@ -482,6 +489,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                             Grupo = dr["GRUPO"].ToString(),
                             Clase = dr["CLASE"].ToString(),
                             EstadoContrato = dr["ESTADO_CONTRATO"].ToString(),
+                            Region = dr["REGION"].ToString(),
                             CodigoCarpeta = dr["CODIGO_CARPETA"].ToString(),
                             CodigoSafi = dr["CODIGO_SAFI"].ToString(),
                             Administracion = dr["CLASE"].ToString(),
@@ -539,7 +547,6 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             finally
             {
                 conexionDb.Close();
-                conexionDb.Dispose();
             }
 
 

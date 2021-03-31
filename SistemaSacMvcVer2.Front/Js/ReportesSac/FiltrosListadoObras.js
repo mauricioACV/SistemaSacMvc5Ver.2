@@ -132,7 +132,6 @@ function generarReporte() {
     //Enviar datos a pagina que hara solitud al servidor y renderiza resultados
     localStorage.setItem('filtroReporteObras', JSON.stringify(filtroReportes));
     window.open('/ReportesSac/ReporteBasicoDeObras')
-    document.querySelector('#form-listado').reset();
 }
 
 function verificaOpcionesFiltros(e) {
@@ -140,7 +139,6 @@ function verificaOpcionesFiltros(e) {
     console.log(e.target.id);
     if (e.target.id === 'ddlGrupo') {
         const grupo = ddlGrupo.value;
-        console.log(grupo);
         const divChkAdminCentral = document.querySelector('#divChkAdminCentral');
         const divRegion = document.querySelector('#divRegion');
 
@@ -150,6 +148,7 @@ function verificaOpcionesFiltros(e) {
         } else {
             divRegion.style.display = 'block';
             divChkAdminCentral.style.display = 'none';
+            chkAdminCentral.checked = false;
         }
     }
 

@@ -161,6 +161,7 @@
     <Content Include="Content\Alela\js\custom.min.js" />
     <Content Include="Content\EstilosSac\Estilos.css" />
     <Content Include="Content\EstilosSac\Spinner.css" />
+    <Content Include="Content\EstilosSac\Spinner2.css" />
     <Content Include="Content\images\img.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -172,7 +173,7 @@
     <Content Include="Js\GestionContrato\MainNuevoContrato.js" />
     <Content Include="Js\GestionContrato\SelectoresFormContrato.js" />
     <Content Include="Js\ReportesSac\ReporteBasicoDeObras\ReporteBasicoDeObras.js" />
-    <Content Include="Js\ReportesSac\ReportesSac.js" />
+    <Content Include="Js\ReportesSac\FiltrosListadoObras.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\SacV2Mvc_Desa.pubxml" />
