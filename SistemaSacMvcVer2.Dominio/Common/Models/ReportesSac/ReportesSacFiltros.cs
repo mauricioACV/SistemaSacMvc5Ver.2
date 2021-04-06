@@ -10,6 +10,7 @@ namespace SistemaSacMvcVer2.Dominio.Common.Models.ReportesSac
     {
         public string Grupo { get; set; }
         public bool IncluirCentral { get; set; }
+        public bool RangoFecha { get; set; }
         public string FechaDesde { get; set; }
         public string FechaHasta { get; set; }
         public string EstadoContrato { get; set; }

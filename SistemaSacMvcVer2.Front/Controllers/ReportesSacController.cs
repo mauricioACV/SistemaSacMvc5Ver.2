@@ -27,7 +27,7 @@ namespace SistemaSacMvcVer2.Front.Controllers
         [HttpPost]
         public ActionResult ObtenerListadoBasicoObras(ReportesSacFiltros filtroReporteBasico)
         {
-            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasPorEstadoYgrupo(filtroReporteBasico);
+            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasPorGrupoPorEstado(filtroReporteBasico);
             return Json(new { data = ListadoBasicoObras });
         }
 

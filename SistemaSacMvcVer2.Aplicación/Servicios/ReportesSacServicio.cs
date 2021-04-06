@@ -16,19 +16,49 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             _unitOfWork = unitOfWork;
         }
 
-        public List<ReportesSac> ObtenerListadoBasicoObrasPorEstadoYgrupo(ReportesSacFiltros filtroReporteBasico)
+        public List<ReportesSac> ObtenerListadoBasicoObrasPorGrupoPorEstado(ReportesSacFiltros filtroReporteBasico)
         {
             List<ReportesSac> ListadoBacisoObras = new List<ReportesSac>();
-            ListadoBacisoObras = _unitOfWork.ReportesSacRepositorio.ObtenerListadoBasicoObrasPorEstadoYgrupo(filtroReporteBasico);
+
+            if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "EN GARANTIA")
+            {
+                List<string> CodigoCarpetaPorFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoEntreFechas(filtroReporteBasico);
+
+                foreach (var codigoCarpeta in CodigoCarpetaPorFechas)
+                {
+                    ListadoBacisoObras.Add(_unitOfWork.ReportesSacRepositorio.ObtenerDatosBasicoObrasPorCodigoCarpeta(codigoCarpeta));
+                }
+            }
+            else
+            {
+                ListadoBacisoObras = _unitOfWork.ReportesSacRepositorio.ObtenerListadoBasicoObrasPorEstadoYgrupo(filtroReporteBasico);
+            }
+
 
             if (filtroReporteBasico.IncluirCentral)
             {
                 List<string> ListCodCarpetaObrasRegionAdmCentral = new List<string>();
-                ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.ObtenerObrasRegionalesAdministradasCentralPorEstadoContratoGrupo(filtroReporteBasico);
-                foreach (var codigoCarpeta in ListCodCarpetaObrasRegionAdmCentral)
+
+                if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "EN GARANTIA")
                 {
-                    ListadoBacisoObras.Add(_unitOfWork.ReportesSacRepositorio.ObtenerDatosBasicoObrasPorCodigoCarpeta(codigoCarpeta));
+                    filtroReporteBasico.Grupo = "CENTRAL";
+                    ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoEntreFechas(filtroReporteBasico);
+
+                    foreach (var codigoCarpeta in ListCodCarpetaObrasRegionAdmCentral)
+                    {
+                        ListadoBacisoObras.Add(_unitOfWork.ReportesSacRepositorio.ObtenerDatosBasicoObrasPorCodigoCarpeta(codigoCarpeta));
+                    }
                 }
+                else
+                {
+                    ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.ObtenerObrasRegionalesAdministradasCentralPorEstadoContratoGrupo(filtroReporteBasico);
+                    foreach (var codigoCarpeta in ListCodCarpetaObrasRegionAdmCentral)
+                    {
+                        ListadoBacisoObras.Add(_unitOfWork.ReportesSacRepositorio.ObtenerDatosBasicoObrasPorCodigoCarpeta(codigoCarpeta));
+                    }
+                }
+
+
             }
 
 
@@ -272,6 +302,7 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             ListadoObrasEjecucionTerminadosTodoTipoContrato.AddRange(ListadoAsesoriasEjecucion);
             ListadoObrasEjecucionTerminadosTodoTipoContrato.AddRange(ListadoEstudiosEjecucion);
             ListadoObrasEjecucionTerminadosTodoTipoContrato.AddRange(ListadoObrasEjecucion);
+
             ListadoObrasEjecucionTerminadosTodoTipoContrato.AddRange(ListadoAsesoriasTerminados);
             ListadoObrasEjecucionTerminadosTodoTipoContrato.AddRange(ListadoEstudiosTerminados);
             ListadoObrasEjecucionTerminadosTodoTipoContrato.AddRange(ListadoObrasTerminados);
@@ -287,5 +318,6 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
 
             return ListadoObrasEjecucionTerminadosTodoTipoContrato;
         }
+
     }
 }

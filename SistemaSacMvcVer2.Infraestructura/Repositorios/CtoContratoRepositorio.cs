@@ -151,6 +151,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                 cmd = new OracleCommand(query, conexionDb);
                 cmd.Parameters.Add(new OracleParameter(":pEstadoContrato", filtroReporteBasico.EstadoContrato));
                 cmd.Parameters.Add(new OracleParameter(":pRegion", filtroReporteBasico.Grupo));
+
                 conexionDb.Open();
 
                 using (dr = cmd.ExecuteReader())
@@ -173,6 +174,49 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             }
 
             return ListadoSoloObrasRegionalesAdmCentral;
+        }
+
+        public List<string> CodigosCarpetaEnGarantiaPorGrupoEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpetaEnGarantia = new List<string>();
+
+            try
+            {
+                var query = @"select codigo_carpeta, grupo from cto_contrato where
+                              fecha_real_termino BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
+                              and grupo = :pGrupo";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
+                cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CodigosCarpetaEnGarantia.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+
+
+            return CodigosCarpetaEnGarantia;
         }
     }
 }

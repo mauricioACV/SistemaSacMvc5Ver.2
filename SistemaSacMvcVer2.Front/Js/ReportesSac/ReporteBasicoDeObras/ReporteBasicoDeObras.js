@@ -1,8 +1,8 @@
 ﻿const mensaje = document.querySelector('#mensaje');
 const filtrosReporte = JSON.parse(localStorage.getItem('filtroReporteObras')) || [];
 
-document.addEventListener('DOMContentLoaded', async () => {
-    await generarReporteHtml();
+document.addEventListener('DOMContentLoaded', () => {
+    generarReporteHtml();
 });
 
 function generarReporteHtml() {
@@ -92,7 +92,7 @@ function obtenerListadoObras(filtroReporte) {
         },
         "columns": [
             { "data": "EstadoContrato", "name": "EstadoContrato"},
-            { "data": "Region", "name": "Region"},
+            { "data": "Grupo", "name": "Grupo"},
             { "data": "CodigoCarpeta", "name": "CodigoCarpeta"},
             { "data": "CodigoSafi", "name": "CodigoSafi", "autoWidth": true },
             { "data": "Clase", "name": "Clase", "autoWidth": true },

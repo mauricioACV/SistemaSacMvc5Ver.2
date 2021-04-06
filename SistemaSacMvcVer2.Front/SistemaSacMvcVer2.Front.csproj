@@ -1630,6 +1630,7 @@
     <Content Include="Vendors\nprogress\nprogress.js" />
     <Content Include="Vendors\nprogress\support\extras.css" />
     <Content Include="Vendors\nprogress\support\style.css" />
+    <Content Include="Vendors\SweetAlert2\sweetalert2%4010.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

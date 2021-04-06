@@ -118,20 +118,29 @@ function llenarSelectRegiones(items) {
 }
 
 function generarReporte() {
-    const filtroReportes = {
-        grupo: ddlGrupo.value,
-        fechaDesde: dateInicio.value,
-        fechaHasta: dateFin.value,
-        estadoContrato: ddlEstadoContrato.value,
-        region: ddlRegion.value,
-        tipoContrato: ddlTipoContrato.value,
-        clase: ddlClase.value,
-        IncluirCentral: chkAdminCentral.checked,
-    }
 
-    //Enviar datos a pagina que hara solitud al servidor y renderiza resultados
-    localStorage.setItem('filtroReporteObras', JSON.stringify(filtroReportes));
-    window.open('/ReportesSac/ReporteBasicoDeObras')
+    if (ddlGrupo.value == "" || ddlEstadoContrato.value == "") {
+        console.log('Debe Escoger opciones de Grupo y Estado')
+    } else {
+        const fechaInicio = convierteFechaDiaMesAgno(dateInicio.value);
+        const fechaFin = convierteFechaDiaMesAgno(dateFin.value);
+
+        const filtroReportes = {
+            grupo: ddlGrupo.value,
+            rangoFecha: chkRangoFechas.checked,
+            fechaDesde: fechaInicio,
+            fechaHasta: fechaFin,
+            estadoContrato: ddlEstadoContrato.value,
+            region: ddlRegion.value,
+            tipoContrato: ddlTipoContrato.value,
+            clase: ddlClase.value,
+            IncluirCentral: chkAdminCentral.checked,
+        }
+        //Enviar datos a pagina que hara solitud al servidor y renderiza resultados
+        localStorage.setItem('filtroReporteObras', JSON.stringify(filtroReportes));
+        window.open('/ReportesSac/ReporteBasicoDeObras')
+    }
+    
 }
 
 function verificaOpcionesFiltros(e) {
@@ -172,3 +181,10 @@ function verificaOpcionesFiltros(e) {
     }
 }
 
+function convierteFechaDiaMesAgno(fecha) {
+    const agno = fecha.split("-")[0];
+    const mes = fecha.split("-")[1];
+    const dia = fecha.split("-")[2];
+    const fechaDiaMesAgno = `${dia}-${mes}-${agno}`;
+    return fechaDiaMesAgno;
+}

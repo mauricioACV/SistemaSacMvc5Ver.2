@@ -192,7 +192,7 @@ function fijarValorResidente(Rut, Nombres, Apellidos) {
 function convierteFechaFormatoIso(fecha) {
     const dia = fecha.split("-")[0];
     const mes = fecha.split("-")[1];
-    const ano = fecha.split("-")[2];
-    const fechaISo = `${ano}-${mes}-${dia}`;
+    const agno = fecha.split("-")[2];
+    const fechaISo = `${agno}-${mes}-${dia}`;
     return fechaISo;
 }
