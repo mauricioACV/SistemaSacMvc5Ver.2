@@ -186,7 +186,8 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             {
                 var query = @"select codigo_carpeta, grupo from cto_contrato where
                               fecha_real_termino BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
-                              and grupo = :pGrupo";
+                              and grupo = :pGrupo
+                              and estado_contrato = 'EN GARANTIA'";
 
                 cmd = new OracleCommand(query, conexionDb);
                 cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
@@ -214,7 +215,95 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                 conexionDb.Close();
             }
 
+            return CodigosCarpetaEnGarantia;
+        }
 
+        public List<string> CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpetaEnGarantia = new List<string>();
+
+            try
+            {
+                var query = @"select codigo_carpeta, grupo from cto_contrato
+                              where
+                              fecha_real_termino BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
+                              and grupo = :pGrupo
+                              and estado_contrato = 'EN GARANTIA'
+                              and tipo_contrato = :pTipoContrato";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
+                cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CodigosCarpetaEnGarantia.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpetaEnGarantia;
+        }
+
+        public List<string> CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpetaEnGarantia = new List<string>();
+
+            try
+            {
+                var query = @"select codigo_carpeta, grupo from cto_contrato
+                              where
+                              fecha_real_termino BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
+                              and GRUPO = :pGrupo
+                              and ESTADO_CONTRATO = 'EN GARANTIA'
+                              and TIPO_CONTRATO <> '01'
+                              and TIPO_CONTRATO <> '00'";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
+                cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CodigosCarpetaEnGarantia.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
 
             return CodigosCarpetaEnGarantia;
         }

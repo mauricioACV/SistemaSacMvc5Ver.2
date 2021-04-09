@@ -45,6 +45,7 @@
     <Compile Include="Entidades\CtoComuna.cs" />
     <Compile Include="Entidades\CtoContratista.cs" />
     <Compile Include="Entidades\CtoContrato.cs" />
+    <Compile Include="Entidades\CtoContratoModifica.cs" />
     <Compile Include="Entidades\CtoDominio.cs" />
     <Compile Include="Entidades\CtoGrupoClase.cs" />
     <Compile Include="Entidades\CtoInspectorFiscal.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Entidades\ReportesSac.cs" />
     <Compile Include="Interfaces\ICtoComuna\ICtoComunaRepositorio.cs" />
     <Compile Include="Interfaces\ICtoContratista\ICtoContratistaRepositorio.cs" />
+    <Compile Include="Interfaces\ICtoContratoModifica\ICtoContratoModificaRepositorio.cs" />
     <Compile Include="Interfaces\ICtoContrato\ICtoContratoRepositorio.cs" />
     <Compile Include="Interfaces\ICtoContrato\ICtoContratoServicio.cs" />
     <Compile Include="Interfaces\ICtoDominio\ICtoDominioRepositorio.cs" />

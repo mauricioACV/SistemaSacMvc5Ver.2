@@ -1,6 +1,7 @@
 ﻿using SistemaSacMvcVer2.Dominio.Interfaces.ICtoComuna;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoContratista;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoContrato;
+using SistemaSacMvcVer2.Dominio.Interfaces.ICtoContratoModifica;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoDominio;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoGrupoClase;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoInspectorFiscal;
@@ -33,5 +34,7 @@ namespace SistemaSacMvcVer2.Dominio.Interfaces
         ICtoComunaRepositorio CtoComunaRepositorio { get; }
 
         IReportesSacRepositorio ReportesSacRepositorio { get; }
+
+        ICtoContratoModificaRepositorio CtoContratoModificaRepositorio { get; }
     }
 }

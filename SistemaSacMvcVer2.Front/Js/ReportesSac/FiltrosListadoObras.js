@@ -122,23 +122,28 @@ function generarReporte() {
     if (ddlGrupo.value == "" || ddlEstadoContrato.value == "") {
         console.log('Debe Escoger opciones de Grupo y Estado')
     } else {
-        const fechaInicio = convierteFechaDiaMesAgno(dateInicio.value);
-        const fechaFin = convierteFechaDiaMesAgno(dateFin.value);
+        if (chkRangoFechas.checked && (dateInicio.value === "" || dateFin.value === "")) {
+            console.log('Debe ingresar rango de fechas');
+        } else {
+            const fechaInicio = convierteFechaDiaMesAgno(dateInicio.value);
+            const fechaFin = convierteFechaDiaMesAgno(dateFin.value);
 
-        const filtroReportes = {
-            grupo: ddlGrupo.value,
-            rangoFecha: chkRangoFechas.checked,
-            fechaDesde: fechaInicio,
-            fechaHasta: fechaFin,
-            estadoContrato: ddlEstadoContrato.value,
-            region: ddlRegion.value,
-            tipoContrato: ddlTipoContrato.value,
-            clase: ddlClase.value,
-            IncluirCentral: chkAdminCentral.checked,
+            const filtroReportes = {
+                grupo: ddlGrupo.value,
+                rangoFecha: chkRangoFechas.checked,
+                fechaDesde: fechaInicio,
+                fechaHasta: fechaFin,
+                estadoContrato: ddlEstadoContrato.value,
+                region: ddlRegion.value,
+                tipoContrato: ddlTipoContrato.value,
+                clase: ddlClase.value,
+                IncluirCentral: chkAdminCentral.checked,
+            }
+            //Enviar datos a pagina que hara solitud al servidor y renderiza resultados
+            localStorage.setItem('filtroReporteObras', JSON.stringify(filtroReportes));
+            window.open('/ReportesSac/ReporteBasicoDeObras')
         }
-        //Enviar datos a pagina que hara solitud al servidor y renderiza resultados
-        localStorage.setItem('filtroReporteObras', JSON.stringify(filtroReportes));
-        window.open('/ReportesSac/ReporteBasicoDeObras')
+
     }
     
 }

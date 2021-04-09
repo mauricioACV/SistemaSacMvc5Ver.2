@@ -3,6 +3,7 @@ using SistemaSacMvcVer2.Dominio.Interfaces;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoComuna;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoContratista;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoContrato;
+using SistemaSacMvcVer2.Dominio.Interfaces.ICtoContratoModifica;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoDominio;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoGrupoClase;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoInspectorFiscal;
@@ -20,13 +21,14 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios.UnitOfWork
         private readonly ICtoDominioRepositorio _ctoDominioRepositorio;
         private readonly ICtoGrupoClaseRepositorio _ctoGrupoClaseRepositorio;
         private readonly IIndiceBaseRepositorio _indiceBaseRepositorio;
-        private readonly ICtoInspectorFiscalRepositorio _inspectorFiscalRepositorio;
-        private readonly ICtoVisitadorRepositorio _visitadorRepositorio;
-        private readonly ICtoContratoRepositorio _contratoRepositorio;
-        private readonly ICtoContratistaRepositorio _contratistaRepositorio;
-        private readonly ICtoResidenteRepositorio _residenteRepositorio;
-        private readonly ICtoComunaRepositorio _comunaRepositorio;
+        private readonly ICtoInspectorFiscalRepositorio _ctoInspectorFiscalRepositorio;
+        private readonly ICtoVisitadorRepositorio _ctoVisitadorRepositorio;
+        private readonly ICtoContratoRepositorio _ctoContratoRepositorio;
+        private readonly ICtoContratistaRepositorio _ctoContratistaRepositorio;
+        private readonly ICtoResidenteRepositorio _ctoResidenteRepositorio;
+        private readonly ICtoComunaRepositorio _ctoComunaRepositorio;
         private readonly IReportesSacRepositorio _reportesSacRepositorio;
+        private readonly ICtoContratoModificaRepositorio _ctoContratoModificaRepositorio;
 #pragma warning restore 0649
 
         public UnitOfWork()
@@ -40,19 +42,21 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios.UnitOfWork
 
         public IIndiceBaseRepositorio IndiceBaseRepositorio => _indiceBaseRepositorio ?? new IndiceBaseRepositorio(_conexion);
 
-        public ICtoInspectorFiscalRepositorio CtoInspectorFiscalRepositorio => _inspectorFiscalRepositorio ?? new CtoInspectorFiscalRepositorio(_conexion);
+        public ICtoInspectorFiscalRepositorio CtoInspectorFiscalRepositorio => _ctoInspectorFiscalRepositorio ?? new CtoInspectorFiscalRepositorio(_conexion);
 
-        public ICtoVisitadorRepositorio CtoVisitadorRepositorio => _visitadorRepositorio ?? new CtoVisitadorRepositorio(_conexion);
+        public ICtoVisitadorRepositorio CtoVisitadorRepositorio => _ctoVisitadorRepositorio ?? new CtoVisitadorRepositorio(_conexion);
 
-        public ICtoContratoRepositorio CtoContratoRepositorio => _contratoRepositorio ?? new CtoContratoRepositorio(_conexion);
+        public ICtoContratoRepositorio CtoContratoRepositorio => _ctoContratoRepositorio ?? new CtoContratoRepositorio(_conexion);
 
-        public ICtoContratistaRepositorio CtoContratistaRepositorio => _contratistaRepositorio ?? new CtoContratistaRepositorio(_conexion);
+        public ICtoContratistaRepositorio CtoContratistaRepositorio => _ctoContratistaRepositorio ?? new CtoContratistaRepositorio(_conexion);
 
-        public ICtoResidenteRepositorio CtoResidenteRepositorio => _residenteRepositorio ?? new CtoResidenteRepositorio(_conexion);
+        public ICtoResidenteRepositorio CtoResidenteRepositorio => _ctoResidenteRepositorio ?? new CtoResidenteRepositorio(_conexion);
 
-        public ICtoComunaRepositorio CtoComunaRepositorio => _comunaRepositorio ?? new CtoComunaRepositorio(_conexion);
+        public ICtoComunaRepositorio CtoComunaRepositorio => _ctoComunaRepositorio ?? new CtoComunaRepositorio(_conexion);
 
         public IReportesSacRepositorio ReportesSacRepositorio => _reportesSacRepositorio ?? new ReportesSacRepositorio(_conexion);
+
+        public ICtoContratoModificaRepositorio CtoContratoModificaRepositorio => _ctoContratoModificaRepositorio ?? new CtoContratoModificaRepositorio(_conexion);
 
         public void Dispose()
         {
