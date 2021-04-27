@@ -87,6 +87,7 @@ function llenarSelectGrupo(items) {
         const optionSelectGrupo = document.createElement('option');
         optionSelectGrupo.value = Grupo;
         optionSelectGrupo.textContent = Linea2;
+        if (Grupo === 'CENTRAL') { optionSelectGrupo.selected = true }
         ddlGrupo.appendChild(optionSelectGrupo);
     });
 }
@@ -182,6 +183,8 @@ function verificaOpcionesFiltros(e) {
     if (chkRangoFechas.checked) {
         divRangoFechas.style.display = 'block';
     } else {
+        dateInicio.value = '';
+        dateFin.value = '';
         divRangoFechas.style.display = 'none';
     }
 }

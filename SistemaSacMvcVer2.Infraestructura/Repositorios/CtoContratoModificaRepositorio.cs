@@ -18,7 +18,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             conexionDb = pDbConexion;
         }
 
-        public List<string> ObtenerCodigosCarpetaLiquidadosPorGrupoEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        public List<string> CodigosCarpetaLiquidadosPorGrupoEntreFechas(ReportesSacFiltros filtroReporteBasico)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
@@ -69,7 +69,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             return CodigosCarpetaLiquidados;
         }
 
-        public List<string> ObtenerCodigosCarpetaLiquidadosPorGrupoPorTipoContratoEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        public List<string> CodigosCarpetaLiquidadosPorGrupoPorTipoContratoEntreFechas(ReportesSacFiltros filtroReporteBasico)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
@@ -123,7 +123,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             return CodigosCarpetaLiquidados;
         }
 
-        public List<string> ObtenerCodigosCarpetaLiquidadosPorGrupoSoloObrasEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        public List<string> CodigosCarpetaLiquidadosPorGrupoSoloObrasEntreFechas(ReportesSacFiltros filtroReporteBasico)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
@@ -176,6 +176,55 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             }
 
             return CodigosCarpetaLiquidados;
+        }
+
+        public List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpetaLiquidadosPorGrupoAdminFechas = new List<string>();
+
+            try
+            {
+                var query = @"select distinct(c.codigo_carpeta), c.GRUPO, com.region from cto_contrato c 
+                                inner join cto_contrato_comuna com on c.codigo_carpeta = com.codigo_carpeta 
+                                inner join cto_contrato_modifica M on com.codigo_carpeta = m.codigo_carpeta 
+                                where 
+                                c.estado_contrato = 'LIQUIDADO' 
+                                and C.GRUPO = :pGrupo 
+                                and com.region = :pRegion 
+                                and m.tipo = 'LIQUIDADO' 
+                                and m.fecha_tramite BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')";
+
+                using (cmd = new OracleCommand(query, conexionDb))
+                {
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pRegion", filtroReporteBasico.Region));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+
+                    conexionDb.Open();
+
+                    using (dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            CodigosCarpetaLiquidadosPorGrupoAdminFechas.Add(dr["CODIGO_CARPETA"].ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpetaLiquidadosPorGrupoAdminFechas;
         }
     }
 }

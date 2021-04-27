@@ -16,7 +16,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             conexionDb = pDbConexion;
         }
 
-        public ReportesSac ObtenerDatosBasicoObrasPorCodigoCarpeta(string pCodigoCarpeta)
+        public ReportesSac ObtenerReporteBasicoObrasPorCodigoCarpeta(string pCodigoCarpeta)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
@@ -26,7 +26,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             {
                 var query = @"select
                                 (select descripcion from CTO_DOMINIO WHERE CTO_dominio.dominio='CTO_TIPO_CONTRATO' and CTO_dominio.id_item=CTO_contrato.TIPO_CONTRATO) as TIPO_CONTRATO
-                                ,(select distinct(COM.region) from cto_contrato_comuna COM where cto_contrato.codigo_carpeta = COM.codigo_carpeta and cto_contrato.grupo = COM.region) as REGION
+                                ,(select distinct(region) from CTO_contrato_comuna com where com.codigo_carpeta= cto_contrato.codigo_carpeta) as REGION
                                 ,CODIGO_CHILECOMPRA
                                 ,NOMBRE_CONTRATO
                                 ,TIPO_CARPETA

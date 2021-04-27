@@ -34,7 +34,7 @@ namespace SistemaSacMvcVer2.Front.Controllers
         [HttpPost]
         public ActionResult ObtenerListadoBasicoObrasPorEstadoGrupoTipoContrato(ReportesSacFiltros filtroReporteBasico)
         {
-            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasPorEstadoGrupoTipoContrato(filtroReporteBasico);
+            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasPorEstadoPorGrupoPorTipoContrato(filtroReporteBasico);
             return Json(new { data = ListadoBasicoObras });
         }
 
@@ -48,14 +48,21 @@ namespace SistemaSacMvcVer2.Front.Controllers
         [HttpPost]
         public ActionResult ObtenerListadoBasicoObrasEnEjecucionTerminados(ReportesSacFiltros filtroReporteBasico)
         {
-            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasEnEjecucionTerminados(filtroReporteBasico);
+            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasEnEjecucionMasTerminados(filtroReporteBasico);
             return Json(new { data = ListadoBasicoObras });
         }
 
         [HttpPost]
         public ActionResult ObtenerListadoBasicoObrasEnEjecucionTerminadosTodoTipoContrato(ReportesSacFiltros filtroReporteBasico)
         {
-            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasEnEjecucionTerminadosTodoTipoContrato(filtroReporteBasico);
+            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasEnEjecucionMasTerminadosTodoTipoContrato(filtroReporteBasico);
+            return Json(new { data = ListadoBasicoObras });
+        }
+
+        [HttpPost]
+        public ActionResult ObtenerListadoBasicoObrasRegionPorGrupoAdminPorEstadoContrato(ReportesSacFiltros filtroReporteBasico)
+        {
+            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasRegionPorGrupoAdminPorEstadoContrato(filtroReporteBasico);
             return Json(new { data = ListadoBasicoObras });
         }
     }

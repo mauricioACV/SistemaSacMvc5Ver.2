@@ -31,8 +31,11 @@ function obtenerListadoObras(filtroReporte) {
         endPoint = "/ReportesSac/ObtenerListadoBasicoObrasEnEjecucionTerminados";
 
     } else {
-
-        endPoint = "/ReportesSac/ObtenerListadoBasicoObras";
+        if (filtroReporte.region === '') {
+            endPoint = "/ReportesSac/ObtenerListadoBasicoObras";
+        } else {
+            endPoint = "/ReportesSac/ObtenerListadoBasicoObrasRegionPorGrupoAdminPorEstadoContrato";
+        }
 
     }
 
@@ -67,18 +70,6 @@ function obtenerListadoObras(filtroReporte) {
                 "titleAttr": "Exportar a Excel",
                 "className": "btm btn-success"
             },
-            //{
-            //    "extend": "pdfHtml5",
-            //    "text": "<i class='fas fa-file-pdf'></i>",
-            //    "titleAttr": "Exportar a PDF",
-            //    "className": "btm btn-danger"
-            //},
-            //{
-            //    "extend": "print",
-            //    "text": "<i class='fas fa-print'></i>",
-            //    "titleAttr": "Imprinir",
-            //    "className": "btm btn-info"
-            //}
         ],
 
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
@@ -92,10 +83,10 @@ function obtenerListadoObras(filtroReporte) {
         },
         "columns": [
             { "data": "EstadoContrato", "name": "EstadoContrato"},
-            { "data": "Grupo", "name": "Grupo"},
+            { "data": "Region", "name": "Region"},
             { "data": "CodigoCarpeta", "name": "CodigoCarpeta"},
             { "data": "CodigoSafi", "name": "CodigoSafi", "autoWidth": true },
-            { "data": "Clase", "name": "Clase", "autoWidth": true },
+            { "data": "Grupo", "name": "Grupo", "autoWidth": true },
             { "data": "NombreContrato", "name": "NombreContrato"},
             { "data": "Resolucion", "name": "Resolucion", "autoWidth": true },
             { "data": "FechaResolucion", "name": "FechaResolucion", "autoWidth": true },
