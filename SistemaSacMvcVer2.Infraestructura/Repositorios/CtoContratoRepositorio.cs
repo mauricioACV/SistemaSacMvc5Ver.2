@@ -519,5 +519,93 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
             return ListadoObrasRegionGrupoAdminFechas;
         }
+
+        public List<string> CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> ListadoObrasRegionGrupoAdmin = new List<string>();
+
+            try
+            {
+                var query = @"select distinct(C.CODIGO_CARPETA) from cto_contrato C
+                                inner join cto_contrato_comuna COM on C.CODIGO_CARPETA = COM.CODIGO_CARPETA
+                                where C.estado_contrato = :pEstadoContrato and c.tipo_contrato = :pTipoContrato and C.GRUPO = :pGrupo and COM.region = :pRegion";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pEstadoContrato", filtroReporteBasico.EstadoContrato));
+                cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                cmd.Parameters.Add(new OracleParameter(":pRegion", filtroReporteBasico.Region));
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        ListadoObrasRegionGrupoAdmin.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return ListadoObrasRegionGrupoAdmin;
+        }
+
+        public List<string> CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> ListadoObrasRegionalesAdmCentralTipoContrato = new List<string>();
+
+            try
+            {
+                var query = @"select distinct(c.CODIGO_CARPETA) from cto_contrato c
+                                inner join cto_contrato_comuna com on c.CODIGO_CARPETA = com.CODIGO_CARPETA
+                                where 
+                                c.estado_contrato = 'EN GARANTIA' 
+                                and C.tipo_contrato = :pTipoContrato 
+                                and C.GRUPO = :pGrupo 
+                                and com.region = :pRegion
+                                and C.fecha_real_termino BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.TipoContrato));
+                cmd.Parameters.Add(new OracleParameter(":pRegion", filtroReporteBasico.TipoContrato));
+                cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
+                cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        ListadoObrasRegionalesAdmCentralTipoContrato.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return ListadoObrasRegionalesAdmCentralTipoContrato;
+        }
     }
 }

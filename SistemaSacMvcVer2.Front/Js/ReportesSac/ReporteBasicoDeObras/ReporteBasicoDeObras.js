@@ -11,12 +11,17 @@ function generarReporteHtml() {
 }
 
 function obtenerListadoObras(filtroReporte) {
-    console.log(filtroReporte);
+    console.log('cache bust');
     let endPoint;
+    
 
     if (filtroReporte.estadoContrato !== "EJECUCION+TERMINADOS" && (filtroReporte.tipoContrato == "00" || filtroReporte.tipoContrato == "01")) {
 
-        endPoint = "/ReportesSac/ObtenerListadoBasicoObrasPorEstadoGrupoTipoContrato";
+        if (filtroReporte.region === '') {
+            endPoint = "/ReportesSac/ObtenerListadoBasicoObrasPorEstadoGrupoTipoContrato";
+        } else {
+            endPoint = "/ReportesSac/ObtenerListadoBasicoObrasRegionGrupoAdminPorTipoContrato";
+        }
 
     } else if (filtroReporte.estadoContrato !== "EJECUCION+TERMINADOS" && filtroReporte.tipoContrato == "OBRAS") {
 
@@ -36,7 +41,6 @@ function obtenerListadoObras(filtroReporte) {
         } else {
             endPoint = "/ReportesSac/ObtenerListadoBasicoObrasRegionPorGrupoAdminPorEstadoContrato";
         }
-
     }
 
     Tabla = $("#tablaReporteBasicoObras").DataTable({

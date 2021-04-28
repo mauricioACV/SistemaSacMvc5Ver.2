@@ -670,5 +670,40 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
 
         }
 
+        public List<ReportesSac> ObtenerListadoBasicoObrasRegionGrupoAdminPorTipoContrato(ReportesSacFiltros filtroReporteBasico)
+        {
+            List<ReportesSac> ListadoBasicoObrasRegionPorGrupoAdmin = new List<ReportesSac>();
+
+            if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "EN GARANTIA")
+            {
+                List<string> CodCarpetasEnGarantiaRegionPorGrupoAdminFechas = new List<string>();
+                CodCarpetasEnGarantiaRegionPorGrupoAdminFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoEntreFechas(filtroReporteBasico);
+                foreach (var codCarpeta in CodCarpetasEnGarantiaRegionPorGrupoAdminFechas)
+                {
+                    ListadoBasicoObrasRegionPorGrupoAdmin.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
+                }
+            }
+            else if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "LIQUIDADO")
+            {
+                List<string> CodCarpetasLiquidadosRegionPorGrupoAdminFechas = new List<string>();
+                CodCarpetasLiquidadosRegionPorGrupoAdminFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoEntreFechas(filtroReporteBasico);
+                foreach (var codCarpeta in CodCarpetasLiquidadosRegionPorGrupoAdminFechas)
+                {
+                    ListadoBasicoObrasRegionPorGrupoAdmin.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
+                }
+            }
+            else
+            {
+                List<string> CodCarpetasRegionPorGrupoAdmin = new List<string>();
+                CodCarpetasRegionPorGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(filtroReporteBasico);
+                foreach (var codCarpeta in CodCarpetasRegionPorGrupoAdmin)
+                {
+                    ListadoBasicoObrasRegionPorGrupoAdmin.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
+                }
+            }
+
+            return ListadoBasicoObrasRegionPorGrupoAdmin;
+        }
+
     }
 }

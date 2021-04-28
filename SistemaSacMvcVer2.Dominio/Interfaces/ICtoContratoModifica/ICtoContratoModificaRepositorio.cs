@@ -9,5 +9,6 @@ namespace SistemaSacMvcVer2.Dominio.Interfaces.ICtoContratoModifica
         List<string> CodigosCarpetaLiquidadosPorGrupoPorTipoContratoEntreFechas(ReportesSacFiltros filtroReporteBasico);
         List<string> CodigosCarpetaLiquidadosPorGrupoSoloObrasEntreFechas(ReportesSacFiltros filtroReporteBasico);
         List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminEntreFechas(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoEntreFechas(ReportesSacFiltros filtroReporteBasico);
     }
 }

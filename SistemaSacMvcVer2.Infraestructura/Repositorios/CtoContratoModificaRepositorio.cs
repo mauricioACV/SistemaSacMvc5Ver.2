@@ -226,5 +226,56 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
             return CodigosCarpetaLiquidadosPorGrupoAdminFechas;
         }
+
+        public List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpetaLiquidadosPorGrupoAdminFechas = new List<string>();
+
+            try
+            {
+                var query = @"select distinct(c.codigo_carpeta), c.GRUPO, com.region from cto_contrato c 
+                                inner join cto_contrato_comuna com on c.codigo_carpeta = com.codigo_carpeta 
+                                inner join cto_contrato_modifica M on com.codigo_carpeta = m.codigo_carpeta 
+                                where 
+                                c.estado_contrato = 'LIQUIDADO'
+                                and c.TIPO_CONTRATO = :pTipoContrato
+                                and C.GRUPO = :pGrupo 
+                                and com.region = :pRegion 
+                                and m.tipo = 'LIQUIDADO' 
+                                and m.fecha_tramite BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')";
+
+                using (cmd = new OracleCommand(query, conexionDb))
+                {
+                    cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pRegion", filtroReporteBasico.Region));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+
+                    conexionDb.Open();
+
+                    using (dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            CodigosCarpetaLiquidadosPorGrupoAdminFechas.Add(dr["CODIGO_CARPETA"].ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpetaLiquidadosPorGrupoAdminFechas;
+        }
     }
 }

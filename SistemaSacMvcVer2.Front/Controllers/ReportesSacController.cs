@@ -65,5 +65,12 @@ namespace SistemaSacMvcVer2.Front.Controllers
             var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasRegionPorGrupoAdminPorEstadoContrato(filtroReporteBasico);
             return Json(new { data = ListadoBasicoObras });
         }
+
+        [HttpPost]
+        public ActionResult ObtenerListadoBasicoObrasRegionGrupoAdminPorTipoContrato(ReportesSacFiltros filtroReporteBasico)
+        {
+            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasRegionGrupoAdminPorTipoContrato(filtroReporteBasico);
+            return Json(new { data = ListadoBasicoObras });
+        }
     }
 }

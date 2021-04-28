@@ -18,5 +18,7 @@ namespace SistemaSacMvcVer2.Dominio.Interfaces.ICtoContrato
         List<string> CodigosCarpetaPorGrupoPorEstado(ReportesSacFiltros filtroReporteBasico);
         List<string> CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContrato(ReportesSacFiltros filtroReporteBasico);
         List<string> CodigosCarpetaContratosRegionPorGrupoAdminEnGarantiaEntreFechas(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoEntreFechas(ReportesSacFiltros filtroReporteBasico);
     }
 }
