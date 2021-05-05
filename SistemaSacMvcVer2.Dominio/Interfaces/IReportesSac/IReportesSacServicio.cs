@@ -10,8 +10,9 @@ namespace SistemaSacMvcVer2.Dominio.Interfaces.IReportesSac
         List<ReportesSac> ObtenerListadoBasicoObrasPorEstadoPorGrupoPorTipoContrato(ReportesSacFiltros filtroReporteBasico);
         List<ReportesSac> ObtenerListadoBasicoObrasPorEstadoPorGrupoSoloObras(ReportesSacFiltros filtroReporteBasico);
         List<ReportesSac> ObtenerListadoBasicoObrasEnEjecucionMasTerminados(ReportesSacFiltros filtroReporteBasico);
-        List<ReportesSac> ObtenerListadoBasicoObrasEnEjecucionMasTerminadosTodoTipoContrato(ReportesSacFiltros filtroReporteBasico);
         List<ReportesSac> ObtenerListadoBasicoObrasRegionPorGrupoAdminPorEstadoContrato(ReportesSacFiltros filtroReporteBasico);
-        List<ReportesSac> ObtenerListadoBasicoObrasRegionGrupoAdminPorTipoContrato(ReportesSacFiltros filtroReporteBasico);
+        List<ReportesSac> ObtenerListadoBasicoObrasRegionPorGrupoAdminPorTipoContrato(ReportesSacFiltros filtroReporteBasico);
+        List<ReportesSac> ObtenerListadoBasicoObrasRegionPorGrupoAdminPorEstadoSoloObras(ReportesSacFiltros filtroReporteBasico);
+        List<ReportesSac> ObtenerListadoBasicoObrasRegionPorGrupoAdminEjEjecucionMasTerminados(ReportesSacFiltros filtroReporteBasico);
     }
 }

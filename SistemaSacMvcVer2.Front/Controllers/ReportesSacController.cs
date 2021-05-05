@@ -53,13 +53,6 @@ namespace SistemaSacMvcVer2.Front.Controllers
         }
 
         [HttpPost]
-        public ActionResult ObtenerListadoBasicoObrasEnEjecucionTerminadosTodoTipoContrato(ReportesSacFiltros filtroReporteBasico)
-        {
-            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasEnEjecucionMasTerminadosTodoTipoContrato(filtroReporteBasico);
-            return Json(new { data = ListadoBasicoObras });
-        }
-
-        [HttpPost]
         public ActionResult ObtenerListadoBasicoObrasRegionPorGrupoAdminPorEstadoContrato(ReportesSacFiltros filtroReporteBasico)
         {
             var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasRegionPorGrupoAdminPorEstadoContrato(filtroReporteBasico);
@@ -69,7 +62,21 @@ namespace SistemaSacMvcVer2.Front.Controllers
         [HttpPost]
         public ActionResult ObtenerListadoBasicoObrasRegionGrupoAdminPorTipoContrato(ReportesSacFiltros filtroReporteBasico)
         {
-            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasRegionGrupoAdminPorTipoContrato(filtroReporteBasico);
+            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasRegionPorGrupoAdminPorTipoContrato(filtroReporteBasico);
+            return Json(new { data = ListadoBasicoObras });
+        }
+
+        [HttpPost]
+        public ActionResult ObtenerListadoBasicoObrasRegionPorGrupoAdminPorEstadoSoloObras(ReportesSacFiltros filtroReporteBasico)
+        {
+            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasRegionPorGrupoAdminPorEstadoSoloObras(filtroReporteBasico);
+            return Json(new { data = ListadoBasicoObras });
+        }
+
+        [HttpPost]
+        public ActionResult ObtenerListadoBasicoObrasRegionPorGrupoAdminEnEjecucionTerminados(ReportesSacFiltros filtroReporteBasico)
+        {
+            var ListadoBasicoObras = _reportesSacServicio.ObtenerListadoBasicoObrasRegionPorGrupoAdminEjEjecucionMasTerminados(filtroReporteBasico);
             return Json(new { data = ListadoBasicoObras });
         }
     }

@@ -11,9 +11,7 @@ function generarReporteHtml() {
 }
 
 function obtenerListadoObras(filtroReporte) {
-    console.log('cache bust');
-    let endPoint;
-    
+    let endPoint;    
 
     if (filtroReporte.estadoContrato !== "EJECUCION+TERMINADOS" && (filtroReporte.tipoContrato == "00" || filtroReporte.tipoContrato == "01")) {
 
@@ -25,15 +23,19 @@ function obtenerListadoObras(filtroReporte) {
 
     } else if (filtroReporte.estadoContrato !== "EJECUCION+TERMINADOS" && filtroReporte.tipoContrato == "OBRAS") {
 
-        endPoint = "/ReportesSac/ObtenerListadoBasicoObrasPorEstadoGrupoSoloObras";
+        if (filtroReporte.region === '') {
+            endPoint = "/ReportesSac/ObtenerListadoBasicoObrasPorEstadoGrupoSoloObras";
+        } else {
+            endPoint = "/ReportesSac/ObtenerListadoBasicoObrasRegionPorGrupoAdminPorEstadoSoloObras";
+        }
 
-    } else if (filtroReporte.estadoContrato == "EJECUCION+TERMINADOS" && (filtroReporte.tipoContrato == "00" || filtroReporte.tipoContrato == "01" || filtroReporte.tipoContrato == "OBRAS")) {
+    } else if (filtroReporte.estadoContrato == "EJECUCION+TERMINADOS" && (filtroReporte.tipoContrato == "00" || filtroReporte.tipoContrato == "01" || filtroReporte.tipoContrato == "OBRAS" || filtroReporte.tipoContrato == "TODOS")) {
 
-        endPoint = "/ReportesSac/ObtenerListadoBasicoObrasEnEjecucionTerminados";
-
-    } else if (filtroReporte.estadoContrato == "EJECUCION+TERMINADOS" && filtroReporte.tipoContrato == "TODOS") {
-
-        endPoint = "/ReportesSac/ObtenerListadoBasicoObrasEnEjecucionTerminados";
+        if (filtroReporte.region === '') {
+            endPoint = "/ReportesSac/ObtenerListadoBasicoObrasEnEjecucionTerminados";
+        } else {
+            endPoint = "/ReportesSac/ObtenerListadoBasicoObrasRegionPorGrupoAdminEnEjecucionTerminados";
+        }
 
     } else {
         if (filtroReporte.region === '') {

@@ -580,8 +580,8 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
                 cmd = new OracleCommand(query, conexionDb);
                 cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
-                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.TipoContrato));
-                cmd.Parameters.Add(new OracleParameter(":pRegion", filtroReporteBasico.TipoContrato));
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                cmd.Parameters.Add(new OracleParameter(":pRegion", filtroReporteBasico.Region));
                 cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
                 cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
                 conexionDb.Open();
@@ -606,6 +606,93 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             }
 
             return ListadoObrasRegionalesAdmCentralTipoContrato;
+        }
+
+        public List<string> CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstado(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> ListadoSoloObrasRegionalesAdmCentral = new List<string>();
+
+            try
+            {
+                var query = @"select distinct(c.CODIGO_CARPETA) from cto_contrato c
+                                inner join cto_contrato_comuna com on c.CODIGO_CARPETA = com.CODIGO_CARPETA
+                                where c.estado_contrato = :pEstadoContrato and (c.tipo_contrato <> '00' and c.tipo_contrato <> '01') and (C.GRUPO = :pGrupo and com.region = :pRegion)";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pEstadoContrato", filtroReporteBasico.EstadoContrato));
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                cmd.Parameters.Add(new OracleParameter(":pRegion", filtroReporteBasico.Region));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        ListadoSoloObrasRegionalesAdmCentral.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return ListadoSoloObrasRegionalesAdmCentral;
+        }
+
+        public List<string> CodigosCarpetaSoloObrasEnGarantiaRegionPorGrupoAdminEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpetaEnGarantia = new List<string>();
+
+            try
+            {
+                var query = @"select distinct(c.codigo_carpeta), c.grupo, com.region from cto_contrato c
+                                inner join cto_contrato_comuna com on c.codigo_carpeta = com.codigo_carpeta
+                                where 
+                                c.estado_contrato = 'EN GARANTIA' 
+                                and (c.tipo_contrato <> '00' and c.tipo_contrato <> '01') 
+                                and (C.GRUPO = :pGrupo and com.region = :pRegion)
+                                and c.fecha_real_termino BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                cmd.Parameters.Add(new OracleParameter(":pRegion", filtroReporteBasico.Region));
+                cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
+                cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CodigosCarpetaEnGarantia.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpetaEnGarantia;
         }
     }
 }
