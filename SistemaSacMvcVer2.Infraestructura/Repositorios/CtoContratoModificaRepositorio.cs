@@ -35,9 +35,11 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                                 AND
                                 M.FECHA_TRAMITE BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
                                 AND
-                                C.GRUPO = :pGrupo
-                                AND
-                                C.ESTADO_CONTRATO = 'LIQUIDADO'";
+                                C.GRUPO = :pGrupo";
+
+
+                //AND
+                //                C.ESTADO_CONTRATO = 'LIQUIDADO'
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
@@ -88,9 +90,11 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                                 AND
                                 C.GRUPO = :pGrupo
                                 AND
-                                C.ESTADO_CONTRATO = 'LIQUIDADO'
-                                and
                                 C.TIPO_CONTRATO = :pTipoContrato";
+
+
+                //AND
+                //                C.ESTADO_CONTRATO = 'LIQUIDADO'
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
@@ -142,11 +146,13 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                                 AND
                                 C.GRUPO = :pGrupo
                                 AND
-                                C.ESTADO_CONTRATO = 'LIQUIDADO'
-                                and
                                 C.TIPO_CONTRATO <> '01'
-                                and
+                                AND
                                 C.TIPO_CONTRATO <> '00'";
+
+
+                //AND
+                //                C.ESTADO_CONTRATO = 'LIQUIDADO'
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
@@ -189,12 +195,16 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                 var query = @"select distinct(c.codigo_carpeta), c.GRUPO, com.region from cto_contrato c 
                                 inner join cto_contrato_comuna com on c.codigo_carpeta = com.codigo_carpeta 
                                 inner join cto_contrato_modifica M on com.codigo_carpeta = m.codigo_carpeta 
-                                where 
-                                c.estado_contrato = 'LIQUIDADO' 
-                                and C.GRUPO = :pGrupo 
+                                where
+                                C.GRUPO = :pGrupo 
                                 and com.region = :pRegion 
                                 and m.tipo = 'LIQUIDADO' 
                                 and m.fecha_tramite BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')";
+
+
+                //and
+                //c.estado_contrato = 'LIQUIDADO'
+                                
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
@@ -239,12 +249,14 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                                 inner join cto_contrato_comuna com on c.codigo_carpeta = com.codigo_carpeta 
                                 inner join cto_contrato_modifica M on com.codigo_carpeta = m.codigo_carpeta 
                                 where 
-                                c.estado_contrato = 'LIQUIDADO'
-                                and c.TIPO_CONTRATO = :pTipoContrato
+                                c.TIPO_CONTRATO = :pTipoContrato
                                 and C.GRUPO = :pGrupo 
                                 and com.region = :pRegion 
                                 and m.tipo = 'LIQUIDADO' 
                                 and m.fecha_tramite BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')";
+
+                //and
+                //c.estado_contrato = 'LIQUIDADO'
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
@@ -289,13 +301,15 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                 var query = @"select distinct(c.codigo_carpeta), c.grupo, com.region from cto_contrato c
                                 inner join cto_contrato_comuna com on c.codigo_carpeta = com.codigo_carpeta
                                 inner join cto_contrato_modifica M on com.codigo_carpeta = m.codigo_carpeta
-                                where 
-                                c.estado_contrato = 'LIQUIDADO'
+                                where
+                                C.GRUPO = :pGrupo
                                 and (c.tipo_contrato <> '00' and c.tipo_contrato <> '01') 
-                                and C.GRUPO = :pGrupo
                                 and com.region = :pRegion
                                 and m.tipo = 'LIQUIDADO'
                                 and m.fecha_tramite BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')";
+
+                //and
+                //c.estado_contrato = 'LIQUIDADO'
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {

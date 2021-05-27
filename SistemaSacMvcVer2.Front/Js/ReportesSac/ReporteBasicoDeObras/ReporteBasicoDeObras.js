@@ -3,6 +3,7 @@ const filtrosReporte = JSON.parse(localStorage.getItem('filtroReporteObras')) ||
 
 document.addEventListener('DOMContentLoaded', () => {
     generarReporteHtml();
+    console.log(filtrosReporte);
 });
 
 function generarReporteHtml() {
@@ -92,7 +93,8 @@ function obtenerListadoObras(filtroReporte) {
             { "data": "Region", "name": "Region"},
             { "data": "CodigoCarpeta", "name": "CodigoCarpeta"},
             { "data": "CodigoSafi", "name": "CodigoSafi", "autoWidth": true },
-            { "data": "Grupo", "name": "Grupo", "autoWidth": true },
+            { "data": "Grupo", "name": "Centro Gestión", "autoWidth": true },
+            { "data": "Administracion", "name": "Administracion", "autoWidth": true },
             { "data": "NombreContrato", "name": "NombreContrato"},
             { "data": "Resolucion", "name": "Resolucion", "autoWidth": true },
             { "data": "FechaResolucion", "name": "FechaResolucion", "autoWidth": true },
