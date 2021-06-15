@@ -1,6 +1,6 @@
 ﻿//Datos que obtendre del login (variables session)
 const objUsuario = {
-    Usuario_Ingreso: 'CENTRAL',
+    Usuario_Ingreso: 'D.I.V.URBANA',
     pDominio: 'CTO_CONTRATO_PROGRAMA',
     Clase: '*'
 };
@@ -19,51 +19,14 @@ const chkAdminCentral = document.querySelector('#chkAdminCentral');
 const chkRangoFechas = document.querySelector('#chkRangoFechas');
 
 document.addEventListener('DOMContentLoaded', async () => {
-    await obtenerClases();
     await obtenerGrupo();
     await obtenerRegiones();
+    await obtenerClases();
     btnGeneraReporte.addEventListener('click', generarReporte);
     ddlGrupo.addEventListener('change', verificaOpcionesFiltros);
     ddlEstadoContrato.addEventListener('change', verificaOpcionesFiltros);
     chkRangoFechas.addEventListener('change', verificaOpcionesFiltros);
 });
-
-async function obtenerClases() {
-    const EndPoint = '/DominioItemsFormulario/ObtenerItemsAdministracionPorClaseUsuario';
-    const data = {
-        pGrupoUsuario: objUsuario.Usuario_Ingreso
-    };
-
-    try {
-        const request = await fetch(EndPoint, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        const itemsClase = await request.json();
-        llenarSelectClase(itemsClase.data);
-
-    } catch (error) {
-        console.log(error)
-    }
-};
-
-function llenarSelectClase(items) {
-    items.forEach(item => {
-        if (item.Clase !== " ") {
-            const { Clase } = item;
-            const optionSelectClase = document.createElement('option');
-            optionSelectClase.value = Clase;
-            optionSelectClase.textContent = Clase;
-            ddlClase.appendChild(optionSelectClase);
-        }
-
-        ddlClase.size = items.length + 1;
-    });
-};
 
 async function obtenerGrupo() {
     const EndPoint = '/DominioItemsFormulario/ObtenerListadoGrupos';
@@ -118,6 +81,47 @@ function llenarSelectRegiones(items) {
     });
 }
 
+async function obtenerClases() {
+    const EndPoint = '/DominioItemsFormulario/ObtenerItemsAdministracionPorClaseUsuario';
+    const data = {
+        pGrupoUsuario: ddlGrupo.value
+        //pGrupoUsuario: objUsuario.Usuario_Ingreso
+    };
+
+    try {
+        const request = await fetch(EndPoint, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const itemsClase = await request.json();
+        llenarSelectClase(itemsClase.data);
+
+    } catch (error) {
+        console.log(error)
+    }
+};
+
+function llenarSelectClase(items) {
+    while (ddlClase.firstChild) {
+        ddlClase.removeChild(ddlClase.firstChild);
+    };
+    items.forEach(item => {
+        if (item.Clase !== " ") {
+            const { Clase } = item;
+            const optionSelectClase = document.createElement('option');
+            optionSelectClase.value = Clase;
+            optionSelectClase.textContent = Clase;
+            ddlClase.appendChild(optionSelectClase);
+        }
+
+        ddlClase.size = items.length + 1;
+    });
+};
+
 function generarReporte() {
 
     if (ddlGrupo.value == "" || ddlEstadoContrato.value == "") {
@@ -153,6 +157,7 @@ function verificaOpcionesFiltros(e) {
 
     console.log(e.target.id);
     if (e.target.id === 'ddlGrupo') {
+        obtenerClases();
         const grupo = ddlGrupo.value;
         const divChkAdminCentral = document.querySelector('#divChkAdminCentral');
         const divRegion = document.querySelector('#divRegion');

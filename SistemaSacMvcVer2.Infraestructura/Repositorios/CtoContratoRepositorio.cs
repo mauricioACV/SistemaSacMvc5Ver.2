@@ -16,17 +16,22 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             conexionDb = pDbConexion;
         }
 
-        public List<CtoContrato> ObtenerAsesoriaContratosEnEjecucionOrGarantia(string pGrupoUsuario)
+        public List<string> CodigosCarpetaPorGrupoPorEstado(ReportesSacFiltros filtroReporteBasico)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
-            List<CtoContrato> ListadoContrato = new List<CtoContrato>();
+            List<string> CodigosCarpeta = new List<string>();
 
             try
             {
-                var query = @"select CODIGO_CARPETA, Replace(NOMBRE_CONTRATO,Chr(34),'') as NOMBRE_CONTRATO from CTO_CONTRATO where TIPO_CONTRATO='00' AND (ESTADO_CONTRATO='EN EJECUCION' or ESTADO_CONTRATO='EN GARANTIA')  AND grupo = :pGrupoUsuario order by CODIGO_CARPETA";
+                var query = @"select codigo_carpeta, grupo from cto_contrato
+                              where
+                              GRUPO = :pGrupo
+                              and ESTADO_CONTRATO = :pEstadoContrato";
+
                 cmd = new OracleCommand(query, conexionDb);
-                cmd.Parameters.Add(new OracleParameter("pGrupoUsuario", pGrupoUsuario));
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                cmd.Parameters.Add(new OracleParameter(":pEstadoContrato", filtroReporteBasico.EstadoContrato));
 
                 conexionDb.Open();
 
@@ -34,15 +39,10 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                 {
                     while (dr.Read())
                     {
-                        CtoContrato objCtoContrato = new CtoContrato
-                        {
-                            CodigoCarpeta = dr["CODIGO_CARPETA"].ToString(),
-                            NombreContrato = dr["NOMBRE_CONTRATO"].ToString()
-                        };
-
-                        ListadoContrato.Add(objCtoContrato);
+                        CodigosCarpeta.Add(dr["CODIGO_CARPETA"].ToString());
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -54,7 +54,138 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                 conexionDb.Close();
             }
 
-            return ListadoContrato;
+            return CodigosCarpeta;
+        }
+
+        public List<string> CodigosCarpetaPorGrupoPorEstadoPorClase(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpeta = new List<string>();
+
+            try
+            {
+                var query = @"select codigo_carpeta, grupo from cto_contrato
+                              where
+                              GRUPO = :pGrupo
+                              and ESTADO_CONTRATO = :pEstadoContrato
+                              and CLASE = :pClase";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                cmd.Parameters.Add(new OracleParameter(":pEstadoContrato", filtroReporteBasico.EstadoContrato));
+                cmd.Parameters.Add(new OracleParameter(":pClase", filtroReporteBasico.Clase));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CodigosCarpeta.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpeta;
+        }
+
+        public List<string> CodigosCarpetaEnGarantiaPorGrupoEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpetaEnGarantia = new List<string>();
+
+            try
+            {
+                var query = @"select codigo_carpeta, grupo from cto_contrato 
+                              where
+                              fecha_real_termino BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
+                              and grupo = :pGrupo
+                              and estado_contrato = 'EN GARANTIA'";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
+                cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CodigosCarpetaEnGarantia.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpetaEnGarantia;
+        }
+
+        public List<string> CodigosCarpetaEnGarantiaPorGrupoPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpetaEnGarantia = new List<string>();
+
+            try
+            {
+                var query = @"select codigo_carpeta, grupo from cto_contrato 
+                              where
+                              fecha_real_termino BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
+                              and GRUPO = :pGrupo
+                              and ESTADO_CONTRATO = 'EN GARANTIA'
+                              and CLASE = :pClase";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
+                cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Clase));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CodigosCarpetaEnGarantia.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpetaEnGarantia;
         }
 
         public List<string> CodigosCarpetaContratosRegionAdminCentralPorEstadoContrato(ReportesSacFiltros filtroReporteBasico)
@@ -94,6 +225,366 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             }
 
             return ListadoObrasRegionalesAdmCentral;
+        }
+
+        public List<string> CodigosCarpetaSoloObrasPorGrupoPorEstado(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpeta = new List<string>();
+
+            try
+            {
+                var query = @"select codigo_carpeta, grupo from cto_contrato
+                              where
+                              GRUPO = :pGrupo
+                              and ESTADO_CONTRATO = :pEstadoContrato
+                              and TIPO_CONTRATO <> '01'
+                              and TIPO_CONTRATO <> '00'";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                cmd.Parameters.Add(new OracleParameter(":pEstadoContrato", filtroReporteBasico.EstadoContrato));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CodigosCarpeta.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpeta;
+        }
+
+        public List<string> CodigosCarpetaSoloObrasPorGrupoPorEstadoPorClase(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpeta = new List<string>();
+
+            try
+            {
+                var query = @"select codigo_carpeta, grupo from cto_contrato
+                              where
+                              GRUPO = :pGrupo
+                              and ESTADO_CONTRATO = :pEstadoContrato
+                              and CLASE = :pClase
+                              and TIPO_CONTRATO <> '01'
+                              and TIPO_CONTRATO <> '00'";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                cmd.Parameters.Add(new OracleParameter(":pEstadoContrato", filtroReporteBasico.EstadoContrato));
+                cmd.Parameters.Add(new OracleParameter(":pClase", filtroReporteBasico.Clase));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CodigosCarpeta.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpeta;
+        }
+
+        public List<string> CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpetaEnGarantia = new List<string>();
+
+            try
+            {
+                var query = @"select codigo_carpeta, grupo from cto_contrato
+                              where
+                              fecha_real_termino BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
+                              and GRUPO = :pGrupo
+                              and ESTADO_CONTRATO = 'EN GARANTIA'
+                              and TIPO_CONTRATO <> '01'
+                              and TIPO_CONTRATO <> '00'";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
+                cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CodigosCarpetaEnGarantia.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpetaEnGarantia;
+        }
+
+        public List<string> CodigosCarpetaEnGarantiaPorGrupoPorTipoPorClaseSoloObrasEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpetaEnGarantia = new List<string>();
+
+            try
+            {
+                var query = @"select codigo_carpeta, grupo from cto_contrato
+                              where
+                              fecha_real_termino BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
+                              and GRUPO = :pGrupo
+                              and ESTADO_CONTRATO = 'EN GARANTIA'
+                              and CLASE = :pClase
+                              and TIPO_CONTRATO <> '01'
+                              and TIPO_CONTRATO <> '00'";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
+                cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                cmd.Parameters.Add(new OracleParameter(":pClase", filtroReporteBasico.Clase));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CodigosCarpetaEnGarantia.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpetaEnGarantia;
+        }
+
+        public List<string> CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpetaEnGarantia = new List<string>();
+
+            try
+            {
+                var query = @"select codigo_carpeta, grupo from cto_contrato
+                              where
+                              fecha_real_termino BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
+                              and grupo = :pGrupo
+                              and estado_contrato = 'EN GARANTIA'
+                              and tipo_contrato = :pTipoContrato";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
+                cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CodigosCarpetaEnGarantia.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpetaEnGarantia;
+        }
+
+        public List<string> CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpetaEnGarantia = new List<string>();
+
+            try
+            {
+                var query = @"select codigo_carpeta, grupo from cto_contrato
+                              where
+                              fecha_real_termino BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
+                              and grupo = :pGrupo
+                              and clase = :pClase
+                              and estado_contrato = 'EN GARANTIA'
+                              and tipo_contrato = :pTipoContrato";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
+                cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                cmd.Parameters.Add(new OracleParameter(":pClase", filtroReporteBasico.Clase));
+                cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CodigosCarpetaEnGarantia.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpetaEnGarantia;
+        }
+
+        public List<string> CodigosCarpetaPorEstadoPorGrupoPorTipoContrato(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpeta = new List<string>();
+
+            try
+            {
+                var query = @"select codigo_carpeta, grupo from cto_contrato
+                              where
+                              grupo = :pGrupo
+                              and estado_contrato = :pEstadoContrato
+                              and tipo_contrato = :pTipoContrato";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                cmd.Parameters.Add(new OracleParameter(":pEstadoContrato", filtroReporteBasico.EstadoContrato));
+                cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CodigosCarpeta.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpeta;
+        }
+
+        public List<string> CodigosCarpetaPorEstadoPorGrupoPorTipoContratoPorClase(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpeta = new List<string>();
+
+            try
+            {
+                var query = @"select codigo_carpeta, grupo from cto_contrato
+                              where
+                              grupo = :pGrupo
+                              and estado_contrato = :pEstadoContrato
+                              and clase = :pClase
+                              and tipo_contrato = :pTipoContrato";
+
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                cmd.Parameters.Add(new OracleParameter(":pEstadoContrato", filtroReporteBasico.EstadoContrato));
+                cmd.Parameters.Add(new OracleParameter(":pClase", filtroReporteBasico.Clase));
+                cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CodigosCarpeta.Add(dr["CODIGO_CARPETA"].ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpeta;
         }
 
         public List<string> CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(ReportesSacFiltros filtroReporteBasico)
@@ -174,266 +665,6 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             }
 
             return ListadoSoloObrasRegionalesAdmCentral;
-        }
-
-        public List<string> CodigosCarpetaEnGarantiaPorGrupoEntreFechas(ReportesSacFiltros filtroReporteBasico)
-        {
-            OracleCommand cmd = null;
-            OracleDataReader dr = null;
-            List<string> CodigosCarpetaEnGarantia = new List<string>();
-
-            try
-            {
-                var query = @"select codigo_carpeta, grupo from cto_contrato 
-                              where
-                              fecha_real_termino BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
-                              and grupo = :pGrupo
-                              and estado_contrato = 'EN GARANTIA'";
-
-                cmd = new OracleCommand(query, conexionDb);
-                cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
-                cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
-                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
-
-                conexionDb.Open();
-
-                using (dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        CodigosCarpetaEnGarantia.Add(dr["CODIGO_CARPETA"].ToString());
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-                conexionDb.Close();
-            }
-
-            return CodigosCarpetaEnGarantia;
-        }
-
-        public List<string> CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(ReportesSacFiltros filtroReporteBasico)
-        {
-            OracleCommand cmd = null;
-            OracleDataReader dr = null;
-            List<string> CodigosCarpetaEnGarantia = new List<string>();
-
-            try
-            {
-                var query = @"select codigo_carpeta, grupo from cto_contrato
-                              where
-                              fecha_real_termino BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
-                              and grupo = :pGrupo
-                              and estado_contrato = 'EN GARANTIA'
-                              and tipo_contrato = :pTipoContrato";
-
-                cmd = new OracleCommand(query, conexionDb);
-                cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
-                cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
-                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
-                cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
-
-                conexionDb.Open();
-
-                using (dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        CodigosCarpetaEnGarantia.Add(dr["CODIGO_CARPETA"].ToString());
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-                conexionDb.Close();
-            }
-
-            return CodigosCarpetaEnGarantia;
-        }
-
-        public List<string> CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(ReportesSacFiltros filtroReporteBasico)
-        {
-            OracleCommand cmd = null;
-            OracleDataReader dr = null;
-            List<string> CodigosCarpetaEnGarantia = new List<string>();
-
-            try
-            {
-                var query = @"select codigo_carpeta, grupo from cto_contrato
-                              where
-                              fecha_real_termino BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
-                              and GRUPO = :pGrupo
-                              and ESTADO_CONTRATO = 'EN GARANTIA'
-                              and TIPO_CONTRATO <> '01'
-                              and TIPO_CONTRATO <> '00'";
-
-                cmd = new OracleCommand(query, conexionDb);
-                cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
-                cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
-                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
-
-                conexionDb.Open();
-
-                using (dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        CodigosCarpetaEnGarantia.Add(dr["CODIGO_CARPETA"].ToString());
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-                conexionDb.Close();
-            }
-
-            return CodigosCarpetaEnGarantia;
-        }
-
-        public List<string> CodigosCarpetaPorEstadoPorGrupoPorTipoContrato(ReportesSacFiltros filtroReporteBasico)
-        {
-            OracleCommand cmd = null;
-            OracleDataReader dr = null;
-            List<string> CodigosCarpeta = new List<string>();
-
-            try
-            {
-                var query = @"select codigo_carpeta, grupo from cto_contrato
-                              where
-                              grupo = :pGrupo
-                              and estado_contrato = :pEstadoContrato
-                              and tipo_contrato = :pTipoContrato";
-
-                cmd = new OracleCommand(query, conexionDb);
-                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
-                cmd.Parameters.Add(new OracleParameter(":pEstadoContrato", filtroReporteBasico.EstadoContrato));
-                cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
-
-                conexionDb.Open();
-
-                using (dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        CodigosCarpeta.Add(dr["CODIGO_CARPETA"].ToString());
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-                conexionDb.Close();
-            }
-
-            return CodigosCarpeta;
-        }
-
-        public List<string> CodigosCarpetaSoloObrasPorGrupoPorEstado(ReportesSacFiltros filtroReporteBasico)
-        {
-            OracleCommand cmd = null;
-            OracleDataReader dr = null;
-            List<string> CodigosCarpeta = new List<string>();
-
-            try
-            {
-                var query = @"select codigo_carpeta, grupo from cto_contrato
-                              where
-                              GRUPO = :pGrupo
-                              and ESTADO_CONTRATO = :pEstadoContrato
-                              and TIPO_CONTRATO <> '01'
-                              and TIPO_CONTRATO <> '00'";
-
-                cmd = new OracleCommand(query, conexionDb);
-                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
-                cmd.Parameters.Add(new OracleParameter(":pEstadoContrato", filtroReporteBasico.EstadoContrato));
-
-                conexionDb.Open();
-
-                using (dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        CodigosCarpeta.Add(dr["CODIGO_CARPETA"].ToString());
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-                conexionDb.Close();
-            }
-
-            return CodigosCarpeta;
-        }
-
-        public List<string> CodigosCarpetaPorGrupoPorEstado(ReportesSacFiltros filtroReporteBasico)
-        {
-            OracleCommand cmd = null;
-            OracleDataReader dr = null;
-            List<string> CodigosCarpeta = new List<string>();
-
-            try
-            {
-                var query = @"select codigo_carpeta, grupo from cto_contrato
-                              where
-                              GRUPO = :pGrupo
-                              and ESTADO_CONTRATO = :pEstadoContrato";
-
-                cmd = new OracleCommand(query, conexionDb);
-                cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
-                cmd.Parameters.Add(new OracleParameter(":pEstadoContrato", filtroReporteBasico.EstadoContrato));
-
-                conexionDb.Open();
-
-                using (dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        CodigosCarpeta.Add(dr["CODIGO_CARPETA"].ToString());
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-                conexionDb.Close();
-            }
-
-            return CodigosCarpeta;
         }
 
         public List<string> CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContrato(ReportesSacFiltros filtroReporteBasico)
@@ -693,6 +924,47 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             }
 
             return CodigosCarpetaEnGarantia;
+        }
+
+        public List<CtoContrato> ObtenerAsesoriaContratosEnEjecucionOrGarantia(string pGrupoUsuario)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<CtoContrato> ListadoContrato = new List<CtoContrato>();
+
+            try
+            {
+                var query = @"select CODIGO_CARPETA, Replace(NOMBRE_CONTRATO,Chr(34),'') as NOMBRE_CONTRATO from CTO_CONTRATO where TIPO_CONTRATO='00' AND (ESTADO_CONTRATO='EN EJECUCION' or ESTADO_CONTRATO='EN GARANTIA')  AND grupo = :pGrupoUsuario order by CODIGO_CARPETA";
+                cmd = new OracleCommand(query, conexionDb);
+                cmd.Parameters.Add(new OracleParameter("pGrupoUsuario", pGrupoUsuario));
+
+                conexionDb.Open();
+
+                using (dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        CtoContrato objCtoContrato = new CtoContrato
+                        {
+                            CodigoCarpeta = dr["CODIGO_CARPETA"].ToString(),
+                            NombreContrato = dr["NOMBRE_CONTRATO"].ToString()
+                        };
+
+                        ListadoContrato.Add(objCtoContrato);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return ListadoContrato;
         }
     }
 }

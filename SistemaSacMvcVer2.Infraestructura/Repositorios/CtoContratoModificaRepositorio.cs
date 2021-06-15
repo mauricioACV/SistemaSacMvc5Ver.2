@@ -37,15 +37,59 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                                 AND
                                 C.GRUPO = :pGrupo";
 
+                using (cmd = new OracleCommand(query, conexionDb))
+                {
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
 
-                //AND
-                //                C.ESTADO_CONTRATO = 'LIQUIDADO'
+                    conexionDb.Open();
+
+                    using (dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            CodigosCarpetaLiquidados.Add(dr["CODIGO_CARPETA"].ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpetaLiquidados;
+        }
+
+        public List<string> CodigosCarpetaLiquidadosPorGrupoPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpetaLiquidados = new List<string>();
+
+            try
+            {
+                var query = @"SELECT M.CODIGO_CARPETA from CTO_CONTRATO_MODIFICA M
+                                INNER JOIN CTO_CONTRATO C ON C.CODIGO_CARPETA = M.CODIGO_CARPETA
+                                WHERE
+                                M.ESTADO = 'TRAMITADA'
+                                AND M.TIPO = 'LIQUIDADO'
+                                AND M.FECHA_TRAMITE BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
+                                AND C.GRUPO = :pGrupo
+                                AND C.CLASE = :pClase";
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
                     cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
                     cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
                     cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Clase));
 
                     conexionDb.Open();
 
@@ -90,17 +134,72 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                                 AND
                                 C.GRUPO = :pGrupo
                                 AND
+                                C.ESTADO_CONTRATO = 'LIQUIDADO'
+                                AND
                                 C.TIPO_CONTRATO = :pTipoContrato";
-
-
-                //AND
-                //                C.ESTADO_CONTRATO = 'LIQUIDADO'
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
                     cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
                     cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
                     cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
+
+                    conexionDb.Open();
+
+                    using (dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            CodigosCarpetaLiquidados.Add(dr["CODIGO_CARPETA"].ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpetaLiquidados;
+        }
+
+        public List<string> CodigosCarpetaLiquidadosPorGrupoPorTipoContratoPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpetaLiquidados = new List<string>();
+
+            try
+            {
+                var query = @"SELECT M.CODIGO_CARPETA from CTO_CONTRATO_MODIFICA M
+                                INNER JOIN CTO_CONTRATO C ON C.CODIGO_CARPETA = M.CODIGO_CARPETA
+                                WHERE
+                                M.ESTADO = 'TRAMITADA'
+                                AND
+                                M.TIPO = 'LIQUIDADO'
+                                AND
+                                M.FECHA_TRAMITE BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
+                                AND
+                                C.GRUPO = :pGrupo
+                                AND
+                                C.CLASE = :pClase
+                                AND
+                                c.estado_contrato = 'LIQUIDADO'
+                                AND
+                                C.TIPO_CONTRATO = :pTipoContrato";
+
+                using (cmd = new OracleCommand(query, conexionDb))
+                {
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pClase", filtroReporteBasico.Clase));
                     cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
 
                     conexionDb.Open();
@@ -146,19 +245,75 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
                                 AND
                                 C.GRUPO = :pGrupo
                                 AND
+                                C.ESTADO_CONTRATO = 'LIQUIDADO'
+                                AND
                                 C.TIPO_CONTRATO <> '01'
                                 AND
                                 C.TIPO_CONTRATO <> '00'";
-
-
-                //AND
-                //                C.ESTADO_CONTRATO = 'LIQUIDADO'
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
                     cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
                     cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
                     cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+
+                    conexionDb.Open();
+
+                    using (dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            CodigosCarpetaLiquidados.Add(dr["CODIGO_CARPETA"].ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conexionDb.Close();
+            }
+
+            return CodigosCarpetaLiquidados;
+        }
+
+        public List<string> CodigosCarpetaLiquidadosPorGrupoPorClaseSoloObrasEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        {
+            OracleCommand cmd = null;
+            OracleDataReader dr = null;
+            List<string> CodigosCarpetaLiquidados = new List<string>();
+
+            try
+            {
+                var query = @"SELECT M.CODIGO_CARPETA from CTO_CONTRATO_MODIFICA M
+                                INNER JOIN CTO_CONTRATO C ON C.CODIGO_CARPETA = M.CODIGO_CARPETA
+                                WHERE
+                                M.ESTADO = 'TRAMITADA'
+                                AND
+                                M.TIPO = 'LIQUIDADO'
+                                AND
+                                M.FECHA_TRAMITE BETWEEN to_date(:pFechaInicio,'DD-MM-YYYY') AND to_date(:pFechaTermino,'DD-MM-YYYY')
+                                AND
+                                C.GRUPO = :pGrupo
+                                AND
+                                C.ESTADO_CONTRATO = 'LIQUIDADO'
+                                AND
+                                C.CLASE = :pClase
+                                AND
+                                C.TIPO_CONTRATO <> '01'
+                                AND
+                                C.TIPO_CONTRATO <> '00'";
+
+                using (cmd = new OracleCommand(query, conexionDb))
+                {
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pClase", filtroReporteBasico.Clase));
 
                     conexionDb.Open();
 
