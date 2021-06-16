@@ -161,10 +161,14 @@ function verificaOpcionesFiltros(e) {
         const grupo = ddlGrupo.value;
         const divChkAdminCentral = document.querySelector('#divChkAdminCentral');
         const divRegion = document.querySelector('#divRegion');
+        console.log(ddlRegion.value);
+
 
         if (grupo !== 'CENTRAL' && grupo !== 'DOP' && grupo !== 'D.I.V.URBANA' && grupo !== 'D.INGENIERIA' && grupo !== 'D.REDES') {
+            ddlRegion.value = '';
             divRegion.style.display = 'none';
             divChkAdminCentral.style.display = 'block';
+            console.log(ddlRegion.value);
         } else {
             divRegion.style.display = 'block';
             divChkAdminCentral.style.display = 'none';

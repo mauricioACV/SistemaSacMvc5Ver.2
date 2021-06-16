@@ -13,14 +13,20 @@ namespace SistemaSacMvcVer2.Dominio.Interfaces.ICtoContratoModifica
 
         List<string> CodigosCarpetaLiquidadosPorGrupoPorTipoContratoPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico);
 
-        List<string> CodigosCarpetaLiquidadosPorGrupoSoloObrasEntreFechas(ReportesSacFiltros filtroReporteBasico);
-
-        List<string> CodigosCarpetaLiquidadosPorGrupoPorClaseSoloObrasEntreFechas(ReportesSacFiltros filtroReporteBasico);
-
         List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminEntreFechas(ReportesSacFiltros filtroReporteBasico);
+
+        List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico);
 
         List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoEntreFechas(ReportesSacFiltros filtroReporteBasico);
 
+        List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico);
+
         List<string> CodigosCarpetaSoloObrasLiquidadosRegionPorGrupoAdminEntreFechas(ReportesSacFiltros filtroReporteBasico);
+
+        List<string> CodigosCarpetaSoloObrasLiquidadosRegionPorGrupoAdminPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico);
+
+        List<string> CodigosCarpetaLiquidadosPorGrupoSoloObrasEntreFechas(ReportesSacFiltros filtroReporteBasico);
+
+        List<string> CodigosCarpetaLiquidadosPorGrupoPorClaseSoloObrasEntreFechas(ReportesSacFiltros filtroReporteBasico);
     }
 }

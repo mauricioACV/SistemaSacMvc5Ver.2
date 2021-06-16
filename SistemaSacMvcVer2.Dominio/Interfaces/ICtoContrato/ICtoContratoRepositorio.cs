@@ -32,21 +32,33 @@ namespace SistemaSacMvcVer2.Dominio.Interfaces.ICtoContrato
 
         List<string> CodigosCarpetaPorEstadoPorGrupoPorTipoContratoPorClase(ReportesSacFiltros filtroReporteBasico);
 
-        List<string> CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaContratosRegionPorGrupoAdminEnGarantiaEntreFechas(ReportesSacFiltros filtroReporteBasico);
 
-        List<string> CodigosCarpetaContratosRegionAdminCentralPorEstadoSoloObras(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaContratosRegionPorGrupoAdminPorClaseEnGarantiaEntreFechas(ReportesSacFiltros filtroReporteBasico);
 
         List<string> CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContrato(ReportesSacFiltros filtroReporteBasico);
 
-        List<string> CodigosCarpetaContratosRegionPorGrupoAdminEnGarantiaEntreFechas(ReportesSacFiltros filtroReporteBasico);
-
-        List<string> CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorClase(ReportesSacFiltros filtroReporteBasico);
 
         List<string> CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoEntreFechas(ReportesSacFiltros filtroReporteBasico);
 
-        List<string> CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstado(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico);
+
+        List<string> CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(ReportesSacFiltros filtroReporteBasico);
+
+        List<string> CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContratoPorClase(ReportesSacFiltros filtroReporteBasico);
 
         List<string> CodigosCarpetaSoloObrasEnGarantiaRegionPorGrupoAdminEntreFechas(ReportesSacFiltros filtroReporteBasico);
+
+        List<string> CodigosCarpetaSoloObrasEnGarantiaRegionPorGrupoAdminPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico);
+
+        List<string> CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstado(ReportesSacFiltros filtroReporteBasico);
+
+        List<string> CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstadoPorClase(ReportesSacFiltros filtroReporteBasico);
+
+        List<string> CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(ReportesSacFiltros filtroReporteBasico);
+
+        List<string> CodigosCarpetaContratosRegionAdminCentralPorEstadoSoloObras(ReportesSacFiltros filtroReporteBasico);
 
         List<CtoContrato> ObtenerAsesoriaContratosEnEjecucionOrGarantia(string pGrupoUsuario);
     }
