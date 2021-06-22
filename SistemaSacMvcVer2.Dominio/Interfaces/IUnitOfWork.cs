@@ -6,6 +6,7 @@ using SistemaSacMvcVer2.Dominio.Interfaces.ICtoDominio;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoGrupoClase;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoInspectorFiscal;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoResidente;
+using SistemaSacMvcVer2.Dominio.Interfaces.ICtoUsuario;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoVisitador;
 using SistemaSacMvcVer2.Dominio.Interfaces.IIndiceBase;
 using SistemaSacMvcVer2.Dominio.Interfaces.IReportesSac;
@@ -36,5 +37,7 @@ namespace SistemaSacMvcVer2.Dominio.Interfaces
         IReportesSacRepositorio ReportesSacRepositorio { get; }
 
         ICtoContratoModificaRepositorio CtoContratoModificaRepositorio { get; }
+
+        ICtoUsuarioRepositorio CtoUsuarioRepositorio { get; }
     }
 }

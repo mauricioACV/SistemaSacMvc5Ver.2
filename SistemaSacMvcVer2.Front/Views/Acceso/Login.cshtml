@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-content">
+            <p class="text-center">
+                Inicia sesión con tu cuenta de usuario
+            </p>
+            <form action="@Url.Content("~/Acceso/Login")" method="post">
+                <div class="">
+                    <label for="User" class="">Usuario</label>
+                    <input type="text" class="" id="User" name="User" pattern="[a-zA-Z0-9]{1,35}" maxlength="10">
+                </div>
+                <div class="">
+                    <label for="Pass" class="" style="color:black !important">Contraseña</label>
+                    <input type="password" class="" id="Pass" name="Pass" maxlength="200">
+                </div>
+                <input type="submit" value="Acceder" class="" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -6,13 +6,16 @@ namespace SistemaSacMvcVer2.Front.App_Start
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
+    using SistemaSacMvcVer2.Aplicación.Interfaces;
     using SistemaSacMvcVer2.Aplicación.Servicios;
     using SistemaSacMvcVer2.Dominio.Interfaces;
     using SistemaSacMvcVer2.Dominio.Interfaces.ICtoContrato;
+    using SistemaSacMvcVer2.Dominio.Interfaces.ICtoUsuario;
     using SistemaSacMvcVer2.Dominio.Interfaces.IDominioItemsFormulario;
     using SistemaSacMvcVer2.Dominio.Interfaces.IReportesSac;
     using SistemaSacMvcVer2.Infraestructura.Interfaces;
     using SistemaSacMvcVer2.Infraestructura.Repositorios.UnitOfWork;
+    using SistemaSacMvcVer2.Infraestructura.Servicios.EncriptaService;
     using SistemaSacMvcVer2.Infraestructura.Servicios.WebServices.Repositorios.UnitOfWebService;
     using System;
     using System.Web;
@@ -70,8 +73,10 @@ namespace SistemaSacMvcVer2.Front.App_Start
             kernel.Bind<IDominioItemsFormularioServicio>().To<DominioItemsFormularioServicio>();
             kernel.Bind<IReportesSacServicio>().To<ReportesSacServicio>();
             kernel.Bind<ICtoContratoServicio>().To<CtoContratoServicio>();
+            kernel.Bind<ICtoUsuarioServicio>().To<CtoUsuarioServicio>();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
             kernel.Bind<IUnitOfWebService>().To<UnitOfWebService>();
+            kernel.Bind<IEncriptaServiceRepositorio>().To<EncriptaServiceRepositorio>();
         }        
     }
 }

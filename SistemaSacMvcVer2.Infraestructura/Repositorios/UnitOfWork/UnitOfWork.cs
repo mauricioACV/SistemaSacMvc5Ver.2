@@ -8,6 +8,7 @@ using SistemaSacMvcVer2.Dominio.Interfaces.ICtoDominio;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoGrupoClase;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoInspectorFiscal;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoResidente;
+using SistemaSacMvcVer2.Dominio.Interfaces.ICtoUsuario;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoVisitador;
 using SistemaSacMvcVer2.Dominio.Interfaces.IIndiceBase;
 using SistemaSacMvcVer2.Dominio.Interfaces.IReportesSac;
@@ -29,6 +30,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios.UnitOfWork
         private readonly ICtoComunaRepositorio _ctoComunaRepositorio;
         private readonly IReportesSacRepositorio _reportesSacRepositorio;
         private readonly ICtoContratoModificaRepositorio _ctoContratoModificaRepositorio;
+        private readonly ICtoUsuarioRepositorio _ctoUsuarioRepositorio;
 #pragma warning restore 0649
 
         public UnitOfWork()
@@ -57,6 +59,8 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios.UnitOfWork
         public IReportesSacRepositorio ReportesSacRepositorio => _reportesSacRepositorio ?? new ReportesSacRepositorio(_conexion);
 
         public ICtoContratoModificaRepositorio CtoContratoModificaRepositorio => _ctoContratoModificaRepositorio ?? new CtoContratoModificaRepositorio(_conexion);
+
+        public ICtoUsuarioRepositorio CtoUsuarioRepositorio => _ctoUsuarioRepositorio ?? new CtoUsuarioRepositorio(_conexion);
 
         public void Dispose()
         {

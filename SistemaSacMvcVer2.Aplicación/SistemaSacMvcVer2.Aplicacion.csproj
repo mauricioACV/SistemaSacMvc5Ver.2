@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IEncriptaServiceRepositorio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicios\CtoContratoServicio.cs" />
+    <Compile Include="Servicios\CtoUsuarioServicio.cs" />
     <Compile Include="Servicios\DominioItemsFormularioServicio.cs" />
     <Compile Include="Servicios\ReportesSacServicio.cs" />
   </ItemGroup>

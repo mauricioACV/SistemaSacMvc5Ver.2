@@ -61,15 +61,21 @@
     <Compile Include="Repositorios\CtoGrupoClaseRepositorio.cs" />
     <Compile Include="Repositorios\CtoInspectorFiscalRepositorio.cs" />
     <Compile Include="Repositorios\CtoResidenteRepositorio.cs" />
+    <Compile Include="Repositorios\CtoUsuarioRepositorio.cs" />
     <Compile Include="Repositorios\CtoVisitadorRepositorio.cs" />
     <Compile Include="Repositorios\IndiceBaseRepositorio.cs" />
     <Compile Include="Repositorios\ReportesSacRepositorio.cs" />
     <Compile Include="Repositorios\UnitOfWork\UnitOfWork.cs" />
+    <Compile Include="Servicios\EncriptaService\EncriptaServiceRepositorio.cs" />
     <Compile Include="Servicios\WebServices\Interfaces\ISafiWebServiceRepositorio.cs" />
     <Compile Include="Servicios\WebServices\Repositorios\SafiWebServiceRepositorio.cs" />
     <Compile Include="Servicios\WebServices\Repositorios\UnitOfWebServices\UnitOfWebService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SistemaSacMvcVer2.Aplicación\SistemaSacMvcVer2.Aplicacion.csproj">
+      <Project>{443260b0-4a8b-47d1-ade4-835e3b55767f}</Project>
+      <Name>SistemaSacMvcVer2.Aplicacion</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SistemaSacMvcVer2.Dominio\SistemaSacMvcVer2.Dominio.csproj">
       <Project>{0fd27c94-fb7c-48ac-b94f-ce6104537abd}</Project>
       <Name>SistemaSacMvcVer2.Dominio</Name>
