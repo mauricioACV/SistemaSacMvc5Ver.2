@@ -24,11 +24,11 @@ namespace SistemaSacMvcVer2.Front.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(string User, string Pass)
+        public ActionResult Login(string txtUser, string txtPass)
         {
             try
             {
-                var objUsuario = _ctoUsuarioServicio.ObtenerUsuario(User, Pass);
+                var objUsuario = _ctoUsuarioServicio.ObtenerUsuario(txtUser, txtPass);
 
                 if (objUsuario.Usuario == null)
                 {

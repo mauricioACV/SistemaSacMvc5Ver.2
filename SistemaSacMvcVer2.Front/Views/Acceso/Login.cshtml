@@ -8,26 +8,99 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;1,100;1,300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+    <title>Sistema Adminsitración de Contratos</title>
+    <link rel="stylesheet" href="~/Content/EstilosSac/login/css-login.css">
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-content">
-            <p class="text-center">
-                Inicia sesión con tu cuenta de usuario
-            </p>
-            <form action="@Url.Content("~/Acceso/Login")" method="post">
-                <div class="">
-                    <label for="User" class="">Usuario</label>
-                    <input type="text" class="" id="User" name="User" pattern="[a-zA-Z0-9]{1,35}" maxlength="10">
+    <div class="container-body">
+        <div class="acceso-header">
+            <div class="acceso-header-logo">
+                <img src="~/Content/images/login/vialidad.jpg" />
+            </div>
+            <h1 class="acceso-header-title">SISTEMA DE ADMINISTRACIÓN DE CONTRATOS - S.A.C.</h1>
+        </div>
+        <div class="content-container">
+            <div class="acceso-left-panel">
+                <h3><i class="boton__icono fas fa-arrow-right"></i>&nbsp Servicios MOP</h3>
+                <a href="http://vialidadcolabora.mop.gov.cl/DP-Contratos/Metas/Forms/AllItems.aspx" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>&nbsp Informe Meta Sac
+                </a>
+                <a href="http://dv.moptt.gov.cl:82/Guia%20Eval%20Cont%20Receptivos%20Agosto-2013.pdf" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>&nbsp Guía Evaluación Controles Receptivos
+                </a>
+                <a href="http://funcionarios.mop.gob.cl/" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>&nbsp Búsqueda de Funcionarios
+                </a>
+                <a href="http://sipro.moptt.gov.cl/" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>&nbsp Búsqueda de Proyectos
+                </a>
+                <a href="http://safi.mop.gov.cl/" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>&nbsp SAFI
+                </a>
+                <a href="http://exploratorio.mop.gov.cl/" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>&nbsp Exploratorio
+                </a>
+                <a href="http://qa-sicremu-app.mop.gov.cl:9001/forms/frmservlet?config=sicof" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>&nbsp SICOF
+                </a>
+                <a href="https://bip.ministeriodesarrollosocial.gob.cl/bip2-consulta/app/parent-flow?execution=e2s1" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>&nbsp BIP Mideplan
+                </a>
+                <a href="http://ssdsec.mop.gov.cl/" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>&nbsp SSD - Sis. Seg. Documentos
+                </a>
+                <a href="http://intranet.mop.gov.cl/Paginas/index.aspx" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>&nbsp Intranet Mop
+                </a>
+                <a href="http://intranet.mop.gov.cl/Paginas/index.aspx" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>&nbsp Intranet Vialidad
+                </a>
+                <a href="http://www.contraloria.cl/appinf/LegisJuri/DictamenesGeneralesMunicipales.nsf" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>&nbsp Dictámenes Generales CGR
+                </a>
+                <a href="https://www.mercadopublico.cl/" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>&nbsp Mercado Público
+                </a>
+                <a href="http://dgop.mop.gob.cl/Paginas/default.aspx" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>&nbsp Registro Contratista
+                </a>
+                <a href="http://siemop.pruebasdit.cl/default.aspx" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>&nbsp Sistema Emergencias SIEMOP
+                </a>
+                <a href="https://compartearchivo.mop.gob.cl/" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>&nbsp Transfer Mop
+                </a>
+                <a href="#">
+                    <i class="fas fa-link"></i>&nbsp Soporte SAC
+                </a>
+            </div>
+            <div class="acceso-mid-panel">
+                <img class="acceso-mid-panel__svg" src="~/Content/images/login/reportes.svg" />
+                <a href="#" class="boton" role="button">Ir a Informes y Consultas &nbsp <i class="boton__icono fas fa-arrow-right"></i></a>
+            </div>
+            <div class="acceso-right-panel">
+                <div class="acceso-right-panel__contanier">
+                    <h3><i class="boton__icono fas fa-arrow-right"></i>&nbsp Acceso</h3>
+                    <form class="form-acceso" id="loginForm" action="@Url.Content("~/Acceso/Login")" method="post">
+                        <label for="txtUser" class="form-acceso-label"><i class="far fa-user"></i>&nbsp Usuario:</label>
+                        <input type="text" class="form-acceso-input" id="txtUser" name="txtUser" pattern="[a-zA-Z0-9]{1,35}" maxlength="10">
+                        <label for="txtPass" class="form-acceso-label"><i class="fas fa-key"></i>&nbsp Contraseña:</label>
+                        <input type="password" class="form-acceso-input" id="txtPass" name="txtPass" maxlength="200">
+                        <input type="submit" value="Acceder" class="form-acceso-button" />
+                    </form>
                 </div>
-                <div class="">
-                    <label for="Pass" class="" style="color:black !important">Contraseña</label>
-                    <input type="password" class="" id="Pass" name="Pass" maxlength="200">
-                </div>
-                <input type="submit" value="Acceder" class="" />
-            </form>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-content">
+                <p>&copy; @DateTime.Now.Year - Subdirección de Obras, Dirección de Vialidad - M.O.P.</p>
+            </div>
         </div>
     </div>
+    <script src="~/Js/Login/main-login.js?ver1.0"></script>
 </body>
 </html>

@@ -162,9 +162,11 @@
     <Content Include="Content\Alela\js\custom.js" />
     <Content Include="Content\Alela\js\custom.min.js" />
     <Content Include="Content\EstilosSac\Estilos.css" />
+    <Content Include="Content\EstilosSac\login\css-login.css" />
     <Content Include="Content\EstilosSac\Spinner.css" />
     <Content Include="Content\EstilosSac\Spinner2.css" />
-    <Content Include="Content\images\img.jpg" />
+    <Content Include="Content\images\login\reportes.svg" />
+    <Content Include="Content\images\login\vialidad.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -174,6 +176,7 @@
     <Content Include="Js\GestionContrato\FuncionesLlenaDropDownLists.js" />
     <Content Include="Js\GestionContrato\MainNuevoContrato.js" />
     <Content Include="Js\GestionContrato\SelectoresFormContrato.js" />
+    <Content Include="Js\Login\main-login.js" />
     <Content Include="Js\ReportesSac\ReporteBasicoDeObras\ReporteBasicoDeObras.js" />
     <Content Include="Js\ReportesSac\FiltrosListadoObras.js" />
     <Content Include="Scripts\bootstrap.js" />

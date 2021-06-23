@@ -28,7 +28,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             {
                 var query = @"select NOMBRES, APELLIDOS, GRUPO, USUARIO, TIPO_USUARIO from CTO_USUARIO
                               where
-                              upper(USUARIO) = :pUsuario
+                              upper(USUARIO) = upper(:pUsuario)
                               and CLAVE = :pClave";
 
                 cmd = new OracleCommand(query, conexionDb);
