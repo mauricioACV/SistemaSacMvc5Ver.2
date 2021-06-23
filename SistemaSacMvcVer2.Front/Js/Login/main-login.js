@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function validaFormulario(e) {
     e.preventDefault();
-    if (txtUser.value === '' && txtPass.value === '') {
+    if (txtUser.value === '' || txtPass.value === '') {
         console.log('Error')
     }
     else {
