@@ -1,9 +1,5 @@
-﻿using SistemaSacMvcVer2.Aplicación.Interfaces;
-using SistemaSacMvcVer2.Dominio.Interfaces.ICtoUsuario;
+﻿using SistemaSacMvcVer2.Dominio.Interfaces.ICtoUsuario;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace SistemaSacMvcVer2.Front.Controllers
@@ -17,7 +13,6 @@ namespace SistemaSacMvcVer2.Front.Controllers
             _ctoUsuarioServicio = ctoUsuarioServicio;
         }
 
-        // GET: Acceso
         public ActionResult Login()
         {
             return View();
@@ -28,15 +23,15 @@ namespace SistemaSacMvcVer2.Front.Controllers
         {
             try
             {
-                var objUsuario = _ctoUsuarioServicio.ObtenerUsuario(txtUser, txtPass);
+                var CtoUsuario = _ctoUsuarioServicio.ObtenerUsuario(txtUser, txtPass);
 
-                if (objUsuario.Usuario == null)
+                if (CtoUsuario.Usuario == null)
                 {
                     ViewBag.MensajeError = "Usuario no existe o contraseña no válida";
                     return View();
                 }
 
-                Session["UserSession"] = objUsuario;
+                Session["UserSession"] = CtoUsuario;
 
                 return RedirectToAction("Index", "Home");
             }

@@ -1,12 +1,9 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="~/images/favicon.ico" type="image/ico" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>@ViewBag.Title | Sistema SAC </title>
     <!-- ORDEN CARGA CSS -->
     <!-- DataTables -->
     <link href="~/Vendors/datatable/jquery-ui.css" rel="stylesheet" type="text/css" />
@@ -21,11 +18,8 @@
     <link href="~/Vendors/nprogress/nprogress.css" rel="stylesheet" />
     <link href="~/Content/Alela/css/custom.min.css" rel="stylesheet" />
     <link href="~/Content/EstilosSac/Estilos.css" rel="stylesheet" />
-    @*Styles.Render("~/Content/css")*@
     <!-- FIN RENDERIZADO CSS -->
-    @*<script src="~/Vendors/Babel/babel.min.js"></script>*@
     @RenderSection("styles", required: false)
-    <title>@ViewBag.Title | Sistema SAC </title>
 </head>
 
 <!-- Menu principal -->
@@ -282,82 +276,19 @@
                     <nav class="nav navbar-nav">
                         <ul class=" navbar-right">
                             <li class="nav-item dropdown open" style="padding-left: 15px;">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-user"></i> Mauricio Campusano
+                                <a href="javascript:;" class="" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-sitemap"></i> Servicio: <strong>Vialidad</strong>
                                 </a>
-                                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="javascript:;"> Profile</a>
-                                    <a class="dropdown-item" href="javascript:;">
-                                        <span class="badge bg-red pull-right">50%</span>
-                                        <span>Settings</span>
-                                    </a>
-                                    <a class="dropdown-item" href="javascript:;">Help</a>
-                                    <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                                </div>
+                            </li>
+                            <li class="nav-item dropdown open" style="padding-left: 15px;">
+                                <a href="javascript:;" class="" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa fa-users"></i> Grupo: <strong>@Session["Grupo"]</strong>
+</a>
                             </li>
                             <li role="presentation" class="nav-item dropdown open">
-                                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">6</span>
+                                <a href="javascript:;" class="" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-user"></i> <strong>@Session["Nombres"]</strong> <strong>@Session["Apellidos"]</strong>
                                 </a>
-                                <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><i class="fa fa-user"></i> </span>
-                                            <span>
-                                                <span>Mauricio Campusano</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><i class="fa fa-user"></i> </span>
-                                            <span>
-                                                <span>Mauricio Campusano</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><i class="fa fa-user"></i> </span>
-                                            <span>
-                                                <span>Mauricio Campusano</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><i class="fa fa-user"></i> </span>
-                                            <span>
-                                                <span>Mauricio Campusano</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <div class="text-center">
-                                            <a class="dropdown-item">
-                                                <strong>See All Alerts</strong>
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
                             </li>
                         </ul>
                     </nav>
@@ -385,9 +316,8 @@
 
 
     <!-- Scripts -->
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Vendors/jquery/jquery.min.js"></script>
+    <script src="~/Vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- DataTables -->
     <script type="text/javascript" charset="utf-8" src="~/Vendors/datatable/jquery.dataTables.min.js"></script>

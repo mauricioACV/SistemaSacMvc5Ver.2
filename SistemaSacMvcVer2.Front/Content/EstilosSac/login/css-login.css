@@ -21,8 +21,8 @@ h3 {
     margin-left: auto;
     margin-right: auto;
     margin-top: 2%;
-    max-width: 95%;
-    max-height: 95vh;
+    width: 95%;
+    min-height: 95vh;
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
 }
@@ -43,7 +43,7 @@ h3 {
 }
 
 .content-container {
-    height: 100%;
+    min-height: 30%;
     display: flex;
     justify-content: space-between;
     padding: 0px 50px;
@@ -54,7 +54,7 @@ h3 {
     padding-left: 20px;
     display: flex;
     flex-direction: column;
-    width: 20%;
+    width: 30%;
 }
 
 .acceso-mid-panel {
@@ -62,13 +62,13 @@ h3 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 60%;
+    width: 40%;
 }
 
 .acceso-mid-panel__svg {
     border: 1px solid rgba(215, 215, 209, 0.9);
     border-radius: 11px;
-    width: 45%;
+    width: 60%;
 }
 
 .acceso-left-panel a {
@@ -79,16 +79,20 @@ h3 {
 }
 
 .acceso-right-panel {
+    display: flex;
+    justify-content: center;
     padding: 0px 20px;
-    width: 20%;
-    height: 70vh;
+    width: 30%;
+    min-height: 70vh;
 }
 
 .acceso-right-panel__contanier {
+    width: 70%;
+    height: 40%;
     margin-top:30px;
     padding: 20px;
     border-radius: 7px;
-    box-shadow: 6px 6px 12px 1px rgba(0,0,0,0.2);
+    box-shadow: 1px 1px 12px 1px rgba(0,0,0,0.2);
     background-color: rgba(134, 163, 255, 0.2);
 }
 
@@ -131,7 +135,7 @@ h3 {
 
 .boton {
     margin-top: -20px;
-    margin-left: 150px;
+    margin-left: -150px;
     border: none;
     min-width: 180px;
     height: 50px;
@@ -150,4 +154,101 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.error-message {
+    display:flex;
+    justify-content: center;
+}
+
+.alert-icon-hidden {
+    visibility: hidden;
+}
+
+.alert-icon-show {
+    visibility: visible;
+}
+
+
+.red-text {
+    color: red;
+    text-align: center;
+}
+
+.red-border {
+    border: 1px solid;
+    border-color: red;
+}
+
+.bold {
+    font-weight: 400;
+}
+
+@media screen and (max-width: 1300px) {
+    .acceso-header {
+        padding: 5px 0px 0px 0px;
+    }
+
+
+    .acceso-right-panel__contanier {
+        width: 90%;
+        height: 40%;
+    }
+
+    .acceso-left-panel a {
+        font-size: 12px;
+        padding: 3px 0px;
+        text-decoration: none;
+        color: #000;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+
+    .acceso-header-title {
+        text-align: center;
+    }
+
+    .content-container {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .acceso-right-panel {
+        min-height: 100%;
+        width: 60%;
+    }
+
+    .acceso-mid-panel {
+        width: 100%;
+    }
+
+    .acceso-left-panel {
+        margin-bottom: 20px;
+        width: 50%;
+    }
+
+    .footer {
+        padding: 0px 20px;
+    }
+
+    .footer_text {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 730px) {
+
+    .acceso-left-panel {
+        width: 90%;
+    }
+
+    .acceso-right-panel {
+        width: 100%;
+    }
+
+    .boton {
+        margin-top: 0px;
+        margin-left: 0px;
+    }
 }

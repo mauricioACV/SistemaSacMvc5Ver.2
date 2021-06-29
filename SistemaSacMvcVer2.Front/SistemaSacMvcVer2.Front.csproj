@@ -166,6 +166,7 @@
     <Content Include="Content\EstilosSac\Spinner.css" />
     <Content Include="Content\EstilosSac\Spinner2.css" />
     <Content Include="Content\images\login\reportes.svg" />
+    <Content Include="Content\images\login\reportes2.svg" />
     <Content Include="Content\images\login\vialidad.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -1320,6 +1321,8 @@
     <Content Include="Vendors\gauge.js\dist\gauge.min.js" />
     <Content Include="Vendors\jquery\jquery.js" />
     <Content Include="Vendors\jquery\jquery.min.js" />
+    <Content Include="Vendors\jquery\jquery3.6\jquery-3.6.0.min.js" />
+    <Content Include="Vendors\jquery\jquery3.6\jquery-migrate-3.3.2.js" />
     <Content Include="Vendors\moment\locale\af.js" />
     <Content Include="Vendors\moment\locale\ar-ma.js" />
     <Content Include="Vendors\moment\locale\ar-sa.js" />
@@ -1729,6 +1732,7 @@
     <Content Include="Vendors\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Vendors\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Views\Acceso\Login.cshtml" />
+    <Content Include="Vendors\jquery\jquery3.6\jquery-3.6.0.slim.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

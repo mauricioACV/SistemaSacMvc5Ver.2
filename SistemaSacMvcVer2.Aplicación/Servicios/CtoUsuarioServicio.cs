@@ -19,7 +19,7 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
 
         public CtoUsuario ObtenerUsuario(string pUsuario, string pClave)
         {
-            var pClaveCripto = _encriptaServiceRepositorio.EncriptaMD5(pClave);
+            string pClaveCripto = _encriptaServiceRepositorio.EncriptaMD5(pClave);
 
             var objUsuario = _unitOfWork.CtoUsuarioRepositorio.ObtenerUsuario(pUsuario, pClaveCripto);
 
