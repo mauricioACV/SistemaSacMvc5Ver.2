@@ -1,5 +1,6 @@
 ﻿//DATATABLE **Modal Inspector Fiscal**
 function llenarModalInspectorFiscal() {
+    console.log('se lleno modal de IF');
 
     Tabla = $("#tablaInspectorFiscal").DataTable({
         "language": {
@@ -54,6 +55,7 @@ $(document).on('click', '.seleccionaIf', function (e) {
 
 //DATATABLE **Modal Visitador**
 function llenarModalVisitadores() {
+    console.log('se lleno modal de Visitador');
 
     Tabla = $("#tablaVisitadores").DataTable({
         "language": {
@@ -108,6 +110,7 @@ $(document).on('click', '.seleccionaVisitador', function (e) {
 
 //DATATABLE **Modal Asesoria**
 function llenarModalAsesoria() {
+    console.log('se lleno modal de Asesoria');
 
     Tabla = $("#tablaAsesoria").DataTable({
         "language": {
@@ -135,7 +138,7 @@ function llenarModalAsesoria() {
 
         "ajax": {
             "url": "/DominioItemsFormulario/ObtenerAsesoriaContratosEnEjecucionOrGarantia",
-            "data": { pGrupoUsuario: objUsuario.Usuario_Ingreso },
+            "data": { pGrupoUsuario: GrupoUser },
             "type": "POST",
             "datatype": "json"
         },
@@ -162,6 +165,7 @@ $(document).on('click', '.seleccionaAsesoria', function (e) {
 
 //DATATABLE **Modal Constratistas**
 function llenarModalContratista() {
+    console.log('se lleno modal de Contratista');
 
     Tabla = $("#tablaContratistas").DataTable({
         "language": {

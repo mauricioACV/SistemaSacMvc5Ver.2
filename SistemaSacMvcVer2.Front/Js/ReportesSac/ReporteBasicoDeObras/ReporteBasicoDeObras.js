@@ -3,11 +3,12 @@ const filtrosReporte = JSON.parse(localStorage.getItem('filtroReporteObras')) ||
 
 document.addEventListener('DOMContentLoaded', () => {
     generarReporteHtml();
-    console.log(filtrosReporte);
 });
 
 function generarReporteHtml() {
     spinner();
+    fijarDetalleFiltro();
+    console.log(filtrosReporte);
     obtenerListadoObras(filtrosReporte);
 }
 
@@ -159,5 +160,26 @@ function spinner() {
 };
 
 const removeSpinner = () => {
-   mensaje.removeChild(mensaje.firstChild);
+    document.querySelector('#table-container').className = 'show';
+    mensaje.removeChild(mensaje.firstChild);
 }
+
+function fijarDetalleFiltro() {
+    const txtGrupo = document.querySelector('#txtGrupo');
+    const txtEstadoContrato = document.querySelector('#txtEstadoContrato');
+    const txtRegion = document.querySelector('#txtRegion');
+    const txtTipoContrato = document.querySelector('#txtTipoContrato');
+    const txtFechaInicial = document.querySelector('#txtFechaInicial');
+    const txtFechaFinal = document.querySelector('#txtFechaFinal');
+    const txtClase = document.querySelector('#txtClase');
+
+    const { grupo, estadoContrato, region, tipoContrato, fechaDesde, fechaHasta, clase } = filtrosReporte
+
+    txtGrupo.innerText = grupo;
+    txtEstadoContrato.innerText = estadoContrato;
+    txtRegion.innerText = region ? region : 'N/A';
+    txtClase.innerText = clase ? clase : 'N/A';
+    txtTipoContrato.innerText = tipoContrato;
+    txtFechaInicial.innerText = fechaDesde ? fechaDesde : 'N/A';
+    txtFechaFinal.innerText = fechaHasta ? fechaHasta : 'N/A';;
+};

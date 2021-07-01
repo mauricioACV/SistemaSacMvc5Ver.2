@@ -130,8 +130,8 @@ function generarReporte() {
         if (chkRangoFechas.checked && (dateInicio.value === "" || dateFin.value === "")) {
             console.log('Debe ingresar rango de fechas');
         } else {
-            const fechaInicio = convierteFechaDiaMesAgno(dateInicio.value);
-            const fechaFin = convierteFechaDiaMesAgno(dateFin.value);
+            const fechaInicio = dateInicio.value? convierteFechaDiaMesAgno(dateInicio.value) : null;
+            const fechaFin = dateFin.value? convierteFechaDiaMesAgno(dateFin.value) : null;
 
             const filtroReportes = {
                 grupo: ddlGrupo.value,

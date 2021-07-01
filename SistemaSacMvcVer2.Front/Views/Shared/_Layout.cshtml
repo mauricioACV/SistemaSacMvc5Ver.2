@@ -29,7 +29,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0; padding:0px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
-                        <a href="@Url.Action("Index","Home")" class="site_title"><i class="fa fa-road"></i> <span>SAC-DV</span></a>
+                        <a href="@Url.Action("Index", "Home")" class="site_title"><i class="fa fa-road"></i> <span>SAC-DV</span></a>
                     </div>
                     <div class="clearfix"></div>
                     <!-- menu profile quick info -->
@@ -67,7 +67,7 @@
                                 <li>
                                     <a><i class="fa fa-file-text"></i> Edición Contratos <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="@Url.Action("NuevoContrato","GestionContrato")">Contrato</a>
+                                        <li><a href="@Url.Action("NuevoContrato", "GestionContrato")">Contrato</a>
                                         <li><a href="#level1_1">Carpeta Digital</a>
                                         <li>
                                             <a>Minuta<span class="fa fa-chevron-down"></span></a>
@@ -240,7 +240,7 @@
                                             <a href="#level1_1">Cambiar Clave</a>
                                         </li>
                                         <li>
-                                            <a href="#level1_1">Desconectarse</a>
+                                            <a href="@Url.Action("LogOut", "Acceso")">Desconectarse</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -259,7 +259,7 @@
                         <a data-toggle="tooltip" data-placement="top" title="Lock">
                             <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                        <a data-toggle="tooltip" data-placement="top" title="Cerra Sesión" href="@Url.Action("LogOut", "Acceso")">
                             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                         </a>
                     </div>
@@ -282,12 +282,12 @@
                             </li>
                             <li class="nav-item dropdown open" style="padding-left: 15px;">
                                 <a href="javascript:;" class="" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa fa-users"></i> Grupo: <strong>@Session["Grupo"]</strong>
-</a>
+                                    <i class="fa fa fa-users"></i> Grupo: <strong>@Session["GrupoUser"]</strong>
+                                </a>
                             </li>
                             <li role="presentation" class="nav-item dropdown open">
                                 <a href="javascript:;" class="" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-user"></i> <strong>@Session["Nombres"]</strong> <strong>@Session["Apellidos"]</strong>
+                                    <i class="fa fa-user"></i> <strong>@Session["NombresUser"]</strong> <strong>@Session["ApellidosUser"]</strong>
                                 </a>
                             </li>
                         </ul>
@@ -300,7 +300,6 @@
                 @RenderBody()
             </div>
             <!-- /page content -->
-
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
@@ -330,6 +329,15 @@
     <script src="~/Content/Alela/js/custom.js"></script>
 
     <!-- Scripts -->
+
+    <script>
+        const objUserSession = {
+            GrupoUser: '@Session["GrupoUser"]',
+            NombresUser: '@Session["NombresUser"]',
+            ApellidosUser: '@Session["ApellidosUser"]',
+            CuentaUser: '@Session["CuentaUser"]',
+        }
+    </script>
 
     @RenderSection("scripts", required: false)
 

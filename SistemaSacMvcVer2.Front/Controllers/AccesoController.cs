@@ -41,5 +41,11 @@ namespace SistemaSacMvcVer2.Front.Controllers
                 return View();
             }
         }
+
+        public ActionResult LogOut()
+        {
+            Session["UserSession"] = null;
+            return RedirectToAction("Login", "Acceso");
+        }
     }
 }

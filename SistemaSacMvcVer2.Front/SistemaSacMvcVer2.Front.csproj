@@ -173,8 +173,8 @@
     <Content Include="Global.asax" />
     <Content Include="images\favicon.ico" />
     <Content Include="Js\GestionContrato\DataTablesVentanasModal.js" />
-    <Content Include="Js\GestionContrato\Funciones.js" />
-    <Content Include="Js\GestionContrato\FuncionesLlenaDropDownLists.js" />
+    <Content Include="Js\GestionContrato\FuncionesFetchRequest.js" />
+    <Content Include="Js\GestionContrato\FuncionesHelpers.js" />
     <Content Include="Js\GestionContrato\MainNuevoContrato.js" />
     <Content Include="Js\GestionContrato\SelectoresFormContrato.js" />
     <Content Include="Js\Login\main-login.js" />

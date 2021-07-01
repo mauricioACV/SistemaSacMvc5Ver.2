@@ -1,8 +1,5 @@
-﻿//Hard Code
-const objUsuario = {
-    Usuario_Ingreso: 'CENTRAL',
-    Clase: '*',
-};
+﻿//objUserSession esta seteado en un script dentro de la vista _Layout.cshtml (carpeta Views/Shared)
+const { GrupoUser } = objUserSession;
 
 //Arreglo Configuracion Enpoints y callback de DropDownList
 const setupItemDropDownList = [
@@ -15,13 +12,13 @@ const setupItemDropDownList = [
     {
        endPoint: 'ObtenerItemsPorDominioUsuario',
        pDominio: 'CTO_TIPO_CONTRATO',
-       pGrupoUsuario: objUsuario.Usuario_Ingreso,
+       pGrupoUsuario: GrupoUser,
        funcion: llenarSelectTipoContrato
     },
     {
        endPoint: 'ObtenerItemsPorDominioUsuario',
        pDominio: 'CTO_CONTRATO_PROGRAMA',
-       pGrupoUsuario: objUsuario.Usuario_Ingreso,
+       pGrupoUsuario: GrupoUser,
        funcion: llenarSelectProgramaPlan
     },
     {
@@ -51,13 +48,13 @@ const setupItemDropDownList = [
     {
         endPoint: 'ObtenerItemsAdministracionPorClaseUsuario',
         pDominio: '',
-        pGrupoUsuario: objUsuario.Usuario_Ingreso,
+        pGrupoUsuario: GrupoUser,
         funcion: llenarSelectAdministracion
     },
     {
         endPoint: 'ObtenerItemsPorDominioUsuario',
         pDominio: 'CTO_ORIGEN_RESOLUCION',
-        pGrupoUsuario: objUsuario.Usuario_Ingreso,
+        pGrupoUsuario: GrupoUser,
         funcion: llenarSelectOrigenRes
     },
     {
@@ -70,6 +67,7 @@ const setupItemDropDownList = [
 
 //Eventos carga completa del HTML
 document.addEventListener('DOMContentLoaded', () => {
+    console.log(GrupoUser);
 
     //Carga datos drop down list globales
     setupItemDropDownList.forEach(async item => {
@@ -77,13 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
         item.funcion(items);
     });
 
-    //Llenado Ventanas Modal
-    llenarModalInspectorFiscal();
-    llenarModalVisitadores();
-    llenarModalAsesoria();
-    llenarModalContratista();
-
     //Listeners
     txtCodigoSafi.addEventListener('blur', obtieneItemsSafi);
     btnBuscarResidente.addEventListener('click', obtenerResidentePorPalabraClave);
+    txtInspectorFiscal.addEventListener('click', llenarModalInspectorFiscal);
+    txtVisitador.addEventListener('click', llenarModalVisitadores);
+    txtAsesoria.addEventListener('click', llenarModalAsesoria);
+    txtContratista.addEventListener('click', llenarModalContratista);
 });

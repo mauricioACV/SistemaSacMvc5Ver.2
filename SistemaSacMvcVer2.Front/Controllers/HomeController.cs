@@ -10,9 +10,10 @@ namespace SistemaSacMvcVer2.Front.Controllers
         public ActionResult Index()
         {
             objUsuario = (CtoUsuario)Session["UserSession"];
-            Session["Nombres"] = objUsuario.Nombres;
-            Session["Apellidos"] = objUsuario.Apellidos;
-            Session["Grupo"] = objUsuario.Grupo;
+            Session["NombresUser"] = objUsuario.Nombres;
+            Session["ApellidosUser"] = objUsuario.Apellidos;
+            Session["GrupoUser"] = objUsuario.Grupo;
+            Session["CuentaUser"] = objUsuario.Usuario;
             return View();
         }
     }

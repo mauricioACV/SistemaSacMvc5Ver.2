@@ -7,6 +7,7 @@
 
 <html>
 <head>
+    <meta name="viewport" content="width=device-width" />
     <link href="~/Vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- DataTables -->
     <link href="~/Vendors/datatable/export/datatables.min.css" rel="stylesheet" />
@@ -17,15 +18,102 @@
     <!-- DataTables -->
     <link href="~/Vendors/fontawesome/css/all.css" rel="stylesheet" />
     <link href="~/Content/EstilosSac/Spinner2.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width" />
+    <!-- Custom CSS -->
     <title>Reporte Basico De Obras SAC</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+
+        .report-header {
+            margin: 0;
+            padding: 0px 15px;
+        }
+
+        .report-header-container {
+            background-color: rgba(11, 33, 88, 0.7);
+        }
+
+        .report-title {
+            color: #fff;
+            padding: 10px 30px;
+        }
+
+        .report-details {
+            background-color: #7ba771;
+            height: 50px;
+            padding: 0px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .detail-item {
+            height: 25px;
+            display: flex;
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+
+        .show {
+            visibility: visible;
+        }
+
+        label {
+            color: rgba(11, 33, 88, 0.7);
+            font-weight: bold;
+        }
+
+        label ~ p {
+            font-weight: bold;
+        }
+
+        .dt-buttons button {
+            width: 35px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <p>Página Reporte Basico de Obras Sac</p>
+    <div class="report-header">
+        <div class="report-header-container">
+            <h1 class="report-title">S.A.C. - Reporte Basico de Obras</h1>
+        </div>
+        <div class="report-details">
+            <div class="detail-item">
+                <label>Grupo:</label>&nbsp;<p id="txtGrupo"></p>
+            </div>
+            <div class="detail-item">
+                <label>Estado Contratos:</label>&nbsp;<p id="txtEstadoContrato"></p>
+            </div>
+            <div class="detail-item">
+                <label>Tipo Contrato:</label>&nbsp;<p id="txtTipoContrato"></p>
+            </div>
+            <div class="detail-item">
+                <label>Región:</label>&nbsp;<p id="txtRegion"></p>
+            </div>
+            <div class="detail-item">
+                <label>Unidad/Depto:</label>&nbsp;<p id="txtClase"></p>
+            </div>
+            <div class="detail-item">
+                <label>Fecha incial:</label>&nbsp;<p id="txtFechaInicial"></p>
+            </div>
+            <div class="detail-item">
+                <label>Fecha final:</label>&nbsp;<p id="txtFechaFinal"></p>
+            </div>
+        </div>
     </div>
     <div id="mensaje"></div>
-    <div>
+    <div id="table-container" class="hidden">
         <div class="col-lg-12">
             <div class="">
                 <table id="tablaReporteBasicoObras" class="table table-bordered table-striped nowrap" cellspacing="0" style="width:100%; font-size:12px">
@@ -79,8 +167,9 @@
             </div>
         </div>
     </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <!-- Scripts -->
+    <script src="~/Vendors/jquery/jquery.min.js"></script>
+    <script src="~/Vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- DataTables -->
     <script type="text/javascript" charset="utf-8" src="~/Vendors/datatable/jquery.dataTables.min.js"></script>
@@ -93,6 +182,6 @@
     <script src="~/Vendors/datatable/export/Buttons-1.7.0/js/buttons.html5.min.js"></script>
     <script src="~/Vendors/datatable/export/Buttons-1.7.0/js/buttons.print.min.js"></script>
     <!-- DataTables -->
-    <script src="~/Js/ReportesSac/ReporteBasicoDeObras/ReporteBasicoDeObras.js?v26052021"></script>
+    <script src="~/Js/ReportesSac/ReporteBasicoDeObras/ReporteBasicoDeObras.js?v1.3"></script>
 </body>
 </html>
