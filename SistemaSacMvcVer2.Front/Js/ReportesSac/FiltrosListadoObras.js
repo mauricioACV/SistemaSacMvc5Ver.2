@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     ddlGrupo.addEventListener('change', verificaOpcionesFiltros);
     ddlEstadoContrato.addEventListener('change', verificaOpcionesFiltros);
     chkRangoFechas.addEventListener('change', verificaOpcionesFiltros);
+    dateFin.addEventListener('change', verificaRangoFechaValido);
 });
 
 async function obtenerGrupo() {
@@ -85,7 +86,6 @@ async function obtenerClases() {
     const EndPoint = '/DominioItemsFormulario/ObtenerItemsAdministracionPorClaseUsuario';
     const data = {
         pGrupoUsuario: ddlGrupo.value
-        //pGrupoUsuario: objUsuario.Usuario_Ingreso
     };
 
     try {
@@ -125,10 +125,22 @@ function llenarSelectClase(items) {
 function generarReporte() {
 
     if (ddlGrupo.value == "" || ddlEstadoContrato.value == "") {
-        console.log('Debe Escoger opciones de Grupo y Estado')
+        Swal.fire({
+            title: 'Error en Grupo o Estado Contrato',
+            text: "Debe Escoger opciones de Grupo y Estado",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Aceptar'
+        })
     } else {
         if (chkRangoFechas.checked && (dateInicio.value === "" || dateFin.value === "")) {
-            console.log('Debe ingresar rango de fechas');
+            Swal.fire({
+                title: 'Rango de Fechas sin datos',
+                text: "Ingrese rango de fechas válido para continuar.",
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+            })
         } else {
             const fechaInicio = dateInicio.value? convierteFechaDiaMesAgno(dateInicio.value) : null;
             const fechaFin = dateFin.value? convierteFechaDiaMesAgno(dateFin.value) : null;
@@ -143,6 +155,7 @@ function generarReporte() {
                 tipoContrato: ddlTipoContrato.value,
                 clase: ddlClase.value,
                 IncluirCentral: chkAdminCentral.checked,
+                generado: false,
             }
             //Enviar datos a pagina que hara solitud al servidor y renderiza resultados
             localStorage.setItem('filtroReporteObras', JSON.stringify(filtroReportes));
@@ -154,21 +167,21 @@ function generarReporte() {
 }
 
 function verificaOpcionesFiltros(e) {
+    //console.log(e.target.id);
 
-    console.log(e.target.id);
     if (e.target.id === 'ddlGrupo') {
         obtenerClases();
         const grupo = ddlGrupo.value;
         const divChkAdminCentral = document.querySelector('#divChkAdminCentral');
         const divRegion = document.querySelector('#divRegion');
-        console.log(ddlRegion.value);
+        //console.log(ddlRegion.value);
 
 
         if (grupo !== 'CENTRAL' && grupo !== 'DOP' && grupo !== 'D.I.V.URBANA' && grupo !== 'D.INGENIERIA' && grupo !== 'D.REDES') {
             ddlRegion.value = '';
             divRegion.style.display = 'none';
             divChkAdminCentral.style.display = 'block';
-            console.log(ddlRegion.value);
+            //console.log(ddlRegion.value);
         } else {
             divRegion.style.display = 'block';
             divChkAdminCentral.style.display = 'none';
@@ -196,6 +209,29 @@ function verificaOpcionesFiltros(e) {
         dateFin.value = '';
         divRangoFechas.style.display = 'none';
     }
+}
+
+function verificaRangoFechaValido() {
+    console.log(dateInicio.value);
+    console.log(dateFin.value);
+    const fecha1 = new Date(dateInicio.value).getTime();
+    const fecha2 = new Date(dateFin.value).getTime();
+    console.log(fecha1);
+    console.log(fecha2);
+
+    if (fecha1 > fecha2) {
+        Swal.fire({
+            title: 'Rango de fechas no válido',
+            text: "Fecha incial debe ser menor a fecha final.",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Aceptar'
+        })
+
+        dateInicio.value = '';
+        dateFin.value = '';
+    }
+
 }
 
 function convierteFechaDiaMesAgno(fecha) {
