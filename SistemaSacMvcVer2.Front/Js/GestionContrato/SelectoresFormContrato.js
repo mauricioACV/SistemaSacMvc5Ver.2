@@ -1,4 +1,5 @@
-﻿//DropDownLists
+﻿//***********************************Pestaña GENERAL************************************************
+//DropDownLists
 const selectTipoContrato = document.querySelector('#ddlTipoContrato');
 const selectProgramaPlan = document.querySelector('#programaPlan');
 const selectLicitacion = document.querySelector('#ddlLicitacion');
@@ -32,3 +33,18 @@ const txtAsesoria = document.querySelector('#txtAsesoria');
 const txtContratista = document.querySelector('#txtContratista');
 const txtResidente = document.querySelector('#txtResidente');
 const txtNumProceso = document.querySelector('#txtNumProceso');
+
+//***********************************Pestaña DESCRIPCION************************************************
+
+const txtDescripcion = document.querySelector('#txtDescripcion');
+const txtJustificacion = document.querySelector('#txtJustificacion');
+const txtCaracteristicas = document.querySelector('#txtCaracteristicas');
+
+
+//***********************************Pestaña COMUNAS************************************************
+
+const containerInputsComuna = document.querySelector('#containerInputsComuna');
+const txtComuna = document.querySelector('#txtComuna');
+const txtInversion = document.querySelector('#txtInversion');
+const btnAgregarComuna = document.querySelector('#btnAgregarComuna');
+const btnQuitarComuna = document.querySelector('#btnQuitarComuna');

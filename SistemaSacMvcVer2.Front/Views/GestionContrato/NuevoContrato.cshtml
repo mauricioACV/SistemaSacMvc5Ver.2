@@ -10,6 +10,23 @@
     <link href="~/Content/EstilosSac/Spinner.css" rel="stylesheet" />
     <!-- agregar estilos -->
 
+    <style>
+        .pointer {
+            cursor: pointer;
+        }
+        .containerBtnComuna {
+            width: 120px;
+            display: flex;
+            justify-content: space-between
+        }
+        .blue {
+            color: #0000ff;
+        }
+        .red {
+            color: #FF0000;
+        }
+    </style>
+
 }
 
 <div class="clearfix"></div>
@@ -261,7 +278,7 @@
                                 <label>Descripción del Contrato</label>
                             </div>
                             <div class="form-group">
-                                <textarea id="TextArea1" cols="50" rows="2" class="col-lg-12"></textarea>
+                                <textarea id="txtDescripcion" cols="50" rows="2" class="col-lg-12"></textarea>
                             </div>
                         </div>
                     </div>
@@ -273,7 +290,7 @@
                                 <label>Justificación del Contrato</label>
                             </div>
                             <div class="form-group">
-                                <textarea id="TextArea2" cols="50" rows="2" class="col-lg-12"></textarea>
+                                <textarea id="txtJustificacion" cols="50" rows="2" class="col-lg-12"></textarea>
                             </div>
                         </div>
                     </div>
@@ -285,7 +302,7 @@
                                 <label>Características Relevantes del Contrato</label>
                             </div>
                             <div class="form-group">
-                                <textarea id="TextArea3" rows="2" class="col-lg-12"></textarea>
+                                <textarea id="txtCaracteristicas" cols="50" rows="2" class="col-lg-12"></textarea>
                             </div>
                         </div>
                     </div>
@@ -312,32 +329,19 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <div class="x_panel">
-                            <div class="x_title">
-                                <label>Agregar Comuna</label>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Comuna</label>
-                                    <input type="text" class="form-control" name="comuna" id="txtComuna" placeholder="Click aquí para buscar comuna" style="width:100%" />
+                            <div class="x_title d-flex align-content-center justify-content-between">
+                                <label class="d-flex align-items-center">Registrar Comuna(s)</label>
+                                <div class="containerBtnComuna">
+                                    <div class="form-group">
+                                        <a id="btnAgregarComuna" class="pointer d-block"><i class="fa fa-plus fa-2x d-block blue text-center" aria-hidden="true"></i><p class="d-inline-block">Agregar</p></a>
+                                    </div>
+                                    <div class="form-group">
+                                        <a id="btnQuitarComuna" class="pointer d-block"><i class="fa fa-minus fa-2x d-block red text-center" aria-hidden="true"></i><p class="d-inline-block">Quitar</p></a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>Inversión %</label>
-                                    <input type="text" class="form-control" name="inversion" id="txtInversion" style="width:100%" />
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group center-margin">
-                                    <a><p>Agregar</p><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
+                            <div class="col-md-12" id="containerInputsComuna"></div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="x_title">
-                        <label>Agregados:</label>
                     </div>
                 </div>
             </div>
@@ -817,11 +821,11 @@
 <!-- Modal Spinner -->
 
 @section scripts{
-    <script src="~/Js/GestionContrato/SelectoresFormContrato.js?ver1.0">
+    <script src="~/Js/GestionContrato/SelectoresFormContrato.js?ver1.1">
     </script>
     <script src="~/Js/GestionContrato/FuncionesHelpers.js?ver1.0">
     </script>
-    <script src="~/Js/GestionContrato/FuncionesFetchRequest.js?ver1.0">
+    <script src="~/Js/GestionContrato/FuncionesFetchRequest.js?ver1.1">
     </script>
     <script src="~/Js/GestionContrato/DataTablesVentanasModal.js?ver1.0">
     </script>

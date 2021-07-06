@@ -1,4 +1,4 @@
-﻿
+﻿//***********************************Funciones Pestaña GENERAL************************************************
 //Funciones fill option select
 function llenarSelectTipoContrato(items) {
     items.forEach(item => {
@@ -224,3 +224,68 @@ function convierteFechaFormatoIso(fecha) {
     const fechaISo = `${agno}-${mes}-${dia}`;
     return fechaISo;
 }
+
+
+
+//***********************************Funciones Pestaña COMUNAS************************************************
+function mostrarComunas() {
+    console.log('Mostrar comunas')
+};
+
+function agregarInputComuna() {
+    console.log('agregando comuna')
+    const divContainerInputs = document.createElement('div');
+    divContainerInputs.classList.add('col-md-12');
+
+    const divColComuna = document.createElement('div');
+    divColComuna.classList.add('col-md-6');
+
+    const divColInversion = document.createElement('div');
+    divColInversion.classList.add('col-md-1');
+
+
+    const divFormGroupComuna = document.createElement('div');
+    divFormGroupComuna.classList.add('form-group');
+
+    const divFormGroupInversion = document.createElement('div');
+    divFormGroupInversion.classList.add('form-group');
+
+
+    const labelComuna = document.createElement('label');
+    labelComuna.textContent = 'Comuna';
+
+    const labelInversion = document.createElement('label');
+    labelInversion.textContent = 'Inversión %';
+
+    const inputComuna = document.createElement('input');
+    inputComuna.type = 'text';
+    inputComuna.classList.add('form-control');
+    inputComuna.placeholder = 'Click aquí para buscar comuna'
+    inputComuna.addEventListener('click', () => mostrarComunas());
+
+
+    const inputInversion = document.createElement('input');
+    inputInversion.type = 'number';
+    inputInversion.classList.add('form-control');
+
+
+    divFormGroupComuna.appendChild(labelComuna);
+    divFormGroupComuna.appendChild(inputComuna);
+
+    divFormGroupInversion.appendChild(labelInversion);
+    divFormGroupInversion.appendChild(inputInversion);
+
+    divColComuna.appendChild(divFormGroupComuna);
+    divColInversion.appendChild(divFormGroupInversion);
+
+    divContainerInputs.appendChild(divColComuna);
+    divContainerInputs.appendChild(divColInversion);
+
+    containerInputsComuna.appendChild(divContainerInputs);
+};
+
+function quitarInputComuna() {
+    if (containerInputsComuna.firstChild) {
+        containerInputsComuna.removeChild(containerInputsComuna.lastChild);
+    }
+};

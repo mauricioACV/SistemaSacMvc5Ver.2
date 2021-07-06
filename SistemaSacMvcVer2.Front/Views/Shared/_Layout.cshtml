@@ -285,10 +285,13 @@
                                     <i class="fa fa fa-users"></i> Grupo: <strong>@Session["GrupoUser"]</strong>
                                 </a>
                             </li>
-                            <li role="presentation" class="nav-item dropdown open">
-                                <a href="javascript:;" class="" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-user"></i> <strong>@Session["NombresUser"]</strong> <strong>@Session["ApellidosUser"]</strong>
+                            <li class="nav-item dropdown open" style="padding-left: 15px;">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-user"></i>&nbsp;<strong>@Session["NombresUser"]</strong> <strong>@Session["ApellidosUser"]</strong>
                                 </a>
+                                <div class="dropdown-menu dropdown-usermenu pull-left" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="@Url.Action("LogOut", "Acceso")"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesión</a>
+                                </div>
                             </li>
                         </ul>
                     </nav>
@@ -303,7 +306,7 @@
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    Sistema de Administración de Contratos - <a href="https://colorlib.com">SAC</a>
+                    Sistema de Administración de Contratos - <a href="#">SAC</a>
                 </div>
                 <div class="clearfix"></div>
             </footer>

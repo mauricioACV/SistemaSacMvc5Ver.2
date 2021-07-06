@@ -69,17 +69,23 @@ const setupItemDropDownList = [
 document.addEventListener('DOMContentLoaded', () => {
     console.log(GrupoUser);
 
-    //Carga datos drop down list globales
+    //Carga datos drop down list globales pertaña GENERAL
     setupItemDropDownList.forEach(async item => {
         const items = await obtenerItemsGlobalesDDL(item);
         item.funcion(items);
     });
 
-    //Listeners
+    //Listeners pestaña GENERAL
     txtCodigoSafi.addEventListener('blur', obtieneItemsSafi);
     btnBuscarResidente.addEventListener('click', obtenerResidentePorPalabraClave);
     txtInspectorFiscal.addEventListener('click', llenarModalInspectorFiscal);
     txtVisitador.addEventListener('click', llenarModalVisitadores);
     txtAsesoria.addEventListener('click', llenarModalAsesoria);
     txtContratista.addEventListener('click', llenarModalContratista);
+
+    //Listeners pestaña COMUNAS
+    //txtComuna.addEventListener('click', mostrarComunas);
+    btnAgregarComuna.addEventListener('click', agregarInputComuna);
+    btnQuitarComuna.addEventListener('click', quitarInputComuna);
+
 });
