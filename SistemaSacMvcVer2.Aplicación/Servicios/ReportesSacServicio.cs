@@ -1,4 +1,4 @@
-﻿using SistemaSacMvcVer2.Dominio.Common.Models.ReportesSac;
+﻿using SistemaSacMvcVer2.Dominio.Common.Models;
 using SistemaSacMvcVer2.Dominio.Entidades;
 using SistemaSacMvcVer2.Dominio.Interfaces;
 using SistemaSacMvcVer2.Dominio.Interfaces.IReportesSac;
@@ -16,38 +16,38 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             _unitOfWork = unitOfWork;
         }
 
-        public List<ReportesSac> ObtenerListadoBasicoObrasPorGrupoPorEstado(ReportesSacFiltros filtroReporteBasico)
+        public List<ReportesSac> ObtenerListadoBasicoObrasPorGrupoPorEstado(SacFiltros filtroBasico)
         {
             List<ReportesSac> ListadoBacisoObrasPorGrupoPorEstado = new List<ReportesSac>();
 
-            if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "EN GARANTIA")
+            if (filtroBasico.RangoFecha && filtroBasico.EstadoContrato == "EN GARANTIA")
             {
                 List<string> CodCarpetaGarantiaPorFechas = new List<string>();
 
-                if (filtroReporteBasico.Clase == null)
+                if (filtroBasico.Clase == null)
                 {
-                    CodCarpetaGarantiaPorFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoEntreFechas(filtroReporteBasico);
+                    CodCarpetaGarantiaPorFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoEntreFechas(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetaGarantiaPorFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorClaseEntreFechas(filtroReporteBasico);
+                    CodCarpetaGarantiaPorFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorClaseEntreFechas(filtroBasico);
                 }
                 foreach (var codigoCarpeta in CodCarpetaGarantiaPorFechas)
                 {
                     ListadoBacisoObrasPorGrupoPorEstado.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                 }
             }
-            else if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "LIQUIDADO")
+            else if (filtroBasico.RangoFecha && filtroBasico.EstadoContrato == "LIQUIDADO")
             {
                 List<string> CodCarpetaLiquidadoPorFechas = new List<string>();
 
-                if (filtroReporteBasico.Clase == null)
+                if (filtroBasico.Clase == null)
                 {
-                    CodCarpetaLiquidadoPorFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoEntreFechas(filtroReporteBasico);
+                    CodCarpetaLiquidadoPorFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoEntreFechas(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetaLiquidadoPorFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoPorClaseEntreFechas(filtroReporteBasico);
+                    CodCarpetaLiquidadoPorFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoPorClaseEntreFechas(filtroBasico);
                 }
                 foreach (var codigoCarpeta in CodCarpetaLiquidadoPorFechas)
                 {
@@ -58,37 +58,37 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             {
                 List<string> ListCodCarpeta = new List<string>();
 
-                if (filtroReporteBasico.Clase == null)
+                if (filtroBasico.Clase == null)
                 {
-                    ListCodCarpeta = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorGrupoPorEstado(filtroReporteBasico);
+                    ListCodCarpeta = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorGrupoPorEstado(filtroBasico);
                 }
                 else
                 {
-                    ListCodCarpeta = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorGrupoPorEstadoPorClase(filtroReporteBasico);
+                    ListCodCarpeta = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorGrupoPorEstadoPorClase(filtroBasico);
                 }
                 foreach (var codigoCarpeta in ListCodCarpeta)
                 {
                     ListadoBacisoObrasPorGrupoPorEstado.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                 }
             }
-            if (filtroReporteBasico.IncluirCentral)
+            if (filtroBasico.IncluirCentral)
             {
                 List<string> ListCodCarpetaObrasRegionAdmCentral = new List<string>();
 
-                if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "EN GARANTIA")
+                if (filtroBasico.RangoFecha && filtroBasico.EstadoContrato == "EN GARANTIA")
                 {
-                    filtroReporteBasico.Grupo = "CENTRAL";
-                    ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoEntreFechas(filtroReporteBasico);
+                    filtroBasico.Grupo = "CENTRAL";
+                    ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoEntreFechas(filtroBasico);
 
                     foreach (var codigoCarpeta in ListCodCarpetaObrasRegionAdmCentral)
                     {
                         ListadoBacisoObrasPorGrupoPorEstado.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                     }
                 }
-                else if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "LIQUIDADO")
+                else if (filtroBasico.RangoFecha && filtroBasico.EstadoContrato == "LIQUIDADO")
                 {
-                    filtroReporteBasico.Grupo = "CENTRAL";
-                    ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoEntreFechas(filtroReporteBasico);
+                    filtroBasico.Grupo = "CENTRAL";
+                    ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoEntreFechas(filtroBasico);
 
                     foreach (var codigoCarpeta in ListCodCarpetaObrasRegionAdmCentral)
                     {
@@ -97,7 +97,7 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
                 }
                 else
                 {
-                    ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoContrato(filtroReporteBasico);
+                    ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoContrato(filtroBasico);
                     foreach (var codigoCarpeta in ListCodCarpetaObrasRegionAdmCentral)
                     {
                         ListadoBacisoObrasPorGrupoPorEstado.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
@@ -108,59 +108,59 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             return ListadoBacisoObrasPorGrupoPorEstado;
         }
 
-        public List<ReportesSac> ObtenerListadoBasicoObrasPorEstadoPorGrupoSoloObras(ReportesSacFiltros filtroReporteBasico)
+        public List<ReportesSac> ObtenerListadoBasicoObrasPorEstadoPorGrupoSoloObras(SacFiltros filtroBasico)
         {
             List<ReportesSac> ListadoBasicoObrasEstadoGrupoSoloObras = new List<ReportesSac>();
 
 
-            if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "EN GARANTIA")
+            if (filtroBasico.RangoFecha && filtroBasico.EstadoContrato == "EN GARANTIA")
             {
                 List<string> CodCarpetasObrasFechas = new List<string>();
-                if(filtroReporteBasico.Clase == null)
+                if(filtroBasico.Clase == null)
                 {
-                    CodCarpetasObrasFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(filtroReporteBasico);
+                    CodCarpetasObrasFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetasObrasFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoPorClaseSoloObrasEntreFechas(filtroReporteBasico);
+                    CodCarpetasObrasFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoPorClaseSoloObrasEntreFechas(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetasObrasFechas)
                 {
                     ListadoBasicoObrasEstadoGrupoSoloObras.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                 }
 
-                if (filtroReporteBasico.IncluirCentral)
+                if (filtroBasico.IncluirCentral)
                 {
-                    filtroReporteBasico.Grupo = "CENTRAL";
+                    filtroBasico.Grupo = "CENTRAL";
                     List<string> CodCarpetasObrasCentralFechas = new List<string>();
-                    CodCarpetasObrasCentralFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(filtroReporteBasico);
+                    CodCarpetasObrasCentralFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(filtroBasico);
                     foreach (var codCarpeta in CodCarpetasObrasCentralFechas)
                     {
                         ListadoBasicoObrasEstadoGrupoSoloObras.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                     }
                 }
             }
-            else if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "LIQUIDADO")
+            else if (filtroBasico.RangoFecha && filtroBasico.EstadoContrato == "LIQUIDADO")
             {
                 List<string> CodCarpetasObrasFechas = new List<string>();
-                if(filtroReporteBasico.Clase == null)
+                if(filtroBasico.Clase == null)
                 {
-                    CodCarpetasObrasFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoSoloObrasEntreFechas(filtroReporteBasico);
+                    CodCarpetasObrasFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoSoloObrasEntreFechas(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetasObrasFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoPorClaseSoloObrasEntreFechas(filtroReporteBasico);
+                    CodCarpetasObrasFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoPorClaseSoloObrasEntreFechas(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetasObrasFechas)
                 {
                     ListadoBasicoObrasEstadoGrupoSoloObras.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                 }
 
-                if (filtroReporteBasico.IncluirCentral)
+                if (filtroBasico.IncluirCentral)
                 {
-                    filtroReporteBasico.Grupo = "CENTRAL";
+                    filtroBasico.Grupo = "CENTRAL";
                     List<string> CodCarpetasObrasCentralFechas = new List<string>();
-                    CodCarpetasObrasCentralFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoSoloObrasEntreFechas(filtroReporteBasico);
+                    CodCarpetasObrasCentralFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoSoloObrasEntreFechas(filtroBasico);
                     foreach (var codCarpeta in CodCarpetasObrasCentralFechas)
                     {
                         ListadoBasicoObrasEstadoGrupoSoloObras.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
@@ -170,22 +170,22 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             else
             {
                 List<string> CodCarpetas = new List<string>();
-                if(filtroReporteBasico.Clase == null)
+                if(filtroBasico.Clase == null)
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstado(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstado(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstadoPorClase(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstadoPorClase(filtroBasico);
                 }
                 foreach (var codigoCarpeta in CodCarpetas)
                 {
                     ListadoBasicoObrasEstadoGrupoSoloObras.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                 }
-                if (filtroReporteBasico.IncluirCentral)
+                if (filtroBasico.IncluirCentral)
                 {
                     List<string> ListCodCarpetaObrasRegionAdmCentral = new List<string>();
-                    ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoSoloObras(filtroReporteBasico);
+                    ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoSoloObras(filtroBasico);
                     foreach (var codigoCarpeta in ListCodCarpetaObrasRegionAdmCentral)
                     {
                         ListadoBasicoObrasEstadoGrupoSoloObras.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
@@ -195,54 +195,54 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             return ListadoBasicoObrasEstadoGrupoSoloObras;
         }
 
-        public List<ReportesSac> ObtenerListadoBasicoObrasPorEstadoPorGrupoPorTipoContrato(ReportesSacFiltros filtroReporteBasico)
+        public List<ReportesSac> ObtenerListadoBasicoObrasPorEstadoPorGrupoPorTipoContrato(SacFiltros filtroBasico)
         {
             List<ReportesSac> ListadoBasicoObrasPorEstadoPorGrupoPorTipoContrato = new List<ReportesSac>();
 
-            if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "EN GARANTIA")
+            if (filtroBasico.RangoFecha && filtroBasico.EstadoContrato == "EN GARANTIA")
             {
                 List<string> CodCarpetasFechas = new List<string>();
-                if(filtroReporteBasico.Clase == null)
+                if(filtroBasico.Clase == null)
                 {
-                    CodCarpetasFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(filtroReporteBasico);
+                    CodCarpetasFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetasFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoPorClaseEntreFechas(filtroReporteBasico);
+                    CodCarpetasFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoPorClaseEntreFechas(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetasFechas)
                 {
                     ListadoBasicoObrasPorEstadoPorGrupoPorTipoContrato.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                 }
-                if (filtroReporteBasico.IncluirCentral)
+                if (filtroBasico.IncluirCentral)
                 {
-                    filtroReporteBasico.Grupo = "CENTRAL";
-                    CodCarpetasFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(filtroReporteBasico);
+                    filtroBasico.Grupo = "CENTRAL";
+                    CodCarpetasFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(filtroBasico);
                     foreach (var codCarpeta in CodCarpetasFechas)
                     {
                         ListadoBasicoObrasPorEstadoPorGrupoPorTipoContrato.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                     }
                 }
             }
-            else if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "LIQUIDADO")
+            else if (filtroBasico.RangoFecha && filtroBasico.EstadoContrato == "LIQUIDADO")
             {
                 List<string> CodCarpetasFechas = new List<string>();
-                if (filtroReporteBasico.Clase == null)
+                if (filtroBasico.Clase == null)
                 {
-                    CodCarpetasFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoPorTipoContratoEntreFechas(filtroReporteBasico);
+                    CodCarpetasFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoPorTipoContratoEntreFechas(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetasFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoPorTipoContratoPorClaseEntreFechas(filtroReporteBasico);
+                    CodCarpetasFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoPorTipoContratoPorClaseEntreFechas(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetasFechas)
                 {
                     ListadoBasicoObrasPorEstadoPorGrupoPorTipoContrato.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                 }
-                if (filtroReporteBasico.IncluirCentral)
+                if (filtroBasico.IncluirCentral)
                 {
-                    filtroReporteBasico.Grupo = "CENTRAL";
-                    CodCarpetasFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoPorTipoContratoEntreFechas(filtroReporteBasico);
+                    filtroBasico.Grupo = "CENTRAL";
+                    CodCarpetasFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaLiquidadosPorGrupoPorTipoContratoEntreFechas(filtroBasico);
                     foreach (var codCarpeta in CodCarpetasFechas)
                     {
                         ListadoBasicoObrasPorEstadoPorGrupoPorTipoContrato.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
@@ -252,22 +252,22 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             else
             {
                 List<string> CodCarpetas = new List<string>();
-                if (filtroReporteBasico.Clase == null)
+                if (filtroBasico.Clase == null)
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContrato(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContrato(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContratoPorClase(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContratoPorClase(filtroBasico);
                 }
                 foreach (var codigoCarpeta in CodCarpetas)
                 {
                     ListadoBasicoObrasPorEstadoPorGrupoPorTipoContrato.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                 }
-                if (filtroReporteBasico.IncluirCentral)
+                if (filtroBasico.IncluirCentral)
                 {
                     List<string> ListCodCarpetaObrasRegionAdmCentral = new List<string>();
-                    ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(filtroReporteBasico);
+                    ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(filtroBasico);
                     foreach (var codigoCarpeta in ListCodCarpetaObrasRegionAdmCentral)
                     {
                         ListadoBasicoObrasPorEstadoPorGrupoPorTipoContrato.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
@@ -279,7 +279,7 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             return ListadoBasicoObrasPorEstadoPorGrupoPorTipoContrato;
         }
 
-        public List<ReportesSac> ObtenerListadoBasicoObrasEnEjecucionMasTerminados(ReportesSacFiltros filtroReporteBasico)
+        public List<ReportesSac> ObtenerListadoBasicoObrasEnEjecucionMasTerminados(SacFiltros filtroBasico)
         {
             List<ReportesSac> ListadoObrasEnEjecucionTerminados = new List<ReportesSac>();
 
@@ -291,110 +291,110 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
 
             #region "Obtener En Ejecucion"
 
-            filtroReporteBasico.EstadoContrato = "EN EJECUCION";
+            filtroBasico.EstadoContrato = "EN EJECUCION";
 
-            if (filtroReporteBasico.TipoContrato == "00" || filtroReporteBasico.TipoContrato == "01")
+            if (filtroBasico.TipoContrato == "00" || filtroBasico.TipoContrato == "01")
             {
                 List<string> CodCarpetas = new List<string>();
-                if(filtroReporteBasico.Clase == null)
+                if(filtroBasico.Clase == null)
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContrato(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContrato(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContratoPorClase(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContratoPorClase(filtroBasico);
                 }
                 foreach (var codigoCarpeta in CodCarpetas)
                 {
                     ListadoObrasEnEjecucion.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                 }
             }
-            if (filtroReporteBasico.TipoContrato == "OBRAS")
+            if (filtroBasico.TipoContrato == "OBRAS")
             {
                 List<string> CodCarpetas = new List<string>();
-                if(filtroReporteBasico.Clase == null)
+                if(filtroBasico.Clase == null)
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstado(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstado(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstadoPorClase(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstadoPorClase(filtroBasico);
                 }
                 foreach (var codigoCarpeta in CodCarpetas)
                 {
                     ListadoObrasEnEjecucion.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                 }
             }
-            if(filtroReporteBasico.TipoContrato == "TODOS")
+            if(filtroBasico.TipoContrato == "TODOS")
             {
                 List<string> CodCarpetas = new List<string>();
                 //Asesorias
-                filtroReporteBasico.TipoContrato = "00";
-                if (filtroReporteBasico.Clase == null)
+                filtroBasico.TipoContrato = "00";
+                if (filtroBasico.Clase == null)
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContrato(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContrato(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContratoPorClase(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContratoPorClase(filtroBasico);
                 }
                 foreach (var codigoCarpeta in CodCarpetas)
                 {
                     ListadoObrasEnEjecucion.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                 }
                 //Estudios
-                filtroReporteBasico.TipoContrato = "01";
-                if (filtroReporteBasico.Clase == null)
+                filtroBasico.TipoContrato = "01";
+                if (filtroBasico.Clase == null)
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContrato(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContrato(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContratoPorClase(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContratoPorClase(filtroBasico);
                 }
                 foreach (var codigoCarpeta in CodCarpetas)
                 {
                     ListadoObrasEnEjecucion.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                 }
                 //Obras
-                if(filtroReporteBasico.Clase == null)
+                if(filtroBasico.Clase == null)
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstado(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstado(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstadoPorClase(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstadoPorClase(filtroBasico);
                 }
                 foreach (var codigoCarpeta in CodCarpetas)
                 {
                     ListadoObrasEnEjecucion.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                 }
-                filtroReporteBasico.TipoContrato = "TODOS";
+                filtroBasico.TipoContrato = "TODOS";
             }
 
-            if (filtroReporteBasico.IncluirCentral)
+            if (filtroBasico.IncluirCentral)
             {
                 List<string> ListCodCarpetaObrasRegionAdmCentral = new List<string>();
 
-                if (filtroReporteBasico.TipoContrato == "00" || filtroReporteBasico.TipoContrato == "01")
+                if (filtroBasico.TipoContrato == "00" || filtroBasico.TipoContrato == "01")
                 {
-                    ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(filtroReporteBasico));
+                    ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(filtroBasico));
                 }
-                if (filtroReporteBasico.TipoContrato == "OBRAS")
+                if (filtroBasico.TipoContrato == "OBRAS")
                 {
-                    ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoSoloObras(filtroReporteBasico));
+                    ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoSoloObras(filtroBasico));
                 }
-                if (filtroReporteBasico.TipoContrato == "TODOS")
+                if (filtroBasico.TipoContrato == "TODOS")
                 {
                     //Asesorias
-                    filtroReporteBasico.TipoContrato = "00";
-                    ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(filtroReporteBasico));
+                    filtroBasico.TipoContrato = "00";
+                    ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(filtroBasico));
                     //Estudios
-                    filtroReporteBasico.TipoContrato = "01";
-                    ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(filtroReporteBasico));
+                    filtroBasico.TipoContrato = "01";
+                    ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(filtroBasico));
                     //Obras
-                    ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoSoloObras(filtroReporteBasico));
-                    filtroReporteBasico.TipoContrato = "TODOS";
+                    ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoSoloObras(filtroBasico));
+                    filtroBasico.TipoContrato = "TODOS";
                 }
 
                 foreach (var codigoCarpeta in ListCodCarpetaObrasRegionAdmCentral)
@@ -406,80 +406,80 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
 
             #region "Obtener En Garantía"
 
-            filtroReporteBasico.EstadoContrato = "EN GARANTIA";
+            filtroBasico.EstadoContrato = "EN GARANTIA";
 
-            if (filtroReporteBasico.RangoFecha)
+            if (filtroBasico.RangoFecha)
             {
                 List<string> CodCarpetasGarantiaFechas = new List<string>();
 
-                if (filtroReporteBasico.TipoContrato == "00" || filtroReporteBasico.TipoContrato == "01")
+                if (filtroBasico.TipoContrato == "00" || filtroBasico.TipoContrato == "01")
                 {
-                    if(filtroReporteBasico.Clase == null)
+                    if(filtroBasico.Clase == null)
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoPorClaseEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoPorClaseEntreFechas(filtroBasico);
                     }
                     foreach (var codCarpeta in CodCarpetasGarantiaFechas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                     }
                 }
-                if (filtroReporteBasico.TipoContrato == "OBRAS")
+                if (filtroBasico.TipoContrato == "OBRAS")
                 {
-                    if(filtroReporteBasico.Clase == null)
+                    if(filtroBasico.Clase == null)
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoPorClaseSoloObrasEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoPorClaseSoloObrasEntreFechas(filtroBasico);
                     }
                     foreach (var codCarpeta in CodCarpetasGarantiaFechas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                     }
                 }
-                if (filtroReporteBasico.TipoContrato == "TODOS")
+                if (filtroBasico.TipoContrato == "TODOS")
                 {
-                    filtroReporteBasico.TipoContrato = "00";
-                    if (filtroReporteBasico.Clase == null)
+                    filtroBasico.TipoContrato = "00";
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoPorClaseEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoPorClaseEntreFechas(filtroBasico);
                     }
                     foreach (var codCarpeta in CodCarpetasGarantiaFechas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                     }
 
-                    filtroReporteBasico.TipoContrato = "01";
-                    if (filtroReporteBasico.Clase == null)
+                    filtroBasico.TipoContrato = "01";
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoPorClaseEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoPorClaseEntreFechas(filtroBasico);
                     }
                     foreach (var codCarpeta in CodCarpetasGarantiaFechas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                     }
                                        
-                    filtroReporteBasico.TipoContrato = "TODOS";
-                    if (filtroReporteBasico.Clase == null)
+                    filtroBasico.TipoContrato = "TODOS";
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoPorClaseSoloObrasEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoPorClaseSoloObrasEntreFechas(filtroBasico);
                     }
                     foreach (var codCarpeta in CodCarpetasGarantiaFechas)
                     {
@@ -487,44 +487,44 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
                     }
                 }
 
-                if (filtroReporteBasico.IncluirCentral)
+                if (filtroBasico.IncluirCentral)
                 {
-                    filtroReporteBasico.Grupo = "CENTRAL";
+                    filtroBasico.Grupo = "CENTRAL";
 
                     List<string> ListCodCarpetaObrasRegionAdmCentral = new List<string>();
 
-                    if (filtroReporteBasico.TipoContrato == "00" || filtroReporteBasico.TipoContrato == "01")
+                    if (filtroBasico.TipoContrato == "00" || filtroBasico.TipoContrato == "01")
                     {
-                        ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(filtroReporteBasico);
+                        ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(filtroBasico);
                         foreach (var codCarpeta in ListCodCarpetaObrasRegionAdmCentral)
                         {
                             ListadoObrasRegionAdmCentralTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                         }
                     }
-                    if (filtroReporteBasico.TipoContrato == "OBRAS")
+                    if (filtroBasico.TipoContrato == "OBRAS")
                     {
-                        ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(filtroReporteBasico);
+                        ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(filtroBasico);
                         foreach (var codCarpeta in ListCodCarpetaObrasRegionAdmCentral)
                         {
                             ListadoObrasRegionAdmCentralTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                         }
                     }
-                    if (filtroReporteBasico.TipoContrato == "TODOS")
+                    if (filtroBasico.TipoContrato == "TODOS")
                     {
-                        filtroReporteBasico.TipoContrato = "00";
-                        ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(filtroReporteBasico);
+                        filtroBasico.TipoContrato = "00";
+                        ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(filtroBasico);
                         foreach (var codCarpeta in ListCodCarpetaObrasRegionAdmCentral)
                         {
                             ListadoObrasRegionAdmCentralTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                         }
-                        filtroReporteBasico.TipoContrato = "01";
-                        ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(filtroReporteBasico);
+                        filtroBasico.TipoContrato = "01";
+                        ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoContratoEntreFechas(filtroBasico);
                         foreach (var codCarpeta in ListCodCarpetaObrasRegionAdmCentral)
                         {
                             ListadoObrasRegionAdmCentralTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                         }
-                        filtroReporteBasico.TipoContrato = "TODOS";
-                        ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(filtroReporteBasico);
+                        filtroBasico.TipoContrato = "TODOS";
+                        ListCodCarpetaObrasRegionAdmCentral = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(filtroBasico);
                         foreach (var codCarpeta in ListCodCarpetaObrasRegionAdmCentral)
                         {
                             ListadoObrasRegionAdmCentralTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
@@ -536,104 +536,104 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             }
             else
             {
-                if (filtroReporteBasico.TipoContrato == "00" || filtroReporteBasico.TipoContrato == "01")
+                if (filtroBasico.TipoContrato == "00" || filtroBasico.TipoContrato == "01")
                 {
                     List<string> CodCarpetas = new List<string>();
-                    if (filtroReporteBasico.Clase == null)
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContrato(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContrato(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContratoPorClase(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContratoPorClase(filtroBasico);
                     }
                     foreach (var codigoCarpeta in CodCarpetas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                     }
                 }
-                if (filtroReporteBasico.TipoContrato == "OBRAS")
+                if (filtroBasico.TipoContrato == "OBRAS")
                 {
                     List<string> CodCarpetas = new List<string>();
-                    if (filtroReporteBasico.Clase == null)
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstado(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstado(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstadoPorClase(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstadoPorClase(filtroBasico);
                     }
                     foreach (var codigoCarpeta in CodCarpetas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                     }
                 }
-                if (filtroReporteBasico.TipoContrato == "TODOS")
+                if (filtroBasico.TipoContrato == "TODOS")
                 {
                     List<string> CodCarpetas = new List<string>();
                     //Asesorias
-                    filtroReporteBasico.TipoContrato = "00";
-                    if (filtroReporteBasico.Clase == null)
+                    filtroBasico.TipoContrato = "00";
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContrato(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContrato(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContratoPorClase(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContratoPorClase(filtroBasico);
                     }
                     foreach (var codigoCarpeta in CodCarpetas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                     }
                     //Estudios
-                    filtroReporteBasico.TipoContrato = "01";
-                    if (filtroReporteBasico.Clase == null)
+                    filtroBasico.TipoContrato = "01";
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContrato(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContrato(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContratoPorClase(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaPorEstadoPorGrupoPorTipoContratoPorClase(filtroBasico);
                     }
                     foreach (var codigoCarpeta in CodCarpetas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                     }
                     //Obras
-                    if (filtroReporteBasico.Clase == null)
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstado(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstado(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstadoPorClase(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasPorGrupoPorEstadoPorClase(filtroBasico);
                     }
                     foreach (var codigoCarpeta in CodCarpetas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                     }
-                    filtroReporteBasico.TipoContrato = "TODOS";
+                    filtroBasico.TipoContrato = "TODOS";
                 }
-                if (filtroReporteBasico.IncluirCentral)
+                if (filtroBasico.IncluirCentral)
                 {
                     List<string> ListCodCarpetaObrasRegionAdmCentral = new List<string>();
 
-                    if (filtroReporteBasico.TipoContrato == "00" || filtroReporteBasico.TipoContrato == "01")
+                    if (filtroBasico.TipoContrato == "00" || filtroBasico.TipoContrato == "01")
                     {
-                        ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(filtroReporteBasico));
+                        ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(filtroBasico));
                     }
-                    if (filtroReporteBasico.TipoContrato == "OBRAS")
+                    if (filtroBasico.TipoContrato == "OBRAS")
                     {
-                        ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoSoloObras(filtroReporteBasico));
+                        ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoSoloObras(filtroBasico));
                     }
-                    if (filtroReporteBasico.TipoContrato == "TODOS")
+                    if (filtroBasico.TipoContrato == "TODOS")
                     {
-                        filtroReporteBasico.TipoContrato = "00";
-                        ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(filtroReporteBasico));
-                        filtroReporteBasico.TipoContrato = "01";
-                        ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(filtroReporteBasico));
-                        ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoSoloObras(filtroReporteBasico));
-                        filtroReporteBasico.TipoContrato = "TODOS";
+                        filtroBasico.TipoContrato = "00";
+                        ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(filtroBasico));
+                        filtroBasico.TipoContrato = "01";
+                        ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoTipoContrato(filtroBasico));
+                        ListCodCarpetaObrasRegionAdmCentral.AddRange(_unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionAdminCentralPorEstadoSoloObras(filtroBasico));
+                        filtroBasico.TipoContrato = "TODOS";
                     }
 
                     foreach (var codigoCarpeta in ListCodCarpetaObrasRegionAdmCentral)
@@ -654,36 +654,36 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             return ListadoObrasEnEjecucionTerminados;
         }
 
-        public List<ReportesSac> ObtenerListadoBasicoObrasRegionPorGrupoAdminPorEstadoContrato(ReportesSacFiltros filtroReporteBasico)
+        public List<ReportesSac> ObtenerListadoBasicoObrasRegionPorGrupoAdminPorEstadoContrato(SacFiltros filtroBasico)
         {
             List<ReportesSac> ListadoObrasRegionPorGrupoAdmin = new List<ReportesSac>();
 
-            if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "EN GARANTIA")
+            if (filtroBasico.RangoFecha && filtroBasico.EstadoContrato == "EN GARANTIA")
             {
                 List<string> CodCarpetaObrasEnGarantiaPorRegionPorGrupoAdmin = new List<string>();
-                if(filtroReporteBasico.Clase == null)
+                if(filtroBasico.Clase == null)
                 {
-                    CodCarpetaObrasEnGarantiaPorRegionPorGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminEnGarantiaEntreFechas(filtroReporteBasico);
+                    CodCarpetaObrasEnGarantiaPorRegionPorGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminEnGarantiaEntreFechas(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetaObrasEnGarantiaPorRegionPorGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorClaseEnGarantiaEntreFechas(filtroReporteBasico);
+                    CodCarpetaObrasEnGarantiaPorRegionPorGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorClaseEnGarantiaEntreFechas(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetaObrasEnGarantiaPorRegionPorGrupoAdmin)
                 {
                     ListadoObrasRegionPorGrupoAdmin.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                 }
             }
-            else if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "LIQUIDADO")
+            else if (filtroBasico.RangoFecha && filtroBasico.EstadoContrato == "LIQUIDADO")
             {
                 List<string> CodCarpetaObrasLiquidadasPorRegionPorGrupoAdmin = new List<string>();
-                if(filtroReporteBasico.Clase == null)
+                if(filtroBasico.Clase == null)
                 {
-                    CodCarpetaObrasLiquidadasPorRegionPorGrupoAdmin = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaRegionLiquidadosPorGrupoAdminEntreFechas(filtroReporteBasico);
+                    CodCarpetaObrasLiquidadasPorRegionPorGrupoAdmin = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaRegionLiquidadosPorGrupoAdminEntreFechas(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetaObrasLiquidadasPorRegionPorGrupoAdmin = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaRegionLiquidadosPorGrupoAdminPorClaseEntreFechas(filtroReporteBasico);
+                    CodCarpetaObrasLiquidadasPorRegionPorGrupoAdmin = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaRegionLiquidadosPorGrupoAdminPorClaseEntreFechas(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetaObrasLiquidadasPorRegionPorGrupoAdmin)
                 {
@@ -693,13 +693,13 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             else
             {
                 List<string> CodCarpetaObrasRegionPorGrupoAdmin = new List<string>();
-                if(filtroReporteBasico.Clase == null)
+                if(filtroBasico.Clase == null)
                 {
-                    CodCarpetaObrasRegionPorGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContrato(filtroReporteBasico);
+                    CodCarpetaObrasRegionPorGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContrato(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetaObrasRegionPorGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorClase(filtroReporteBasico);
+                    CodCarpetaObrasRegionPorGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorClase(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetaObrasRegionPorGrupoAdmin)
                 {
@@ -709,36 +709,36 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             return ListadoObrasRegionPorGrupoAdmin;
         }
 
-        public List<ReportesSac> ObtenerListadoBasicoObrasRegionPorGrupoAdminPorTipoContrato(ReportesSacFiltros filtroReporteBasico)
+        public List<ReportesSac> ObtenerListadoBasicoObrasRegionPorGrupoAdminPorTipoContrato(SacFiltros filtroBasico)
         {
             List<ReportesSac> ListadoBasicoObrasRegionPorGrupoAdmin = new List<ReportesSac>();
 
-            if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "EN GARANTIA")
+            if (filtroBasico.RangoFecha && filtroBasico.EstadoContrato == "EN GARANTIA")
             {
                 List<string> CodCarpetasEnGarantiaRegionPorGrupoAdminFechas = new List<string>();
-                if (filtroReporteBasico.Clase == null)
+                if (filtroBasico.Clase == null)
                 {
-                    CodCarpetasEnGarantiaRegionPorGrupoAdminFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoEntreFechas(filtroReporteBasico);
+                    CodCarpetasEnGarantiaRegionPorGrupoAdminFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoEntreFechas(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetasEnGarantiaRegionPorGrupoAdminFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoPorClaseEntreFechas(filtroReporteBasico);
+                    CodCarpetasEnGarantiaRegionPorGrupoAdminFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoPorClaseEntreFechas(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetasEnGarantiaRegionPorGrupoAdminFechas)
                 {
                     ListadoBasicoObrasRegionPorGrupoAdmin.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                 }
             }
-            else if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "LIQUIDADO")
+            else if (filtroBasico.RangoFecha && filtroBasico.EstadoContrato == "LIQUIDADO")
             {
                 List<string> CodCarpetasLiquidadosRegionPorGrupoAdminFechas = new List<string>();
-                if (filtroReporteBasico.Clase == null)
+                if (filtroBasico.Clase == null)
                 {
-                    CodCarpetasLiquidadosRegionPorGrupoAdminFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoEntreFechas(filtroReporteBasico);
+                    CodCarpetasLiquidadosRegionPorGrupoAdminFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoEntreFechas(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetasLiquidadosRegionPorGrupoAdminFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoPorClaseEntreFechas(filtroReporteBasico);
+                    CodCarpetasLiquidadosRegionPorGrupoAdminFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoPorClaseEntreFechas(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetasLiquidadosRegionPorGrupoAdminFechas)
                 {
@@ -748,13 +748,13 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             else
             {
                 List<string> CodCarpetasRegionPorGrupoAdmin = new List<string>();
-                if (filtroReporteBasico.Clase == null)
+                if (filtroBasico.Clase == null)
                 {
-                    CodCarpetasRegionPorGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(filtroReporteBasico);
+                    CodCarpetasRegionPorGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetasRegionPorGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContratoPorClase(filtroReporteBasico);
+                    CodCarpetasRegionPorGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContratoPorClase(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetasRegionPorGrupoAdmin)
                 {
@@ -764,20 +764,20 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             return ListadoBasicoObrasRegionPorGrupoAdmin;
         }
 
-        public List<ReportesSac> ObtenerListadoBasicoObrasRegionPorGrupoAdminPorEstadoSoloObras(ReportesSacFiltros filtroReporteBasico)
+        public List<ReportesSac> ObtenerListadoBasicoObrasRegionPorGrupoAdminPorEstadoSoloObras(SacFiltros filtroBasico)
         {
             List<ReportesSac> ListadoBasicoObrasRegionGrupoAdminSoloObras = new List<ReportesSac>();
 
-            if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "EN GARANTIA")
+            if (filtroBasico.RangoFecha && filtroBasico.EstadoContrato == "EN GARANTIA")
             {
                 List<string> CodCarpetasObrasRegionGrupoAdminGarantiaFechas = new List<string>();
-                if (filtroReporteBasico.Clase == null)
+                if (filtroBasico.Clase == null)
                 {
-                    CodCarpetasObrasRegionGrupoAdminGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasEnGarantiaRegionPorGrupoAdminEntreFechas(filtroReporteBasico);
+                    CodCarpetasObrasRegionGrupoAdminGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasEnGarantiaRegionPorGrupoAdminEntreFechas(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetasObrasRegionGrupoAdminGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasEnGarantiaRegionPorGrupoAdminPorClaseEntreFechas(filtroReporteBasico);
+                    CodCarpetasObrasRegionGrupoAdminGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasEnGarantiaRegionPorGrupoAdminPorClaseEntreFechas(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetasObrasRegionGrupoAdminGarantiaFechas)
                 {
@@ -785,16 +785,16 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
                 }
 
             }
-            else if (filtroReporteBasico.RangoFecha && filtroReporteBasico.EstadoContrato == "LIQUIDADO")
+            else if (filtroBasico.RangoFecha && filtroBasico.EstadoContrato == "LIQUIDADO")
             {
                 List<string> CodCarpetasObrasRegionGrupoAdminLiquidadoFechas = new List<string>();
-                if (filtroReporteBasico.Clase == null)
+                if (filtroBasico.Clase == null)
                 {
-                    CodCarpetasObrasRegionGrupoAdminLiquidadoFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaSoloObrasLiquidadosRegionPorGrupoAdminEntreFechas(filtroReporteBasico);
+                    CodCarpetasObrasRegionGrupoAdminLiquidadoFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaSoloObrasLiquidadosRegionPorGrupoAdminEntreFechas(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetasObrasRegionGrupoAdminLiquidadoFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaSoloObrasLiquidadosRegionPorGrupoAdminPorClaseEntreFechas(filtroReporteBasico);
+                    CodCarpetasObrasRegionGrupoAdminLiquidadoFechas = _unitOfWork.CtoContratoModificaRepositorio.CodigosCarpetaSoloObrasLiquidadosRegionPorGrupoAdminPorClaseEntreFechas(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetasObrasRegionGrupoAdminLiquidadoFechas)
                 {
@@ -805,13 +805,13 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             else
             {
                 List<string> CodCarpetasSoloObrasRegionGrupoAdmin = new List<string>();
-                if(filtroReporteBasico.Clase == null)
+                if(filtroBasico.Clase == null)
                 {
-                    CodCarpetasSoloObrasRegionGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstado(filtroReporteBasico);
+                    CodCarpetasSoloObrasRegionGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstado(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetasSoloObrasRegionGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstadoPorClase(filtroReporteBasico);
+                    CodCarpetasSoloObrasRegionGrupoAdmin = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstadoPorClase(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetasSoloObrasRegionGrupoAdmin)
                 {
@@ -821,7 +821,7 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             return ListadoBasicoObrasRegionGrupoAdminSoloObras;
         }
 
-        public List<ReportesSac> ObtenerListadoBasicoObrasRegionPorGrupoAdminEjEjecucionMasTerminados(ReportesSacFiltros filtroReporteBasico)
+        public List<ReportesSac> ObtenerListadoBasicoObrasRegionPorGrupoAdminEjEjecucionMasTerminados(SacFiltros filtroBasico)
         {
             List<ReportesSac> ListadoObrasEnEjecucionMasTerminados = new List<ReportesSac>();
 
@@ -830,164 +830,164 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
 
             #region "Obtener En Ejecucion"
 
-            filtroReporteBasico.EstadoContrato = "EN EJECUCION";
+            filtroBasico.EstadoContrato = "EN EJECUCION";
 
-            if (filtroReporteBasico.TipoContrato == "00" || filtroReporteBasico.TipoContrato == "01")
+            if (filtroBasico.TipoContrato == "00" || filtroBasico.TipoContrato == "01")
             {
                 List<string> CodCarpetas = new List<string>();
-                if (filtroReporteBasico.Clase == null)
+                if (filtroBasico.Clase == null)
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContratoPorClase(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContratoPorClase(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetas)
                 {
                     ListadoObrasEnEjecucion.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                 }
             }
-            if (filtroReporteBasico.TipoContrato == "OBRAS")
+            if (filtroBasico.TipoContrato == "OBRAS")
             {
                 List<string> CodCarpetas = new List<string>();
-                if (filtroReporteBasico.Clase == null)
+                if (filtroBasico.Clase == null)
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstado(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstado(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstadoPorClase(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstadoPorClase(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetas)
                 {
                     ListadoObrasEnEjecucion.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                 }
             }
-            if (filtroReporteBasico.TipoContrato == "TODOS")
+            if (filtroBasico.TipoContrato == "TODOS")
             {
                 List<string> CodCarpetas = new List<string>();
                 //Asesorias
-                filtroReporteBasico.TipoContrato = "00";
-                if (filtroReporteBasico.Clase == null)
+                filtroBasico.TipoContrato = "00";
+                if (filtroBasico.Clase == null)
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContratoPorClase(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContratoPorClase(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetas)
                 {
                     ListadoObrasEnEjecucion.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                 }
                 //Estudios
-                filtroReporteBasico.TipoContrato = "01";
-                if (filtroReporteBasico.Clase == null)
+                filtroBasico.TipoContrato = "01";
+                if (filtroBasico.Clase == null)
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContratoPorClase(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContratoPorClase(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetas)
                 {
                     ListadoObrasEnEjecucion.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                 }
                 //Obras
-                if (filtroReporteBasico.Clase == null)
+                if (filtroBasico.Clase == null)
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstado(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstado(filtroBasico);
                 }
                 else
                 {
-                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstadoPorClase(filtroReporteBasico);
+                    CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstadoPorClase(filtroBasico);
                 }
                 foreach (var codCarpeta in CodCarpetas)
                 {
                     ListadoObrasEnEjecucion.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                 }
-                filtroReporteBasico.TipoContrato = "TODOS";
+                filtroBasico.TipoContrato = "TODOS";
             }
             #endregion
 
             #region "Obtener En Garantía"
 
-            filtroReporteBasico.EstadoContrato = "EN GARANTIA";
+            filtroBasico.EstadoContrato = "EN GARANTIA";
 
-            if (filtroReporteBasico.RangoFecha)
+            if (filtroBasico.RangoFecha)
             {
                 List<string> CodCarpetasGarantiaFechas = new List<string>();
 
-                if (filtroReporteBasico.TipoContrato == "00" || filtroReporteBasico.TipoContrato == "01")
+                if (filtroBasico.TipoContrato == "00" || filtroBasico.TipoContrato == "01")
                 {
-                    if (filtroReporteBasico.Clase == null)
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoEntreFechas(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoPorClaseEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoPorClaseEntreFechas(filtroBasico);
                     }
                     foreach (var codCarpeta in CodCarpetasGarantiaFechas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                     }
                 }
-                if (filtroReporteBasico.TipoContrato == "OBRAS")
+                if (filtroBasico.TipoContrato == "OBRAS")
                 {
-                    if (filtroReporteBasico.Clase == null)
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasEnGarantiaRegionPorGrupoAdminEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasEnGarantiaRegionPorGrupoAdminEntreFechas(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasEnGarantiaRegionPorGrupoAdminPorClaseEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasEnGarantiaRegionPorGrupoAdminPorClaseEntreFechas(filtroBasico);
                     }
                     foreach (var codCarpeta in CodCarpetasGarantiaFechas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                     }
                 }
-                if (filtroReporteBasico.TipoContrato == "TODOS")
+                if (filtroBasico.TipoContrato == "TODOS")
                 {
-                    filtroReporteBasico.TipoContrato = "00";
-                    if (filtroReporteBasico.Clase == null)
+                    filtroBasico.TipoContrato = "00";
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoEntreFechas(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoPorClaseEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoPorClaseEntreFechas(filtroBasico);
                     }
                     foreach (var codCarpeta in CodCarpetasGarantiaFechas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                     }
 
-                    filtroReporteBasico.TipoContrato = "01";
-                    if (filtroReporteBasico.Clase == null)
+                    filtroBasico.TipoContrato = "01";
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoEntreFechas(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoPorClaseEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosEnGarantiaRegionPorGrupoAdminPorTipoContratoPorClaseEntreFechas(filtroBasico);
                     }
                     foreach (var codCarpeta in CodCarpetasGarantiaFechas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codCarpeta));
                     }
 
-                    filtroReporteBasico.TipoContrato = "TODOS";
-                    if (filtroReporteBasico.Clase == null)
+                    filtroBasico.TipoContrato = "TODOS";
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoSoloObrasEntreFechas(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoPorClaseSoloObrasEntreFechas(filtroReporteBasico);
+                        CodCarpetasGarantiaFechas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaEnGarantiaPorGrupoPorTipoPorClaseSoloObrasEntreFechas(filtroBasico);
                     }
                     foreach (var codCarpeta in CodCarpetasGarantiaFechas)
                     {
@@ -997,83 +997,83 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
             }
             else
             {
-                if (filtroReporteBasico.TipoContrato == "00" || filtroReporteBasico.TipoContrato == "01")
+                if (filtroBasico.TipoContrato == "00" || filtroBasico.TipoContrato == "01")
                 {
                     List<string> CodCarpetas = new List<string>();
-                    if (filtroReporteBasico.Clase == null)
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContratoPorClase(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContratoPorClase(filtroBasico);
                     }
                     foreach (var codigoCarpeta in CodCarpetas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                     }
                 }
-                if (filtroReporteBasico.TipoContrato == "OBRAS")
+                if (filtroBasico.TipoContrato == "OBRAS")
                 {
                     List<string> CodCarpetas = new List<string>();
-                    if (filtroReporteBasico.Clase == null)
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstado(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstado(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstadoPorClase(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstadoPorClase(filtroBasico);
                     }
                     foreach (var codigoCarpeta in CodCarpetas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                     }
                 }
-                if (filtroReporteBasico.TipoContrato == "TODOS")
+                if (filtroBasico.TipoContrato == "TODOS")
                 {
                     List<string> CodCarpetas = new List<string>();
                     //Asesorias
-                    filtroReporteBasico.TipoContrato = "00";
-                    if (filtroReporteBasico.Clase == null)
+                    filtroBasico.TipoContrato = "00";
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContratoPorClase(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContratoPorClase(filtroBasico);
                     }
                     foreach (var codigoCarpeta in CodCarpetas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                     }
                     //Estudios
-                    filtroReporteBasico.TipoContrato = "01";
-                    if (filtroReporteBasico.Clase == null)
+                    filtroBasico.TipoContrato = "01";
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContrato(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContratoPorClase(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaContratosRegionPorGrupoAdminPorEstadoContratoPorTipoContratoPorClase(filtroBasico);
                     }
                     foreach (var codigoCarpeta in CodCarpetas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                     }
                     //Obras
-                    if (filtroReporteBasico.Clase == null)
+                    if (filtroBasico.Clase == null)
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstado(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstado(filtroBasico);
                     }
                     else
                     {
-                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstadoPorClase(filtroReporteBasico);
+                        CodCarpetas = _unitOfWork.CtoContratoRepositorio.CodigosCarpetaSoloObrasRegionPorGrupoAdminPorEstadoPorClase(filtroBasico);
                     }
                     foreach (var codigoCarpeta in CodCarpetas)
                     {
                         ListadoObrasTerminados.Add(_unitOfWork.ReportesSacRepositorio.ObtenerReporteBasicoObrasPorCodigoCarpeta(codigoCarpeta));
                     }
-                    filtroReporteBasico.TipoContrato = "TODOS";
+                    filtroBasico.TipoContrato = "TODOS";
                 }
             }
             #endregion

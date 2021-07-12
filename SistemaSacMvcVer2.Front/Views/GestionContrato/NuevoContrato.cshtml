@@ -14,14 +14,17 @@
         .pointer {
             cursor: pointer;
         }
+
         .containerBtnComuna {
             width: 120px;
             display: flex;
             justify-content: space-between
         }
+
         .blue {
             color: #0000ff;
         }
+
         .red {
             color: #FF0000;
         }
@@ -802,6 +805,41 @@
     </div>
 </div>
 <!-- Modal Residentes -->
+<!-- Modal Comunas -->
+<div class="modal fade" id="modalComunas" tabindex="-1" aria-labelledby="comunasModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="comunasModal">Listado de Comunas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body table-responsive text-center" id="divListaResidente" style="height:470px">
+                <div class="align-content-center">
+                    <i class="col-sm-12">Seleccione una comuna...</i>
+                </div>
+                <table class="table table-hover">
+                    <thead class="">
+                        <tr>
+                            <th class="">
+                                Región
+                            </th>
+                            <th class="">
+                                Comuna
+                            </th>
+                            <th class="">
+                                Seleccionar
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaModalComunas" class="bg-white"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Comunas -->
 <!-- Modal Spinner -->
 <div class="modal fade" id="modalSpinner" tabindex="-1" aria-labelledby="exampleModalLabel7" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
@@ -821,14 +859,14 @@
 <!-- Modal Spinner -->
 
 @section scripts{
-    <script src="~/Js/GestionContrato/SelectoresFormContrato.js?ver1.1">
+    <script src="~/Js/GestionContrato/SelectoresFormContrato.js?ver1.2">
     </script>
-    <script src="~/Js/GestionContrato/FuncionesHelpers.js?ver1.0">
+    <script src="~/Js/GestionContrato/FuncionesHelpers.js?ver1.1">
     </script>
-    <script src="~/Js/GestionContrato/FuncionesFetchRequest.js?ver1.1">
+    <script src="~/Js/GestionContrato/FuncionesFetchRequest.js?ver1.2">
     </script>
     <script src="~/Js/GestionContrato/DataTablesVentanasModal.js?ver1.0">
     </script>
-    <script src="~/Js/GestionContrato/MainNuevoContrato.js?ver1.2">
+    <script src="~/Js/GestionContrato/MainNuevoContrato.js?ver1.3">
     </script>
 }

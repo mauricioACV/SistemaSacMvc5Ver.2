@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaSacMvcVer2.Dominio.Common.Models.ReportesSac
+namespace SistemaSacMvcVer2.Dominio.Common.Models
 {
-    public class ReportesSacFiltros
+    public class SacFiltros
     {
         public string Grupo { get; set; }
         public bool IncluirCentral { get; set; }

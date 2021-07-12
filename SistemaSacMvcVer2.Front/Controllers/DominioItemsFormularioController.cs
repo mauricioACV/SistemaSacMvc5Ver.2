@@ -88,5 +88,12 @@ namespace SistemaSacMvcVer2.Front.Controllers
             var ListadoRegiones = _dominioItemsFormularioServicio.ObtenerRegiones();
             return Json(new { data = ListadoRegiones });
         }
+
+        [HttpPost]
+        public ActionResult ObtenerComunas(string pGrupoUsuario)
+        {
+            var ListadoComunas = _dominioItemsFormularioServicio.ObtenerComunas(pGrupoUsuario);
+            return Json(new { data = ListadoComunas });
+        }
     }
 }

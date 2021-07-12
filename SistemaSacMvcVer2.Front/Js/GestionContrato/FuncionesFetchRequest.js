@@ -81,3 +81,22 @@ async function obtieneItemsSafi() {
     }
 
 };
+
+async function fetchRequestPost(url, bodyData) {
+
+    //'/DominioItemsFormulario/ObtenerResidentesPorPalabraClave'
+    //const data = { pPalabraClave: cadenaBusqueda };
+    try {
+        const request = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(bodyData),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const response = await request.json();
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+};

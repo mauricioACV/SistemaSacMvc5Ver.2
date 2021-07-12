@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Models\ReportesSac\ReportesSacFiltros.cs" />
+    <Compile Include="Common\Models\SacFiltros.cs" />
     <Compile Include="Entidades\CtoComuna.cs" />
     <Compile Include="Entidades\CtoContratista.cs" />
     <Compile Include="Entidades\CtoContrato.cs" />

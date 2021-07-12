@@ -68,5 +68,21 @@ namespace SistemaSacMvcVer2.Aplicación.Servicios
         {
             return _unitOfWork.CtoComunaRepositorio.ObtenerRegiones();
         }
+
+        public List<CtoComuna> ObtenerComunas(string pGrupoUsuario)
+        {
+            List<CtoComuna> ListadoComunas = new List<CtoComuna>();
+
+            if (pGrupoUsuario == "CENTRAL" || pGrupoUsuario == "D.I.V.URBANA" || pGrupoUsuario == "D.INGENIERIA" || pGrupoUsuario == "D.REDES")
+            {
+                ListadoComunas = _unitOfWork.CtoComunaRepositorio.ObtenerComunasGruposNivelCentral();
+            }
+            else
+            {
+                ListadoComunas = _unitOfWork.CtoComunaRepositorio.ObtenerComunasPorGrupoRegiones(pGrupoUsuario);
+            }
+
+            return ListadoComunas;
+        }
     }
 }

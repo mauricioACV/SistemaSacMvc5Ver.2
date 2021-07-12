@@ -228,12 +228,20 @@ function convierteFechaFormatoIso(fecha) {
 
 
 //***********************************Funciones Pestaña COMUNAS************************************************
-function mostrarComunas() {
-    console.log('Mostrar comunas')
+async function mostrarComunas(e) {
+    console.log(e.target);
+
+    url = '/DominioItemsFormulario/ObtenerComunas';
+    bodyData = { pGrupoUsuario: GrupoUser };
+    const data = await fetchRequestPost(url, bodyData);
+    console.log(data);
 };
 
 function agregarInputComuna() {
     console.log('agregando comuna')
+
+    contInputsComuna++;
+
     const divContainerInputs = document.createElement('div');
     divContainerInputs.classList.add('col-md-12');
 
@@ -259,13 +267,17 @@ function agregarInputComuna() {
 
     const inputComuna = document.createElement('input');
     inputComuna.type = 'text';
+    inputComuna.id = `txtComuna${contInputsComuna}`;
+    inputComuna.setAttribute('data-toggle','modal');
+    inputComuna.setAttribute('data-target', '#modalComunas');
     inputComuna.classList.add('form-control');
     inputComuna.placeholder = 'Click aquí para buscar comuna'
-    inputComuna.addEventListener('click', () => mostrarComunas());
+    inputComuna.addEventListener('click', (e) => mostrarComunas(e));
 
 
     const inputInversion = document.createElement('input');
     inputInversion.type = 'number';
+    inputInversion.id = `txtInversion${contInputsComuna}`;
     inputInversion.classList.add('form-control');
 
 
@@ -286,6 +298,7 @@ function agregarInputComuna() {
 
 function quitarInputComuna() {
     if (containerInputsComuna.firstChild) {
+        contInputsComuna--;
         containerInputsComuna.removeChild(containerInputsComuna.lastChild);
     }
 };

@@ -1,32 +1,32 @@
-﻿using SistemaSacMvcVer2.Dominio.Common.Models.ReportesSac;
+﻿using SistemaSacMvcVer2.Dominio.Common.Models;
 using System.Collections.Generic;
 
 namespace SistemaSacMvcVer2.Dominio.Interfaces.ICtoContratoModifica
 {
     public interface ICtoContratoModificaRepositorio
     {
-        List<string> CodigosCarpetaLiquidadosPorGrupoEntreFechas(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaLiquidadosPorGrupoEntreFechas(SacFiltros filtroBasico);
 
-        List<string> CodigosCarpetaLiquidadosPorGrupoPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaLiquidadosPorGrupoPorClaseEntreFechas(SacFiltros filtroBasico);
 
-        List<string> CodigosCarpetaLiquidadosPorGrupoPorTipoContratoEntreFechas(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaLiquidadosPorGrupoPorTipoContratoEntreFechas(SacFiltros filtroBasico);
 
-        List<string> CodigosCarpetaLiquidadosPorGrupoPorTipoContratoPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaLiquidadosPorGrupoPorTipoContratoPorClaseEntreFechas(SacFiltros filtroBasico);
 
-        List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminEntreFechas(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminEntreFechas(SacFiltros filtroBasico);
 
-        List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorClaseEntreFechas(SacFiltros filtroBasico);
 
-        List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoEntreFechas(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoEntreFechas(SacFiltros filtroBasico);
 
-        List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoPorClaseEntreFechas(SacFiltros filtroBasico);
 
-        List<string> CodigosCarpetaSoloObrasLiquidadosRegionPorGrupoAdminEntreFechas(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaSoloObrasLiquidadosRegionPorGrupoAdminEntreFechas(SacFiltros filtroBasico);
 
-        List<string> CodigosCarpetaSoloObrasLiquidadosRegionPorGrupoAdminPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaSoloObrasLiquidadosRegionPorGrupoAdminPorClaseEntreFechas(SacFiltros filtroBasico);
 
-        List<string> CodigosCarpetaLiquidadosPorGrupoSoloObrasEntreFechas(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaLiquidadosPorGrupoSoloObrasEntreFechas(SacFiltros filtroBasico);
 
-        List<string> CodigosCarpetaLiquidadosPorGrupoPorClaseSoloObrasEntreFechas(ReportesSacFiltros filtroReporteBasico);
+        List<string> CodigosCarpetaLiquidadosPorGrupoPorClaseSoloObrasEntreFechas(SacFiltros filtroBasico);
     }
 }

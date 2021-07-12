@@ -10,5 +10,7 @@ namespace SistemaSacMvcVer2.Dominio.Interfaces.ICtoComuna
     public interface ICtoComunaRepositorio
     {
         List<CtoComuna> ObtenerRegiones();
+        List<CtoComuna> ObtenerComunasGruposNivelCentral();
+        List<CtoComuna> ObtenerComunasPorGrupoRegiones(string pPegionUsuario);
     }
 }

@@ -1,6 +1,9 @@
 ﻿//objUserSession esta seteado en un script dentro de la vista _Layout.cshtml (carpeta Views/Shared)
 const { GrupoUser } = objUserSession;
 
+//Variables Globales
+let contInputsComuna = 0;
+
 //Arreglo Configuracion Enpoints y callback de DropDownList
 const setupItemDropDownList = [
     {
@@ -84,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
     txtContratista.addEventListener('click', llenarModalContratista);
 
     //Listeners pestaña COMUNAS
-    //txtComuna.addEventListener('click', mostrarComunas);
     btnAgregarComuna.addEventListener('click', agregarInputComuna);
     btnQuitarComuna.addEventListener('click', quitarInputComuna);
 

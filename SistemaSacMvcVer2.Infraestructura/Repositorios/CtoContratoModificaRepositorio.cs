@@ -1,11 +1,8 @@
 ﻿using Oracle.ManagedDataAccess.Client;
-using SistemaSacMvcVer2.Dominio.Common.Models.ReportesSac;
+using SistemaSacMvcVer2.Dominio.Common.Models;
 using SistemaSacMvcVer2.Dominio.Interfaces.ICtoContratoModifica;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 {
@@ -18,7 +15,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             conexionDb = pDbConexion;
         }
 
-        public List<string> CodigosCarpetaLiquidadosPorGrupoEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        public List<string> CodigosCarpetaLiquidadosPorGrupoEntreFechas(SacFiltros filtroBasico)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
@@ -39,9 +36,9 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
-                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
-                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroBasico.FechaHasta));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroBasico.Grupo));
 
                     conexionDb.Open();
 
@@ -67,7 +64,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             return CodigosCarpetaLiquidados;
         }
 
-        public List<string> CodigosCarpetaLiquidadosPorGrupoPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        public List<string> CodigosCarpetaLiquidadosPorGrupoPorClaseEntreFechas(SacFiltros filtroBasico)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
@@ -86,10 +83,10 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
-                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
-                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
-                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Clase));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroBasico.FechaHasta));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroBasico.Clase));
 
                     conexionDb.Open();
 
@@ -115,7 +112,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             return CodigosCarpetaLiquidados;
         }
 
-        public List<string> CodigosCarpetaLiquidadosPorGrupoPorTipoContratoEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        public List<string> CodigosCarpetaLiquidadosPorGrupoPorTipoContratoEntreFechas(SacFiltros filtroBasico)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
@@ -140,10 +137,10 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
-                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
-                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
-                    cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroBasico.FechaHasta));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroBasico.TipoContrato));
 
                     conexionDb.Open();
 
@@ -169,7 +166,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             return CodigosCarpetaLiquidados;
         }
 
-        public List<string> CodigosCarpetaLiquidadosPorGrupoPorTipoContratoPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        public List<string> CodigosCarpetaLiquidadosPorGrupoPorTipoContratoPorClaseEntreFechas(SacFiltros filtroBasico)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
@@ -196,11 +193,11 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
-                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
-                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
-                    cmd.Parameters.Add(new OracleParameter(":pClase", filtroReporteBasico.Clase));
-                    cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroBasico.FechaHasta));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pClase", filtroBasico.Clase));
+                    cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroBasico.TipoContrato));
 
                     conexionDb.Open();
 
@@ -226,7 +223,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             return CodigosCarpetaLiquidados;
         }
 
-        public List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        public List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminEntreFechas(SacFiltros filtroBasico)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
@@ -245,10 +242,10 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
-                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
-                    cmd.Parameters.Add(new OracleParameter(":pRegion", filtroReporteBasico.Region));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pRegion", filtroBasico.Region));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroBasico.FechaHasta));
 
                     conexionDb.Open();
 
@@ -274,7 +271,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             return CodigosCarpetaLiquidadosPorGrupoAdminFechas;
         }
 
-        public List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        public List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorClaseEntreFechas(SacFiltros filtroBasico)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
@@ -294,11 +291,11 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
-                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
-                    cmd.Parameters.Add(new OracleParameter(":pClase", filtroReporteBasico.Clase));
-                    cmd.Parameters.Add(new OracleParameter(":pRegion", filtroReporteBasico.Region));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pClase", filtroBasico.Clase));
+                    cmd.Parameters.Add(new OracleParameter(":pRegion", filtroBasico.Region));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroBasico.FechaHasta));
 
                     conexionDb.Open();
 
@@ -324,7 +321,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             return CodigosCarpetaLiquidadosPorGrupoAdminFechas;
         }
 
-        public List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        public List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoEntreFechas(SacFiltros filtroBasico)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
@@ -347,11 +344,11 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
-                    cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
-                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
-                    cmd.Parameters.Add(new OracleParameter(":pRegion", filtroReporteBasico.Region));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                    cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroBasico.TipoContrato));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pRegion", filtroBasico.Region));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroBasico.FechaHasta));
 
                     conexionDb.Open();
 
@@ -377,7 +374,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             return CodigosCarpetaLiquidadosPorGrupoAdminFechas;
         }
 
-        public List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        public List<string> CodigosCarpetaRegionLiquidadosPorGrupoAdminPorTipoContratoPorClaseEntreFechas(SacFiltros filtroBasico)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
@@ -398,12 +395,12 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
-                    cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroReporteBasico.TipoContrato));
-                    cmd.Parameters.Add(new OracleParameter(":pClase", filtroReporteBasico.Clase));
-                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
-                    cmd.Parameters.Add(new OracleParameter(":pRegion", filtroReporteBasico.Region));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                    cmd.Parameters.Add(new OracleParameter(":pTipoContrato", filtroBasico.TipoContrato));
+                    cmd.Parameters.Add(new OracleParameter(":pClase", filtroBasico.Clase));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pRegion", filtroBasico.Region));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroBasico.FechaHasta));
 
                     conexionDb.Open();
 
@@ -429,7 +426,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             return CodigosCarpetaLiquidadosPorGrupoAdminFechas;
         }
 
-        public List<string> CodigosCarpetaSoloObrasLiquidadosRegionPorGrupoAdminEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        public List<string> CodigosCarpetaSoloObrasLiquidadosRegionPorGrupoAdminEntreFechas(SacFiltros filtroBasico)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
@@ -449,10 +446,10 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
-                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
-                    cmd.Parameters.Add(new OracleParameter(":pRegion", filtroReporteBasico.Region));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pRegion", filtroBasico.Region));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroBasico.FechaHasta));
 
                     conexionDb.Open();
 
@@ -478,7 +475,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             return CodigosCarpetaLiquidadosPorGrupoAdminFechas;
         }
 
-        public List<string> CodigosCarpetaSoloObrasLiquidadosRegionPorGrupoAdminPorClaseEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        public List<string> CodigosCarpetaSoloObrasLiquidadosRegionPorGrupoAdminPorClaseEntreFechas(SacFiltros filtroBasico)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
@@ -499,11 +496,11 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
-                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
-                    cmd.Parameters.Add(new OracleParameter(":pClase", filtroReporteBasico.Clase));
-                    cmd.Parameters.Add(new OracleParameter(":pRegion", filtroReporteBasico.Region));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pClase", filtroBasico.Clase));
+                    cmd.Parameters.Add(new OracleParameter(":pRegion", filtroBasico.Region));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroBasico.FechaHasta));
 
                     conexionDb.Open();
 
@@ -529,7 +526,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             return CodigosCarpetaLiquidadosPorGrupoAdminFechas;
         }
 
-        public List<string> CodigosCarpetaLiquidadosPorGrupoSoloObrasEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        public List<string> CodigosCarpetaLiquidadosPorGrupoSoloObrasEntreFechas(SacFiltros filtroBasico)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
@@ -556,9 +553,9 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
-                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
-                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroBasico.FechaHasta));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroBasico.Grupo));
 
                     conexionDb.Open();
 
@@ -584,7 +581,7 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
             return CodigosCarpetaLiquidados;
         }
 
-        public List<string> CodigosCarpetaLiquidadosPorGrupoPorClaseSoloObrasEntreFechas(ReportesSacFiltros filtroReporteBasico)
+        public List<string> CodigosCarpetaLiquidadosPorGrupoPorClaseSoloObrasEntreFechas(SacFiltros filtroBasico)
         {
             OracleCommand cmd = null;
             OracleDataReader dr = null;
@@ -613,10 +610,10 @@ namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 
                 using (cmd = new OracleCommand(query, conexionDb))
                 {
-                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroReporteBasico.FechaDesde));
-                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroReporteBasico.FechaHasta));
-                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroReporteBasico.Grupo));
-                    cmd.Parameters.Add(new OracleParameter(":pClase", filtroReporteBasico.Clase));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaInicio", filtroBasico.FechaDesde));
+                    cmd.Parameters.Add(new OracleParameter(":pFechaTermino", filtroBasico.FechaHasta));
+                    cmd.Parameters.Add(new OracleParameter(":pGrupo", filtroBasico.Grupo));
+                    cmd.Parameters.Add(new OracleParameter(":pClase", filtroBasico.Clase));
 
                     conexionDb.Open();
 

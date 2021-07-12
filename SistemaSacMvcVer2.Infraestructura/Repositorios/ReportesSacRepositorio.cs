@@ -1,9 +1,7 @@
 ﻿using Oracle.ManagedDataAccess.Client;
-using SistemaSacMvcVer2.Dominio.Common.Models.ReportesSac;
 using SistemaSacMvcVer2.Dominio.Entidades;
 using SistemaSacMvcVer2.Dominio.Interfaces.IReportesSac;
 using System;
-using System.Collections.Generic;
 
 namespace SistemaSacMvcVer2.Infraestructura.Repositorios
 {
